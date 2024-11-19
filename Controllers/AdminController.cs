@@ -3,15 +3,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using websiteTUTHIEN.Models;
 
-namespace websiteTUTHIEN.Controllers{
+namespace websiteTUTHIEN.Controllers
+{
     public class AdminControllers : Controller
     {
-WebsiteTuthienContext db = new WebsiteTuthienContext();
+        WebsiteTuthienContext db = new WebsiteTuthienContext();
         public IActionResult Index()
         {
             return View();
         }
-
         // DanhMuc
         public IActionResult ListDanhMuc()
         {
@@ -54,7 +54,7 @@ WebsiteTuthienContext db = new WebsiteTuthienContext();
         [HttpPost]
         public async Task<IActionResult> ChinhSuaDanhMuc(TableDanhMucDuAn danhmuc)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 db.TableDanhMucDuAns.Update(danhmuc);
                 db.SaveChanges();
@@ -63,20 +63,24 @@ WebsiteTuthienContext db = new WebsiteTuthienContext();
             return View(danhmuc);
         }
 
-        public IActionResult XoaDanhMuc(int id){
-            TableDanhMucDuAn danhmuc = db.TableDanhMucDuAns.SingleOrDefault(x=>x.MaDanhMucDa==id);
-            if(danhmuc == null){
-                Response.StatusCode=404;
+        public IActionResult XoaDanhMuc(int id)
+        {
+            TableDanhMucDuAn danhmuc = db.TableDanhMucDuAns.SingleOrDefault(x => x.MaDanhMucDa == id);
+            if (danhmuc == null)
+            {
+                Response.StatusCode = 404;
                 return null;
             }
             return View(danhmuc);
         }
 
         [HttpPost, ActionName("XoaDanhMuc")]
-        public IActionResult confirmXoaDanhMuc(int id){
+        public IActionResult confirmXoaDanhMuc(int id)
+        {
             TableDanhMucDuAn danhmuc = db.TableDanhMucDuAns.SingleOrDefault(x => x.MaDanhMucDa == id);
-            if(danhmuc == null){
-                Response.StatusCode =  404;
+            if (danhmuc == null)
+            {
+                Response.StatusCode = 404;
                 return null;
             }
             db.TableDanhMucDuAns.Remove(db.TableDanhMucDuAns.Find(id));
@@ -126,7 +130,7 @@ WebsiteTuthienContext db = new WebsiteTuthienContext();
         [HttpPost]
         public async Task<IActionResult> ChinhSuaVungMien(TableVungMien vm)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 db.TableVungMiens.Update(vm);
                 db.SaveChanges();
@@ -135,20 +139,24 @@ WebsiteTuthienContext db = new WebsiteTuthienContext();
             return View(vm);
         }
 
-        public IActionResult XoaVungMien(int id){
-            TableVungMien vungMien = db.TableVungMiens.SingleOrDefault(x=>x.MaVungMien==id);
-            if(vungMien == null){
-                Response.StatusCode=404;
+        public IActionResult XoaVungMien(int id)
+        {
+            TableVungMien vungMien = db.TableVungMiens.SingleOrDefault(x => x.MaVungMien == id);
+            if (vungMien == null)
+            {
+                Response.StatusCode = 404;
                 return null;
             }
             return View(vungMien);
         }
 
         [HttpPost, ActionName("XoaVungMien")]
-        public IActionResult confirmXoaVungMien(int id){
-            TableVungMien vungMien = db.TableVungMiens.SingleOrDefault(x=>x.MaVungMien==id);
-            if(vungMien == null){
-                Response.StatusCode =  404;
+        public IActionResult confirmXoaVungMien(int id)
+        {
+            TableVungMien vungMien = db.TableVungMiens.SingleOrDefault(x => x.MaVungMien == id);
+            if (vungMien == null)
+            {
+                Response.StatusCode = 404;
                 return null;
             }
             db.TableVungMiens.Remove(db.TableVungMiens.Find(id));
@@ -157,7 +165,8 @@ WebsiteTuthienContext db = new WebsiteTuthienContext();
         }
 
         // TrangThai
-        public IActionResult listTrangThai(){
+        public IActionResult listTrangThai()
+        {
             var list = db.TableTrangThais.ToList();
             return View(list);
         }
@@ -191,7 +200,7 @@ WebsiteTuthienContext db = new WebsiteTuthienContext();
         [HttpPost]
         public async Task<IActionResult> ChinhSuaTrangThai(TableTrangThai tt)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 db.TableTrangThais.Update(tt);
                 db.SaveChanges();
@@ -200,20 +209,24 @@ WebsiteTuthienContext db = new WebsiteTuthienContext();
             return View(tt);
         }
 
-        public IActionResult XoaTrangThai(int id){
-            TableTrangThai tt = db.TableTrangThais.SingleOrDefault(x=>x.MaTrangThai==id);
-            if(tt == null){
-                Response.StatusCode=404;
+        public IActionResult XoaTrangThai(int id)
+        {
+            TableTrangThai tt = db.TableTrangThais.SingleOrDefault(x => x.MaTrangThai == id);
+            if (tt == null)
+            {
+                Response.StatusCode = 404;
                 return null;
             }
             return View(tt);
         }
 
         [HttpPost, ActionName("XoaTrangThai")]
-        public IActionResult confirmXoaTrangThai(int id){
-            TableTrangThai tt = db.TableTrangThais.SingleOrDefault(x=>x.MaTrangThai==id);
-            if(tt == null){
-                Response.StatusCode =  404;
+        public IActionResult confirmXoaTrangThai(int id)
+        {
+            TableTrangThai tt = db.TableTrangThais.SingleOrDefault(x => x.MaTrangThai == id);
+            if (tt == null)
+            {
+                Response.StatusCode = 404;
                 return null;
             }
             db.TableTrangThais.Remove(db.TableTrangThais.Find(id));
@@ -221,7 +234,8 @@ WebsiteTuthienContext db = new WebsiteTuthienContext();
             return RedirectToAction("listTrangThai");
         }
         //Muc Do
-        public IActionResult listMucDo(){
+        public IActionResult listMucDo()
+        {
             var list = db.TableMucDoDuAns.ToList();
             return View(list);
         }
@@ -255,7 +269,7 @@ WebsiteTuthienContext db = new WebsiteTuthienContext();
         [HttpPost]
         public async Task<IActionResult> chinhsuaMucDo(TableMucDoDuAn tt)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 db.TableMucDoDuAns.Update(tt);
                 db.SaveChanges();
@@ -264,25 +278,29 @@ WebsiteTuthienContext db = new WebsiteTuthienContext();
             return View(tt);
         }
 
-        public IActionResult xoaMucDo(int id){
-            TableMucDoDuAn mucDoDuAn = db.TableMucDoDuAns.SingleOrDefault(x=>x.MaMucDoDuAn==id);
-            if(mucDoDuAn == null){
-                Response.StatusCode=404;
+        public IActionResult xoaMucDo(int id)
+        {
+            TableMucDoDuAn mucDoDuAn = db.TableMucDoDuAns.SingleOrDefault(x => x.MaMucDoDuAn == id);
+            if (mucDoDuAn == null)
+            {
+                Response.StatusCode = 404;
                 return null;
             }
             return View(mucDoDuAn);
         }
 
         [HttpPost, ActionName("xoaMucDo")]
-        public IActionResult confirmxoaMucDo(int id){
-            TableMucDoDuAn tt = db.TableMucDoDuAns.SingleOrDefault(x=>x.MaMucDoDuAn==id);
-            if(tt == null){
-                Response.StatusCode =  404;
+        public IActionResult confirmxoaMucDo(int id)
+        {
+            TableMucDoDuAn tt = db.TableMucDoDuAns.SingleOrDefault(x => x.MaMucDoDuAn == id);
+            if (tt == null)
+            {
+                Response.StatusCode = 404;
                 return null;
             }
             db.TableMucDoDuAns.Remove(db.TableMucDoDuAns.Find(id));
             db.SaveChanges();
             return RedirectToAction("listMucDo");
-        }        
+        }
     }
 }
