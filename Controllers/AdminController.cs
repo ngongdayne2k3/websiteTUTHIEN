@@ -7,300 +7,454 @@ namespace websiteTUTHIEN.Controllers
 {
     public class AdminControllers : Controller
     {
-        WebsiteTuthienContext db = new WebsiteTuthienContext();
-        public IActionResult Index()
+        private readonly WebsiteTuthienContext context;
+        public AdminControllers(WebsiteTuthienContext _context)
+        {
+            context = _context;
+        }
+
+        //DanhMucDuAn
+        //GET: Admin/IndexDanhMucDuAn
+        public async Task<IActionResult> IndexDanhMucDuAn()
+        {
+            return View(await context.TableDanhMucDuAns.ToListAsync());
+        }
+
+        //GET: Admin/CreateDanhMucDuAn
+        public IActionResult CreateDanhMucDuAn()
         {
             return View();
         }
-        // DanhMuc
-        public IActionResult ListDanhMuc()
-        {
-            var listDM = db.TableDanhMucDuAns.ToList();
-            return View(listDM);
-        }
 
-        public async Task<IActionResult> ThemDanhMuc()
-        {
-            var danhmucDA = new TableDanhMucDuAn();
-            return View(danhmucDA);
-        }
-
+        //POST : Admin/CreateDanhMucDuAn
         [HttpPost]
-        public async Task<IActionResult> ThemDanhMuc(TableDanhMucDuAn danhMucDuAn)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateDanhMucDuAn(TableDanhMucDuAn danhMucDuAn)
         {
-            if (danhMucDuAn != null)
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    db.TableDanhMucDuAns.Add(danhMucDuAn);
-                    db.SaveChanges();
-                    return RedirectToAction("ListDanhMuc");
-                }
+                context.TableDanhMucDuAns.Add(danhMucDuAn);
+                await context.SaveChangesAsync();
+                return RedirectToAction(nameof(IndexDanhMucDuAn));
             }
             return View(danhMucDuAn);
         }
-        public IActionResult ChitietDanhMuc(int Id)
+
+        //GET: Admin/EditDanhMucDuAn/5
+        public async Task<IActionResult> EditDanhMucDuAn(int? id)
         {
-            TableDanhMucDuAn danhmuc = db.TableDanhMucDuAns.SingleOrDefault(x => x.MaDanhMucDa == Id);
-            return View(danhmuc);
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var danhMucDuAn = await context.TableDanhMucDuAns.FindAsync(id);
+            if (danhMucDuAn == null)
+            {
+                return NotFound();
+            }
+            return View(danhMucDuAn);
         }
 
-        public async Task<IActionResult> ChinhSuaDanhMuc(int id)
-        {
-            var danhmuc = db.TableDanhMucDuAns.Find(id);
-            return View(danhmuc);
-        }
-
+        //POST: Admin/EditDanhMucDuAn/5
         [HttpPost]
-        public async Task<IActionResult> ChinhSuaDanhMuc(TableDanhMucDuAn danhmuc)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditDanhMucDUAn(int id, TableDanhMucDuAn danhMucDuAn)
         {
+            if (id != danhMucDuAn.MaDanhMucDa)
+            {
+                return NotFound();
+            }
+
             if (ModelState.IsValid)
             {
-                db.TableDanhMucDuAns.Update(danhmuc);
-                db.SaveChanges();
-                return RedirectToAction("ListDanhMuc");
-            }
-            return View(danhmuc);
-        }
-
-        public IActionResult XoaDanhMuc(int id)
-        {
-            TableDanhMucDuAn danhmuc = db.TableDanhMucDuAns.SingleOrDefault(x => x.MaDanhMucDa == id);
-            if (danhmuc == null)
-            {
-                Response.StatusCode = 404;
-                return null;
-            }
-            return View(danhmuc);
-        }
-
-        [HttpPost, ActionName("XoaDanhMuc")]
-        public IActionResult confirmXoaDanhMuc(int id)
-        {
-            TableDanhMucDuAn danhmuc = db.TableDanhMucDuAns.SingleOrDefault(x => x.MaDanhMucDa == id);
-            if (danhmuc == null)
-            {
-                Response.StatusCode = 404;
-                return null;
-            }
-            db.TableDanhMucDuAns.Remove(db.TableDanhMucDuAns.Find(id));
-            db.SaveChanges();
-            return RedirectToAction("ListDanhMuc");
-        }
-
-        // VungMien
-        public IActionResult ListVungMien()
-        {
-            var list = db.TableVungMiens.ToList();
-            return View(list);
-        }
-
-        public async Task<IActionResult> ThemVungMien()
-        {
-            var danhmucDA = new TableVungMien();
-            return View(danhmucDA);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> ThemVungMien(TableVungMien vm)
-        {
-            if (vm != null)
-            {
-                if (ModelState.IsValid)
+                try
                 {
-                    db.TableVungMiens.Add(vm);
-                    db.SaveChanges();
-                    return RedirectToAction("ListVungMien");
+                    context.TableDanhMucDuAns.Update(danhMucDuAn);
+                    await context.SaveChangesAsync();
                 }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!context.TableDanhMucDuAns.Any(e => e.MaDanhMucDa == id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(IndexDanhMucDuAn));
             }
-            return View(vm);
-        }
-        public IActionResult ChitietVungMien(int Id)
-        {
-            TableVungMien vm = db.TableVungMiens.SingleOrDefault(x => x.MaVungMien == Id);
-            return View(vm);
+            return View(danhMucDuAn);
         }
 
-        public async Task<IActionResult> ChinhSuaVungMien(int id)
+        public async Task<IActionResult> DeleteDanhMucDuAn(int? id)
         {
-            var vm = db.TableVungMiens.Find(id);
-            return View(vm);
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var danhMucDuAn = await context.TableDanhMucDuAns.FirstOrDefaultAsync(m => m.MaDanhMucDa == id);
+            if (danhMucDuAn == null)
+            {
+                return NotFound();
+            }
+            return View(danhMucDuAn);
+        }
+
+        [HttpPost, ActionName("DeteleDanhMucDuAn")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmDeleteDanhMucDuAn(int id)
+        {
+            var danhMucDuAn = await context.TableDanhMucDuAns.FindAsync(id);
+            context.TableDanhMucDuAns.Remove(danhMucDuAn);
+            await context.SaveChangesAsync();
+            return RedirectToAction(nameof(IndexDanhMucDuAn));
+        }
+
+        //------------------------------------------------------VungMien
+        public async Task<IActionResult> IndexVM()
+        {
+            return View(await context.TableVungMiens.ToListAsync());
+        }
+
+        public IActionResult CreateVM()
+        {
+            return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChinhSuaVungMien(TableVungMien vm)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateVM(TableVungMien vungMien)
         {
             if (ModelState.IsValid)
             {
-                db.TableVungMiens.Update(vm);
-                db.SaveChanges();
-                return RedirectToAction("ListVungMien");
-            }
-            return View(vm);
-        }
-
-        public IActionResult XoaVungMien(int id)
-        {
-            TableVungMien vungMien = db.TableVungMiens.SingleOrDefault(x => x.MaVungMien == id);
-            if (vungMien == null)
-            {
-                Response.StatusCode = 404;
-                return null;
+                context.TableVungMiens.Add(vungMien);
+                await context.SaveChangesAsync();
+                return RedirectToAction(nameof(IndexVM));
             }
             return View(vungMien);
         }
 
-        [HttpPost, ActionName("XoaVungMien")]
-        public IActionResult confirmXoaVungMien(int id)
+        public async Task<IActionResult> EditVM(int? id)
         {
-            TableVungMien vungMien = db.TableVungMiens.SingleOrDefault(x => x.MaVungMien == id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var vungMien = await context.TableVungMiens.FindAsync(id);
             if (vungMien == null)
             {
-                Response.StatusCode = 404;
-                return null;
+                return NotFound();
             }
-            db.TableVungMiens.Remove(db.TableVungMiens.Find(id));
-            db.SaveChanges();
-            return RedirectToAction("ListVungMien");
-        }
-
-        // TrangThai
-        public IActionResult listTrangThai()
-        {
-            var list = db.TableTrangThais.ToList();
-            return View(list);
-        }
-        public async Task<IActionResult> ThemTrangThai()
-        {
-            var trangthai = new TableTrangThai();
-            return View(trangthai);
+            return View(vungMien);
         }
 
         [HttpPost]
-        public async Task<IActionResult> ThemTrangThai(TableTrangThai tt)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditVM(int id, TableVungMien vungMien)
         {
-            if (tt != null)
+            if (id != vungMien.MaVungMien)
             {
-                if (ModelState.IsValid)
-                {
-                    db.TableTrangThais.Add(tt);
-                    db.SaveChanges();
-                    return RedirectToAction("listTrangThai");
-                }
+                return NotFound();
             }
-            return View(tt);
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    context.TableVungMiens.Update(vungMien);
+                    await context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!context.TableVungMiens.Any(e => e.MaVungMien == id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(IndexVM));
+            }
+            return View(vungMien);
         }
 
-        public async Task<IActionResult> ChinhSuaTrangThai(int id)
+        public async Task<IActionResult> DeleteVM(int? id)
         {
-            var tt = db.TableTrangThais.Find(id);
-            return View(tt);
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var vungMien = await context.TableVungMiens.FirstOrDefaultAsync(m => m.MaVungMien == id);
+            if (vungMien == null)
+            {
+                return NotFound();
+            }
+            return View(vungMien);
+        }
+
+        [HttpPost, ActionName("DeleteVM")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmDeleteVM(int id)
+        {
+            var vungMien = await context.TableVungMiens.FindAsync(id);
+            context.TableVungMiens.Remove(vungMien);
+            await context.SaveChangesAsync();
+            return RedirectToAction(nameof(IndexVM));
+        }
+
+        //------------------------------------------------------MucDo
+        public async Task<IActionResult> IndexMD()
+        {
+            return View(await context.TableMucDoDuAns.ToListAsync());
+        }
+
+        public IActionResult CreateMD()
+        {
+            return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChinhSuaTrangThai(TableTrangThai tt)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateMD(TableMucDoDuAn mucDoDuAn)
         {
             if (ModelState.IsValid)
             {
-                db.TableTrangThais.Update(tt);
-                db.SaveChanges();
-                return RedirectToAction("listTrangThai");
-            }
-            return View(tt);
-        }
-
-        public IActionResult XoaTrangThai(int id)
-        {
-            TableTrangThai tt = db.TableTrangThais.SingleOrDefault(x => x.MaTrangThai == id);
-            if (tt == null)
-            {
-                Response.StatusCode = 404;
-                return null;
-            }
-            return View(tt);
-        }
-
-        [HttpPost, ActionName("XoaTrangThai")]
-        public IActionResult confirmXoaTrangThai(int id)
-        {
-            TableTrangThai tt = db.TableTrangThais.SingleOrDefault(x => x.MaTrangThai == id);
-            if (tt == null)
-            {
-                Response.StatusCode = 404;
-                return null;
-            }
-            db.TableTrangThais.Remove(db.TableTrangThais.Find(id));
-            db.SaveChanges();
-            return RedirectToAction("listTrangThai");
-        }
-        //Muc Do
-        public IActionResult listMucDo()
-        {
-            var list = db.TableMucDoDuAns.ToList();
-            return View(list);
-        }
-        public async Task<IActionResult> themMucDo()
-        {
-            var mucdo = new TableMucDoDuAn();
-            return View(mucdo);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> themMucDo(TableMucDoDuAn mucDoDuAn)
-        {
-            if (mucDoDuAn != null)
-            {
-                if (ModelState.IsValid)
-                {
-                    db.TableMucDoDuAns.Add(mucDoDuAn);
-                    db.SaveChanges();
-                    return RedirectToAction("listMucDo");
-                }
+                context.TableMucDoDuAns.Add(mucDoDuAn);
+                await context.SaveChangesAsync();
+                return RedirectToAction(nameof(IndexMD));
             }
             return View(mucDoDuAn);
         }
 
-        public async Task<IActionResult> chinhsuaMucDo(int id)
+        public async Task<IActionResult> EditMD(int? id)
         {
-            var tt = db.TableMucDoDuAns.Find(id);
-            return View(tt);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> chinhsuaMucDo(TableMucDoDuAn tt)
-        {
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                db.TableMucDoDuAns.Update(tt);
-                db.SaveChanges();
-                return RedirectToAction("listMucDo");
+                return NotFound();
             }
-            return View(tt);
-        }
-
-        public IActionResult xoaMucDo(int id)
-        {
-            TableMucDoDuAn mucDoDuAn = db.TableMucDoDuAns.SingleOrDefault(x => x.MaMucDoDuAn == id);
+            var mucDoDuAn = await context.TableMucDoDuAns.FindAsync(id);
             if (mucDoDuAn == null)
             {
-                Response.StatusCode = 404;
-                return null;
+                return NotFound();
             }
             return View(mucDoDuAn);
         }
 
-        [HttpPost, ActionName("xoaMucDo")]
-        public IActionResult confirmxoaMucDo(int id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditMD(int id, TableMucDoDuAn mucDoDuAn)
         {
-            TableMucDoDuAn tt = db.TableMucDoDuAns.SingleOrDefault(x => x.MaMucDoDuAn == id);
-            if (tt == null)
+            if (id != mucDoDuAn.MaMucDoDuAn)
             {
-                Response.StatusCode = 404;
-                return null;
+                return NotFound();
             }
-            db.TableMucDoDuAns.Remove(db.TableMucDoDuAns.Find(id));
-            db.SaveChanges();
-            return RedirectToAction("listMucDo");
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    context.TableMucDoDuAns.Update(mucDoDuAn);
+                    await context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!context.TableMucDoDuAns.Any(e => e.MaMucDoDuAn == id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(IndexMD));
+            }
+            return View(mucDoDuAn);
+        }
+
+        public async Task<IActionResult> DeleteMD(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var mucDoDuAn = await context.TableMucDoDuAns.FirstOrDefaultAsync(m => m.MaMucDoDuAn == id);
+            if (mucDoDuAn == null)
+            {
+                return NotFound();
+            }
+            return View(mucDoDuAn);
+        }
+
+        [HttpPost, ActionName("DeleteMD")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmDeleteMD(int id)
+        {
+            var mucDoDuAn = await context.TableMucDoDuAns.FindAsync(id);
+            context.TableMucDoDuAns.Remove(mucDoDuAn);
+            await context.SaveChangesAsync();
+            return RedirectToAction(nameof(IndexMD));
+        }
+
+        //------------------------------------------------------TrangThai
+        public async Task<IActionResult> IndexTT()
+        {
+            return View(await context.TableTrangThais.ToListAsync());
+        }
+
+        public IActionResult CreateTT()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateTT(TableTrangThai trangThai)
+        {
+            if (ModelState.IsValid)
+            {
+                context.TableTrangThais.Add(trangThai);
+                await context.SaveChangesAsync();
+                return RedirectToAction(nameof(IndexTT));
+            }
+            return View(trangThai);
+        }
+
+        public async Task<IActionResult> EditTT(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var trangThai = await context.TableTrangThais.FindAsync(id);
+            if (trangThai == null)
+            {
+                return NotFound();
+            }
+            return View(trangThai);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditTT(int id, TableTrangThai trangThai)
+        {
+            if (id != trangThai.MaTrangThai)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    context.TableTrangThais.Update(trangThai);
+                    await context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!context.TableTrangThais.Any(e => e.MaTrangThai == id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(IndexMD));
+            }
+            return View(trangThai);
+        }
+
+        public async Task<IActionResult> DeleteTT(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var trangThai = await context.TableTrangThais.FirstOrDefaultAsync(m => m.MaTrangThai == id);
+            if (trangThai == null)
+            {
+                return NotFound();
+            }
+            return View(trangThai);
+        }
+
+        [HttpPost, ActionName("DeleteTT")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmDeleteTT(int id)
+        {
+            var trangThai = await context.TableTrangThais.FindAsync(id);
+            context.TableTrangThais.Remove(trangThai);
+            await context.SaveChangesAsync();
+            return RedirectToAction(nameof(IndexTT));
+        }
+
+        //-------------------------------NguoiDung
+        public async Task<IActionResult> IndexND()
+        {
+            return View(await context.TableNguoiDungs.ToListAsync());
+        }
+
+        //Chinh sua mot doi tuong tu admin
+        public IActionResult Chinhsua(int id)
+        {
+            var user = context.TableNguoiDungs.FirstOrDefault(u => u.MaNguoiDung == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Chinhsua(TableNguoiDung updatedUser)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await context.TableNguoiDungs.FindAsync(updatedUser.MaNguoiDung);
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                user.TenNguoiDung = updatedUser.TenNguoiDung;
+                user.AvatarNguoiDung = updatedUser.AvatarNguoiDung;
+                user.TenTk = updatedUser.TenTk;
+                user.MatKhau = updatedUser.MatKhau;
+                user.SdtnguoiDung = updatedUser.SdtnguoiDung;
+                user.Email = updatedUser.Email;
+                user.DiaChi = updatedUser.DiaChi;
+                user.NamSinh = updatedUser.NamSinh;
+                await context.SaveChangesAsync();
+                return RedirectToAction("ListNguoiDung");
+            }
+            return View(updatedUser);
+        }
+
+        //xoa doi tuong tren admin
+        public IActionResult Delete(int id)
+        {
+            var user = context.TableNguoiDungs.FirstOrDefault(u => u.MaNguoiDung == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var user = await context.TableNguoiDungs.FindAsync(id);
+            if (user != null)
+            {
+                context.TableNguoiDungs.Remove(user);
+                await context.SaveChangesAsync();
+            }
+            return RedirectToAction("ListNguoiDung");
         }
     }
 }

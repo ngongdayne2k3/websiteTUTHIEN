@@ -3,9 +3,9 @@ using websiteTUTHIEN.Models;
 
 namespace websiteTUTHIEN.Controllers{
     public class BaiBaoController : Controller{
-        WebsiteTuthienContext db = new WebsiteTuthienContext();
-        public IActionResult Index(){
-            return View();
+        private readonly WebsiteTuthienContext context;
+        public BaiBaoController(WebsiteTuthienContext _context){
+            context = _context;
         }
     }
 }

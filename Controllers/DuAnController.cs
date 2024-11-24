@@ -7,5 +7,9 @@ namespace websiteTUTHIEN.Controllers
 {
     public class DuAnController : Controller
     {
+        private readonly WebsiteTuthienContext context;
+        public DuAnController(WebsiteTuthienContext _context){
+            context = _context;
+        }
     }
 }
