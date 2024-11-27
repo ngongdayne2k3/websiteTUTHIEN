@@ -14,7 +14,7 @@ namespace websiteTUTHIEN.Controllers
         }
 
         public async Task<IActionResult> IndexDuAn(){
-            return View(await context.TableDuAns.ToListAsync());
+            return View(await context.TableDuAns.Where(p=> p.DaDuyetBai == false).ToListAsync());
         }
 
         public async Task<IActionResult> IndexDuAnUser(){
@@ -34,8 +34,8 @@ namespace websiteTUTHIEN.Controllers
         }
 
         public IActionResult CreateDuAn(){
-            ViewData["MaDanhMucDa"] = new SelectList(context.TableDanhMucDuAns,"MaDanhMucDa","TenDanhMucDa");
-            ViewData["MaTinhThanh"] = new SelectList(context.TableTinhThanhs,"MaTinhThanh","TenTinhThanh");
+            ViewData["DanhMucDa"] = new SelectList(context.TableDanhMucDuAns,"MaDanhMucDa","TenDanhMucDa");
+            ViewData["TinhThanh"] = new SelectList(context.TableTinhThanhs,"MaTinhThanh","TenTinhThanh");
             return View();
         }
 
@@ -57,5 +57,7 @@ namespace websiteTUTHIEN.Controllers
             ViewData["MaTinhThanh"] = new SelectList(context.TableTinhThanhs,"MaTinhThanh","TenTinhThanh");
             return View(duAn);
         }
+
+        
     }
 }
