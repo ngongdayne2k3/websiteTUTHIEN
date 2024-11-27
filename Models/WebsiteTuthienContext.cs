@@ -149,7 +149,6 @@ public partial class WebsiteTuthienContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("hinhanh");
             entity.Property(e => e.MaDanhMucDa).HasColumnName("maDanhMucDA");
-            entity.Property(e => e.MaMucDoDuAn).HasColumnName("maMucDoDuAn");
             entity.Property(e => e.MaNguoiDung).HasColumnName("maNguoiDung");
             entity.Property(e => e.MaTinhThanh).HasColumnName("maTinhThanh");
             entity.Property(e => e.Ngaybatdau)

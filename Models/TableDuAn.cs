@@ -27,8 +27,6 @@ public partial class TableDuAn
 
     public int MaNguoiDung { get; set; }
 
-    public int MaMucDoDuAn { get; set; }
-
     public bool DaKetThucDuAn { get; set; }
 
     public bool DaDuyetBai { get; set; }
