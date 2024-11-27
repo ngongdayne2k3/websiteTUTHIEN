@@ -27,13 +27,11 @@ public partial class WebsiteTuthienContext : DbContext
 
     public virtual DbSet<TableHinhThucQuyenGop> TableHinhThucQuyenGops { get; set; }
 
-    public virtual DbSet<TableMucDoDuAn> TableMucDoDuAns { get; set; }
-
     public virtual DbSet<TableNguoiDung> TableNguoiDungs { get; set; }
 
     public virtual DbSet<TableQuyenGop> TableQuyenGops { get; set; }
 
-    public virtual DbSet<TableTrangThai> TableTrangThais { get; set; }
+    public virtual DbSet<TableTinhThanh> TableTinhThanhs { get; set; }
 
     public virtual DbSet<TableVungMien> TableVungMiens { get; set; }
 
@@ -144,23 +142,25 @@ public partial class WebsiteTuthienContext : DbContext
             entity.ToTable("TableDuAn");
 
             entity.Property(e => e.MaDuAn).HasColumnName("maDuAn");
+            entity.Property(e => e.CoNghiemTrong).HasColumnName("coNghiemTrong");
+            entity.Property(e => e.DaDuyetBai).HasColumnName("daDuyetBai");
+            entity.Property(e => e.DaKetThucDuAn).HasColumnName("daKetThucDuAn");
             entity.Property(e => e.Hinhanh)
                 .HasMaxLength(255)
                 .HasColumnName("hinhanh");
             entity.Property(e => e.MaDanhMucDa).HasColumnName("maDanhMucDA");
             entity.Property(e => e.MaMucDoDuAn).HasColumnName("maMucDoDuAn");
             entity.Property(e => e.MaNguoiDung).HasColumnName("maNguoiDung");
-            entity.Property(e => e.MaTrangThai).HasColumnName("maTrangThai");
-            entity.Property(e => e.MaVungMien).HasColumnName("maVungMien");
-            entity.Property(e => e.MotaDuAn)
-                .HasMaxLength(700)
-                .HasColumnName("motaDuAn");
+            entity.Property(e => e.MaTinhThanh).HasColumnName("maTinhThanh");
             entity.Property(e => e.Ngaybatdau)
                 .HasColumnType("datetime")
                 .HasColumnName("ngaybatdau");
             entity.Property(e => e.Ngayketthuc)
                 .HasColumnType("datetime")
                 .HasColumnName("ngayketthuc");
+            entity.Property(e => e.NoidungDuAn)
+                .HasMaxLength(700)
+                .HasColumnName("noidungDuAn");
             entity.Property(e => e.SoTienHienTai).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.SoTienMucTieu).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.TenDuAn)
@@ -172,25 +172,15 @@ public partial class WebsiteTuthienContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_TableDuAn_TableDanhMucDA");
 
-            entity.HasOne(d => d.MaMucDoDuAnNavigation).WithMany(p => p.TableDuAns)
-                .HasForeignKey(d => d.MaMucDoDuAn)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_TableDuAn_TableMucDoDuAn");
-
             entity.HasOne(d => d.MaNguoiDungNavigation).WithMany(p => p.TableDuAns)
                 .HasForeignKey(d => d.MaNguoiDung)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_TableDuAn_TableNguoiDung");
 
-            entity.HasOne(d => d.MaTrangThaiNavigation).WithMany(p => p.TableDuAns)
-                .HasForeignKey(d => d.MaTrangThai)
+            entity.HasOne(d => d.MaTinhThanhNavigation).WithMany(p => p.TableDuAns)
+                .HasForeignKey(d => d.MaTinhThanh)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_TableDuAn_TableTrangThai");
-
-            entity.HasOne(d => d.MaVungMienNavigation).WithMany(p => p.TableDuAns)
-                .HasForeignKey(d => d.MaVungMien)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_TableDuAn_TableVungMien");
+                .HasConstraintName("FK_TableDuAn_TableTinhThanh");
         });
 
         modelBuilder.Entity<TableHinhThucQuyenGop>(entity =>
@@ -201,18 +191,6 @@ public partial class WebsiteTuthienContext : DbContext
 
             entity.Property(e => e.MaHinhThucQuyenGop).HasColumnName("maHinhThucQuyenGop");
             entity.Property(e => e.HinhThucQuyenGop).HasMaxLength(50);
-        });
-
-        modelBuilder.Entity<TableMucDoDuAn>(entity =>
-        {
-            entity.HasKey(e => e.MaMucDoDuAn).HasName("PK_TableTrangThaiDuAn");
-
-            entity.ToTable("TableMucDoDuAn");
-
-            entity.Property(e => e.MaMucDoDuAn).HasColumnName("maMucDoDuAn");
-            entity.Property(e => e.TenMucDoDuAn)
-                .HasMaxLength(100)
-                .HasColumnName("tenMucDoDuAn");
         });
 
         modelBuilder.Entity<TableNguoiDung>(entity =>
@@ -267,16 +245,24 @@ public partial class WebsiteTuthienContext : DbContext
                 .HasConstraintName("FK_TableQuyenGop_TableHinhThucQuyenGop");
         });
 
-        modelBuilder.Entity<TableTrangThai>(entity =>
+        modelBuilder.Entity<TableTinhThanh>(entity =>
         {
-            entity.HasKey(e => e.MaTrangThai);
+            entity.HasKey(e => e.MaTinhThanh);
 
-            entity.ToTable("TableTrangThai");
+            entity.ToTable("TableTinhThanh");
 
-            entity.Property(e => e.MaTrangThai).HasColumnName("maTrangThai");
-            entity.Property(e => e.TenTrangThai)
-                .HasMaxLength(100)
-                .HasColumnName("tenTrangThai");
+            entity.Property(e => e.MaTinhThanh)
+                .ValueGeneratedNever()
+                .HasColumnName("maTinhThanh");
+            entity.Property(e => e.MaVungMien).HasColumnName("maVungMien");
+            entity.Property(e => e.TenTinhThanh)
+                .HasMaxLength(60)
+                .HasColumnName("tenTinhThanh");
+
+            entity.HasOne(d => d.MaVungMienNavigation).WithMany(p => p.TableTinhThanhs)
+                .HasForeignKey(d => d.MaVungMien)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_TableTinhThanh_TableVungMien");
         });
 
         modelBuilder.Entity<TableVungMien>(entity =>

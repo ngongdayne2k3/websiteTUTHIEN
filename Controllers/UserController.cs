@@ -141,6 +141,5 @@ namespace websiteTUTHIEN.Controllers
             }
             return NotFound();
         }
-
     }
 }

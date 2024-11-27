@@ -9,5 +9,5 @@ public partial class TableVungMien
 
     public string TenVungMien { get; set; } = null!;
 
-    public virtual ICollection<TableDuAn> TableDuAns { get; set; } = new List<TableDuAn>();
+    public virtual ICollection<TableTinhThanh> TableTinhThanhs { get; set; } = new List<TableTinhThanh>();
 }

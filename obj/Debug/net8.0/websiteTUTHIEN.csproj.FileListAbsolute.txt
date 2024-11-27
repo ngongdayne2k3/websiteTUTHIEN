@@ -140,3 +140,4 @@ D:\repos\ASP.NET MVC\websiteTUTHIEN\websiteTUTHIEN\obj\Debug\net8.0\refint\websi
 D:\repos\ASP.NET MVC\websiteTUTHIEN\websiteTUTHIEN\obj\Debug\net8.0\websiteTUTHIEN.pdb
 D:\repos\ASP.NET MVC\websiteTUTHIEN\websiteTUTHIEN\obj\Debug\net8.0\websiteTUTHIEN.genruntimeconfig.cache
 D:\repos\ASP.NET MVC\websiteTUTHIEN\websiteTUTHIEN\obj\Debug\net8.0\ref\websiteTUTHIEN.dll
+D:\repos\ASP.NET MVC\websiteTUTHIEN\websiteTUTHIEN\obj\Debug\net8.0\websiteTUTHIEN.sourcelink.json
