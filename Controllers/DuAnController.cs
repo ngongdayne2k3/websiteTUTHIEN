@@ -33,8 +33,9 @@ namespace websiteTUTHIEN.Controllers
             return View(duan);
         }
 
-        //public IActionResult CreateDuAn(){
-        //    ViewBag.danhMucDuAn = new SelectList(context.TableDanhMucDuAns,"MaDanhMucDa","TenDanhMucDa")
-        //}
+        // public IActionResult CreateDuAn(){
+        //     ViewBag.danhMucDuAn = new SelectList(context.TableDanhMucDuAns,"MaDanhMucDa","TenDanhMucDa");
+        //     return View();
+        // }
     }
 }
