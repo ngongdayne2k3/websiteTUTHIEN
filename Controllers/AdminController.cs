@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using websiteTUTHIEN.Models;
@@ -8,9 +9,11 @@ namespace websiteTUTHIEN.Controllers
     public class AdminControllers : Controller
     {
         private readonly WebsiteTuthienContext context;
-        public AdminControllers(WebsiteTuthienContext _context)
+        private readonly IWebHostEnvironment env;
+        public AdminControllers(WebsiteTuthienContext _context, IWebHostEnvironment _env)
         {
             context = _context;
+            env = _env;
         }
 
         //DanhMucDuAn
@@ -173,6 +176,209 @@ namespace websiteTUTHIEN.Controllers
                 await context.SaveChangesAsync();
             }
             return RedirectToAction("ListNguoiDung");
+        }
+
+
+        //------------------Hiển thị bài báo
+        public IActionResult CreateBaiBao()
+        {
+            ViewData["DanhMucBaiBao"] = new SelectList(context.TableDanhMucBaiBaos, "MaDanhMucBaiBao", "TenDanhMucBaiBao");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateBaiBao(TableBaiBao baiBao, IFormFile imageFile)
+        {
+            if (ModelState.IsValid)
+            {
+                if (imageFile != null)
+                {
+                    var fileName = Path.GetFileName(imageFile.FileName);
+                    var filePath = Path.Combine(env.WebRootPath, "images", fileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await imageFile.CopyToAsync(stream);
+                    }
+                    baiBao.HinhanhBaiBao = "/images/" + fileName;
+                }
+                baiBao.NgayDangBaiBao = DateTime.Now;
+                context.TableBaiBaos.Add(baiBao);
+                await context.SaveChangesAsync();
+                return RedirectToAction(nameof(IndexBaiBao));
+            }
+            ViewData["DanhMucBaiBao"] = new SelectList(context.TableDanhMucBaiBaos, "MaDanhMucBaiBao", "TenDanhMucBaiBao");
+            return View(baiBao);
+        }
+
+        public IActionResult IndexBaiBao()
+        {
+            var baiBao = context.TableBaiBaos.ToList();
+            return View(baiBao);
+        }
+
+        public async Task<IActionResult> EditBaiBao(int? id){
+            if(id==null){
+                NotFound();
+            }
+            var baiBao = await context.TableBaiBaos.FindAsync(id);
+            ViewData["DanhMucBaiBao"] = new SelectList(context.TableDanhMucBaiBaos, "MaDanhMucBaiBao", "TenDanhMucBaiBao");
+            if (baiBao == null){
+                NotFound();
+            }
+            return View(baiBao);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditBaiBao(int id, TableBaiBao baiBao, IFormFile imageFile){
+            if(baiBao.MaBaiBao != id){
+                NotFound();
+            }
+            if(ModelState.IsValid){
+                try{
+                    if (imageFile != null)
+                {
+                    var fileName = Path.GetFileName(imageFile.FileName);
+                    var filePath = Path.Combine(env.WebRootPath, "images", fileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await imageFile.CopyToAsync(stream);
+                    }
+                    baiBao.HinhanhBaiBao = "/images/" + fileName;
+                }
+                    context.TableBaiBaos.Update(baiBao);
+                    await context.SaveChangesAsync();
+                }catch (DbUpdateConcurrencyException){
+                    if(!context.TableBaiBaos.Any(e=>e.MaDanhMucBaiBao == id)){
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(IndexBaiBao));
+            }
+            return View(baiBao);
+        }
+
+        public async Task<IActionResult> DeleteBaiBao(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var baiBao = await context.TableBaiBaos.FirstOrDefaultAsync(m => m.MaBaiBao == id);
+            if (baiBao == null)
+            {
+                return NotFound();
+            }
+            return View(baiBao);
+        }
+
+        [HttpPost, ActionName("DeleteBaiBao")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmDeleteBaiBao(int id)
+        {
+            var baiBao = await context.TableBaiBaos.FindAsync(id);
+            context.TableBaiBaos.Remove(baiBao);
+            await context.SaveChangesAsync();
+            return RedirectToAction(nameof(IndexBaiBao));
+        }
+
+        //-----------------------------Danh mục bài báo
+        public async Task<IActionResult> IndexDanhMucBaiBao()
+        {
+            return View(await context.TableDanhMucBaiBaos.ToListAsync());
+        }
+
+        public IActionResult CreateDanhMucBaiBao()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateDanhMucBaiBao(TableDanhMucBaiBao danhMucBaiBao)
+        {
+            if (ModelState.IsValid)
+            {
+                context.TableDanhMucBaiBaos.Add(danhMucBaiBao);
+                await context.SaveChangesAsync();
+                return RedirectToAction(nameof(IndexDanhMucBaiBao));
+            }
+            return View(danhMucBaiBao);
+        }
+
+        public async Task<IActionResult> EditDanhMucBaiBao(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var danhMucBaiBao = await context.TableDanhMucBaiBaos.FindAsync(id);
+            if (danhMucBaiBao == null)
+            {
+                return NotFound();
+            }
+            return View(danhMucBaiBao);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditDanhMucBaiBao(int id, TableDanhMucBaiBao danhMucBaiBao)
+        {
+            if (id != danhMucBaiBao.MaDanhMucBaiBao)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    context.TableDanhMucBaiBaos.Update(danhMucBaiBao);
+                    await context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!context.TableDanhMucBaiBaos.Any(e => e.MaDanhMucBaiBao == id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(IndexDanhMucBaiBao));
+            }
+            return View(danhMucBaiBao);
+        }
+
+        public async Task<IActionResult> DeleteDanhMucBaiBao(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var danhMucBaiBao = await context.TableDanhMucBaiBaos.FirstOrDefaultAsync(m => m.MaDanhMucBaiBao == id);
+            if (danhMucBaiBao == null)
+            {
+                return NotFound();
+            }
+            return View(danhMucBaiBao);
+        }
+
+        [HttpPost, ActionName("DeleteDanhMucBaiBao")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmDeleteDanhMucBaiBao(int id)
+        {
+            var danhMucBaiBao = await context.TableDanhMucBaiBaos.FindAsync(id);
+            context.TableDanhMucBaiBaos.Remove(danhMucBaiBao);
+            await context.SaveChangesAsync();
+            return RedirectToAction(nameof(IndexDanhMucBaiBao));
         }
     }
 }

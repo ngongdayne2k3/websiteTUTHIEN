@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using websiteTUTHIEN.Models;
 
@@ -140,6 +141,39 @@ namespace websiteTUTHIEN.Controllers
                 return RedirectToAction("Index", "Home"); // Chuyển hướng về trang chính
             }
             return NotFound();
+        }
+
+        public IActionResult CreateDuAn(){
+            ViewData["DanhMucDa"] = new SelectList(context.TableDanhMucDuAns,"MaDanhMucDa","TenDanhMucDa");
+            ViewData["TinhThanh"] = new SelectList(context.TableTinhThanhs,"MaTinhThanh","TenTinhThanh");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateDuAn(TableDuAn duAn){
+            if(ModelState.IsValid){
+                var userId = HttpContext.Session.GetInt32("UserId");
+                duAn.MaNguoiDung = userId ?? 0;
+                duAn.DaDuyetBai = false;
+                duAn.DaKetThucDuAn = false;
+                duAn.Ngaybatdau = DateTime.Today;
+                duAn.SoTienHienTai = 0;
+                context.Add(duAn);
+                await context.SaveChangesAsync();
+                return RedirectToAction(nameof(IndexDuAnUser));
+            }
+            ViewData["MaDanhMucDa"] = new SelectList(context.TableDanhMucDuAns,"MaDanhMucDa","TenDanhMucDa");
+            ViewData["MaTinhThanh"] = new SelectList(context.TableTinhThanhs,"MaTinhThanh","TenTinhThanh");
+            return View(duAn);
+        }
+
+        public async Task<IActionResult> IndexDuAnUser(){
+            var userId = HttpContext.Session.GetInt32("UserId");
+            var products = await context.TableDuAns
+            .Where(p => p.MaNguoiDung == userId)
+            .ToListAsync();
+            return View(products);
         }
     }
 }
