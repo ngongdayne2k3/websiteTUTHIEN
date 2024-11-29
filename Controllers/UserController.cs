@@ -33,6 +33,7 @@ namespace websiteTUTHIEN.Controllers
             }
             return View(user);
         }
+        
         public IActionResult DangNhap()
         {
             return View();

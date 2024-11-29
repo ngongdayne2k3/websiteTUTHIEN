@@ -23,7 +23,7 @@ public partial class TableNguoiDung
 
     public DateTime NamSinh { get; set; }
 
-    public virtual ICollection<TableBaiBao> TableBaiBaos { get; set; } = new List<TableBaiBao>();
+    public virtual ICollection<TableBinhLuanBaiBao> TableBinhLuanBaiBaos { get; set; } = new List<TableBinhLuanBaiBao>();
 
     public virtual ICollection<TableDuAn> TableDuAns { get; set; } = new List<TableDuAn>();
 }

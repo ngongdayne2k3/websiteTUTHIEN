@@ -19,6 +19,8 @@ public partial class WebsiteTuthienContext : DbContext
 
     public virtual DbSet<TableBaiBao> TableBaiBaos { get; set; }
 
+    public virtual DbSet<TableBinhLuanBaiBao> TableBinhLuanBaiBaos { get; set; }
+
     public virtual DbSet<TableDanhMucBaiBao> TableDanhMucBaiBaos { get; set; }
 
     public virtual DbSet<TableDanhMucDuAn> TableDanhMucDuAns { get; set; }
@@ -82,7 +84,6 @@ public partial class WebsiteTuthienContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("hinhanhBaiBao");
             entity.Property(e => e.MaDanhMucBaiBao).HasColumnName("maDanhMucBaiBao");
-            entity.Property(e => e.MaNguoiDung).HasColumnName("maNguoiDung");
             entity.Property(e => e.NgayDangBaiBao)
                 .HasColumnType("datetime")
                 .HasColumnName("ngayDangBaiBao");
@@ -98,11 +99,31 @@ public partial class WebsiteTuthienContext : DbContext
                 .HasForeignKey(d => d.MaDanhMucBaiBao)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_TableBaiBao_TableDanhMucBaiBao");
+        });
 
-            entity.HasOne(d => d.MaNguoiDungNavigation).WithMany(p => p.TableBaiBaos)
+        modelBuilder.Entity<TableBinhLuanBaiBao>(entity =>
+        {
+            entity.HasKey(e => e.MaBinhLuanBaiBao);
+
+            entity.ToTable("TableBinhLuanBaiBao");
+
+            entity.Property(e => e.MaBinhLuanBaiBao).HasColumnName("maBinhLuanBaiBao");
+            entity.Property(e => e.MaBaiBao).HasColumnName("maBaiBao");
+            entity.Property(e => e.MaNguoiDung).HasColumnName("maNguoiDung");
+            entity.Property(e => e.NgayBinhLuan).HasColumnName("ngayBinhLuan");
+            entity.Property(e => e.NoidungBinhLuan)
+                .HasMaxLength(255)
+                .HasColumnName("noidungBinhLuan");
+
+            entity.HasOne(d => d.MaBaiBaoNavigation).WithMany(p => p.TableBinhLuanBaiBaos)
+                .HasForeignKey(d => d.MaBaiBao)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_TableBinhLuanBaiBao_TableBaiBao");
+
+            entity.HasOne(d => d.MaNguoiDungNavigation).WithMany(p => p.TableBinhLuanBaiBaos)
                 .HasForeignKey(d => d.MaNguoiDung)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_TableBaiBao_TableNguoiDung");
+                .HasConstraintName("FK_TableBinhLuanBaiBao_TableNguoiDung");
         });
 
         modelBuilder.Entity<TableDanhMucBaiBao>(entity =>

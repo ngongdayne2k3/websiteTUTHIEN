@@ -19,9 +19,7 @@ public partial class TableBaiBao
 
     public int MaDanhMucBaiBao { get; set; }
 
-    public int MaNguoiDung { get; set; }
-
     public virtual TableDanhMucBaiBao MaDanhMucBaiBaoNavigation { get; set; } = null!;
 
-    public virtual TableNguoiDung MaNguoiDungNavigation { get; set; } = null!;
+    public virtual ICollection<TableBinhLuanBaiBao> TableBinhLuanBaiBaos { get; set; } = new List<TableBinhLuanBaiBao>();
 }
