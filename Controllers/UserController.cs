@@ -8,9 +8,11 @@ namespace websiteTUTHIEN.Controllers
     public class UserController : Controller
     {
         private readonly WebsiteTuthienContext context;
-        public UserController(WebsiteTuthienContext _context)
+        private readonly IWebHostEnvironment env;
+        public UserController(WebsiteTuthienContext _context, IWebHostEnvironment _env)
         {
             context = _context;
+            env = _env;
         }
 
         public IActionResult Dangki()
@@ -33,7 +35,7 @@ namespace websiteTUTHIEN.Controllers
             }
             return View(user);
         }
-        
+
         public IActionResult DangNhap()
         {
             return View();
@@ -144,16 +146,29 @@ namespace websiteTUTHIEN.Controllers
             return NotFound();
         }
 
-        public IActionResult CreateDuAn(){
-            ViewData["DanhMucDa"] = new SelectList(context.TableDanhMucDuAns,"MaDanhMucDa","TenDanhMucDa");
-            ViewData["TinhThanh"] = new SelectList(context.TableTinhThanhs,"MaTinhThanh","TenTinhThanh");
+        public IActionResult CreateDuAn()
+        {
+            ViewData["DanhMucDa"] = new SelectList(context.TableDanhMucDuAns, "MaDanhMucDa", "TenDanhMucDa");
+            ViewData["TinhThanh"] = new SelectList(context.TableTinhThanhs, "MaTinhThanh", "TenTinhThanh");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateDuAn(TableDuAn duAn){
-            if(ModelState.IsValid){
+        public async Task<IActionResult> CreateDuAn(TableDuAn duAn, IFormFile imageFile)
+        {
+            if (ModelState.IsValid)
+            {
+                if (imageFile != null)
+                {
+                    var fileName = Path.GetFileName(imageFile.FileName);
+                    var filePath = Path.Combine(env.WebRootPath, "images", fileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await imageFile.CopyToAsync(stream);
+                    }
+                    duAn.Hinhanh = "/images/duan/" + fileName;
+                }
                 var userId = HttpContext.Session.GetInt32("UserId");
                 duAn.MaNguoiDung = userId ?? 0;
                 duAn.DaDuyetBai = false;
@@ -164,12 +179,13 @@ namespace websiteTUTHIEN.Controllers
                 await context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexDuAnUser));
             }
-            ViewData["MaDanhMucDa"] = new SelectList(context.TableDanhMucDuAns,"MaDanhMucDa","TenDanhMucDa");
-            ViewData["MaTinhThanh"] = new SelectList(context.TableTinhThanhs,"MaTinhThanh","TenTinhThanh");
+            ViewData["MaDanhMucDa"] = new SelectList(context.TableDanhMucDuAns, "MaDanhMucDa", "TenDanhMucDa");
+            ViewData["MaTinhThanh"] = new SelectList(context.TableTinhThanhs, "MaTinhThanh", "TenTinhThanh");
             return View(duAn);
         }
 
-        public async Task<IActionResult> IndexDuAnUser(){
+        public async Task<IActionResult> IndexDuAnUser()
+        {
             var userId = HttpContext.Session.GetInt32("UserId");
             var products = await context.TableDuAns
             .Where(p => p.MaNguoiDung == userId)

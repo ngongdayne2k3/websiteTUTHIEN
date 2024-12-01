@@ -200,7 +200,7 @@ namespace websiteTUTHIEN.Controllers
                     {
                         await imageFile.CopyToAsync(stream);
                     }
-                    baiBao.HinhanhBaiBao = "/images/" + fileName;
+                    baiBao.HinhanhBaiBao = "/images/baibao/" + fileName;
                 }
                 baiBao.NgayDangBaiBao = DateTime.Now;
                 context.TableBaiBaos.Add(baiBao);
@@ -217,13 +217,16 @@ namespace websiteTUTHIEN.Controllers
             return View(baiBao);
         }
 
-        public async Task<IActionResult> EditBaiBao(int? id){
-            if(id==null){
+        public async Task<IActionResult> EditBaiBao(int? id)
+        {
+            if (id == null)
+            {
                 NotFound();
             }
             var baiBao = await context.TableBaiBaos.FindAsync(id);
             ViewData["DanhMucBaiBao"] = new SelectList(context.TableDanhMucBaiBaos, "MaDanhMucBaiBao", "TenDanhMucBaiBao");
-            if (baiBao == null){
+            if (baiBao == null)
+            {
                 NotFound();
             }
             return View(baiBao);
@@ -231,26 +234,33 @@ namespace websiteTUTHIEN.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditBaiBao(int id, TableBaiBao baiBao, IFormFile imageFile){
-            if(baiBao.MaBaiBao != id){
+        public async Task<IActionResult> EditBaiBao(int id, TableBaiBao baiBao, IFormFile imageFile)
+        {
+            if (baiBao.MaBaiBao != id)
+            {
                 NotFound();
             }
-            if(ModelState.IsValid){
-                try{
-                    if (imageFile != null)
+            if (ModelState.IsValid)
+            {
+                try
                 {
-                    var fileName = Path.GetFileName(imageFile.FileName);
-                    var filePath = Path.Combine(env.WebRootPath, "images", fileName);
-                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    if (imageFile != null)
                     {
-                        await imageFile.CopyToAsync(stream);
+                        var fileName = Path.GetFileName(imageFile.FileName);
+                        var filePath = Path.Combine(env.WebRootPath, "images", fileName);
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await imageFile.CopyToAsync(stream);
+                        }
+                        baiBao.HinhanhBaiBao = "/images/baibao/" + fileName;
                     }
-                    baiBao.HinhanhBaiBao = "/images/" + fileName;
-                }
                     context.TableBaiBaos.Update(baiBao);
                     await context.SaveChangesAsync();
-                }catch (DbUpdateConcurrencyException){
-                    if(!context.TableBaiBaos.Any(e=>e.MaDanhMucBaiBao == id)){
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!context.TableBaiBaos.Any(e => e.MaDanhMucBaiBao == id))
+                    {
                         return NotFound();
                     }
                     else
