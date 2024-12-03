@@ -14,7 +14,6 @@ namespace websiteTUTHIEN.Controllers
             context = _context;
         }
 
-
         public IActionResult ChiTietDuAn(int id)
         {
             var duan = context.TableDuAns.FirstOrDefault(p => p.MaDanhMucDa == id);
@@ -25,7 +24,10 @@ namespace websiteTUTHIEN.Controllers
             return View(duan);
         }
 
-        public async Task<IActionResult> IndexDuAn(bool? coNghiemTrong, int? maDanhMuc, int? maTinhThanh, int? maVungMien, int? ngay, int? thang, int? nam)
+
+        //Phân loại theo danh mục, vùng miền, tỉnh thành, có nghiêm trọng hay không?
+        //Phân trang, phân loại theo ngày, tháng, năm và tìm kiếm dự án, thiếu phân trang?
+        public async Task<IActionResult> IndexDuAn(bool? coNghiemTrong, int? maDanhMuc, int? maTinhThanh, int? maVungMien, int? ngay, int? thang, int? nam, string tenDuAn)
         {
             var duanQuery = context.TableDuAns.AsQueryable();
 
@@ -65,8 +67,16 @@ namespace websiteTUTHIEN.Controllers
             {
                 duanQuery = duanQuery.Where(p => p.Ngaybatdau.Year == nam.Value);
             }
+
+            // Tìm kiếm theo tên dự án
+            if (!string.IsNullOrEmpty(tenDuAn))
+            {
+                duanQuery = duanQuery.Where(p => p.TenDuAn.Contains(tenDuAn));
+            }
             return View(await duanQuery.ToListAsync());
         }
+
+
 
     }
 }
