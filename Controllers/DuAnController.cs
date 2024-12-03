@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using websiteTUTHIEN.Models;
+using X.PagedList.Extensions;
 
 namespace websiteTUTHIEN.Controllers
 {
@@ -26,8 +27,8 @@ namespace websiteTUTHIEN.Controllers
 
 
         //Phân loại theo danh mục, vùng miền, tỉnh thành, có nghiêm trọng hay không?
-        //Phân trang, phân loại theo ngày, tháng, năm và tìm kiếm dự án, thiếu phân trang?
-        public async Task<IActionResult> IndexDuAn(bool? coNghiemTrong, int? maDanhMuc, int? maTinhThanh, int? maVungMien, int? ngay, int? thang, int? nam, string tenDuAn)
+        //Phân trang, phân loại theo ngày, tháng, năm và tìm kiếm dự án, có phân trang
+        public ViewResult IndexDuAn(bool? coNghiemTrong,string currentFilter, int? maDanhMuc, int? maTinhThanh, int? maVungMien, int? ngay, int? thang, int? nam, string searchString, int? page)
         {
             var duanQuery = context.TableDuAns.AsQueryable();
 
@@ -69,11 +70,22 @@ namespace websiteTUTHIEN.Controllers
             }
 
             // Tìm kiếm theo tên dự án
-            if (!string.IsNullOrEmpty(tenDuAn))
+            if (!string.IsNullOrEmpty(searchString))
             {
-                duanQuery = duanQuery.Where(p => p.TenDuAn.Contains(tenDuAn));
+                duanQuery = duanQuery.Where(p => p.TenDuAn.Contains(searchString));
             }
-            return View(await duanQuery.ToListAsync());
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.currentFilter = searchString;
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(duanQuery.ToPagedList(pageNumber,pageSize));
         }
 
 

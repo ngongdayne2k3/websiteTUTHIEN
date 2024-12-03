@@ -18,44 +18,49 @@ namespace websiteTUTHIEN.Controllers
 
 
         //Phân trang, tìm kiếm, sắp xếp, chưa phân loại?
-        public ViewResult IndexBaiBao(string sortOrder,string searchString, string currentFilter, int? page)
+        public ViewResult IndexBaiBao(string sortOrder, string searchString, string currentFilter, int? page)
         {
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSoreParm = sortOrder == "Date" ? "date_desc" : "Date";
             var baiBao = from s in context.TableBaiBaos select s;
-            switch(sortOrder)
+            switch (sortOrder)
             {
                 case "name_desc":
-                baiBao = baiBao.OrderByDescending(s => s.TenBaiBao);
-                break;
+                    baiBao = baiBao.OrderByDescending(s => s.TenBaiBao);
+                    break;
                 case "Date":
-                baiBao = baiBao.OrderBy(s=> s.NgayDangBaiBao);
-                break;
+                    baiBao = baiBao.OrderBy(s => s.NgayDangBaiBao);
+                    break;
                 case "date_desc":
-                baiBao = baiBao.OrderByDescending(s => s.NgayDangBaiBao);
-                break;
+                    baiBao = baiBao.OrderByDescending(s => s.NgayDangBaiBao);
+                    break;
                 default:
-                baiBao = baiBao.OrderBy(s => s.TenBaiBao);
-                break;
+                    baiBao = baiBao.OrderBy(s => s.TenBaiBao);
+                    break;
             }
             if (!string.IsNullOrEmpty(searchString))
             {
                 baiBao = baiBao.Where(p => p.TenBaiBao.Contains(searchString));
             }
-            if(searchString != null){
-                page =1;
-            }else{
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
                 searchString = currentFilter;
             }
             ViewBag.currentFilter = searchString;
             int pageSize = 3;
-            int pageNumber = (page ?? 1 );
+            int pageNumber = (page ?? 1);
             return View(baiBao.ToPagedList(pageNumber, pageSize));
         }
 
-        public IActionResult ChiTietBaiBao(int? id){
+        public IActionResult ChiTietBaiBao(int? id)
+        {
             var baiBao = context.TableBaiBaos.FirstOrDefault(p => p.MaBaiBao == id);
-            if(baiBao == null) {
+            if (baiBao == null)
+            {
                 NotFound();
             }
             return View(baiBao);
