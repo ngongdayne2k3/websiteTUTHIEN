@@ -6,11 +6,11 @@ using websiteTUTHIEN.Models;
 
 namespace websiteTUTHIEN.Controllers
 {
-    public class AdminControllers : Controller
+    public class AdminController : Controller
     {
         private readonly WebsiteTuthienContext context;
         private readonly IWebHostEnvironment env;
-        public AdminControllers(WebsiteTuthienContext _context, IWebHostEnvironment _env)
+        public AdminController(WebsiteTuthienContext _context, IWebHostEnvironment _env)
         {
             context = _context;
             env = _env;
