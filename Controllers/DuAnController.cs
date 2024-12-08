@@ -14,6 +14,18 @@ namespace websiteTUTHIEN.Controllers
         {
             context = _context;
         }
+        public IActionResult DuAnIndex()
+        {
+            return View(); // 
+        }
+        public IActionResult DuAn()
+        {
+            // Lấy tất cả bài báo từ cơ sở dữ liệu
+            var duans = context.TableDuAns.ToList();
+
+            // Truyền danh sách bài báo vào View
+            return View(duans);
+        }
 
         public IActionResult ChiTietDuAn(int id)
         {

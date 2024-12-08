@@ -89,7 +89,7 @@ public partial class WebsiteTuthienContext : DbContext
                 .HasColumnName("ngayDangBaiBao");
             entity.Property(e => e.NoidungBaiBao).HasColumnName("noidungBaiBao");
             entity.Property(e => e.TenBaiBao)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .HasColumnName("tenBaiBao");
             entity.Property(e => e.TenTacGia)
                 .HasMaxLength(100)
@@ -110,7 +110,9 @@ public partial class WebsiteTuthienContext : DbContext
             entity.Property(e => e.MaBinhLuanBaiBao).HasColumnName("maBinhLuanBaiBao");
             entity.Property(e => e.MaBaiBao).HasColumnName("maBaiBao");
             entity.Property(e => e.MaNguoiDung).HasColumnName("maNguoiDung");
-            entity.Property(e => e.NgayBinhLuan).HasColumnName("ngayBinhLuan");
+            entity.Property(e => e.NgayBinhLuan)
+                .HasColumnType("datetime")
+                .HasColumnName("ngayBinhLuan");
             entity.Property(e => e.NoidungBinhLuan)
                 .HasMaxLength(255)
                 .HasColumnName("noidungBinhLuan");
@@ -163,9 +165,15 @@ public partial class WebsiteTuthienContext : DbContext
             entity.ToTable("TableDuAn");
 
             entity.Property(e => e.MaDuAn).HasColumnName("maDuAn");
-            entity.Property(e => e.CoNghiemTrong).HasColumnName("coNghiemTrong");
-            entity.Property(e => e.DaDuyetBai).HasColumnName("daDuyetBai");
-            entity.Property(e => e.DaKetThucDuAn).HasColumnName("daKetThucDuAn");
+            entity.Property(e => e.CoNghiemTrong)
+                .HasDefaultValue(false)
+                .HasColumnName("coNghiemTrong");
+            entity.Property(e => e.DaDuyetBai)
+                .HasDefaultValue(false)
+                .HasColumnName("daDuyetBai");
+            entity.Property(e => e.DaKetThucDuAn)
+                .HasDefaultValue(false)
+                .HasColumnName("daKetThucDuAn");
             entity.Property(e => e.Hinhanh)
                 .HasMaxLength(255)
                 .HasColumnName("hinhanh");
@@ -178,13 +186,11 @@ public partial class WebsiteTuthienContext : DbContext
             entity.Property(e => e.Ngayketthuc)
                 .HasColumnType("datetime")
                 .HasColumnName("ngayketthuc");
-            entity.Property(e => e.NoidungDuAn)
-                .HasMaxLength(700)
-                .HasColumnName("noidungDuAn");
+            entity.Property(e => e.NoidungDuAn).HasColumnName("noidungDuAn");
             entity.Property(e => e.SoTienHienTai).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.SoTienMucTieu).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.TenDuAn)
-                .HasMaxLength(50)
+                .HasMaxLength(500)
                 .HasColumnName("tenDuAn");
 
             entity.HasOne(d => d.MaDanhMucDaNavigation).WithMany(p => p.TableDuAns)

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("websiteTUTHIEN")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+92d6c9d2fb4e7d173897228b64e7720772ebc7ec")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d51f2f0f5d6be0441b125a9c1809f7a6ab99fd10")]
 [assembly: System.Reflection.AssemblyProductAttribute("websiteTUTHIEN")]
 [assembly: System.Reflection.AssemblyTitleAttribute("websiteTUTHIEN")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

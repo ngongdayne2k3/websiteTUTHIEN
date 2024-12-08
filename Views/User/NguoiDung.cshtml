@@ -1,0 +1,52 @@
+﻿@model websiteTUTHIEN.Models.TableNguoiDung
+
+@{
+    ViewData["Title"] = "Người Dùng";
+}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Người Dùng</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="profile">
+            <img src="avatar-placeholder.png" alt="Avatar Người Dùng">
+            <div>
+                <h2>Họ Tên: Nguyễn Văn A</h2>
+                <p>Email: email@example.com</p>
+                <p>Số điện thoại: 0123456789</p>
+                <p>Địa chỉ: Hà Nội, Việt Nam</p>
+            </div>
+        </div>
+        <button>
+            <a asp-controller="User" asp-action="EditProfile">Chỉnh sửa</a>
+        </button>
+
+        <div class="list">
+            <h3>Bài Báo:</h3>
+            <div class="list-item">
+                <h4>Tiêu đề Bài Báo 1</h4>
+                <p>Ngày tạo: 01/12/2024</p>
+            </div>
+            <div class="list-item">
+                <h4>Tiêu đề Bài Báo 2</h4>
+                <p>Ngày tạo: 25/11/2024</p>
+            </div>
+        </div>
+
+        <div class="list">
+            <h3>Dự Án:</h3>
+            <div class="list-item">
+                <h4>Dự Án 1</h4>
+                <p>Mô tả: Lorem ipsum dolor sit amet.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Liên hệ: support@example.com</p>
+    </footer>
+</body>

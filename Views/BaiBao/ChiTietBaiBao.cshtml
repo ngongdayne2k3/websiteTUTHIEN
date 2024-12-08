@@ -1,0 +1,55 @@
+﻿@model websiteTUTHIEN.Models.TableBaiBao
+
+@{
+    ViewData["Title"] = "ChiTietBaiBao";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>ChiTietBaiBao</h1>
+
+<div>
+    <h4>TableBaiBao</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TenBaiBao)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TenBaiBao)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TenTacGia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TenTacGia)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NoidungBaiBao)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NoidungBaiBao)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NgayDangBaiBao)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NgayDangBaiBao)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HinhanhBaiBao)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HinhanhBaiBao)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MaDanhMucBaiBaoNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MaDanhMucBaiBaoNavigation.MaDanhMucBaiBao)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.MaBaiBao">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

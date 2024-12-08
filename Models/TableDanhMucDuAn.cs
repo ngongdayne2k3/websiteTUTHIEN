@@ -9,7 +9,7 @@ public partial class TableDanhMucDuAn
 
     public string TenDanhMucDa { get; set; } = null!;
 
-    public string MotaDanhMuc { get; set; } = null!;
+    public string? MotaDanhMuc { get; set; }
 
     public virtual ICollection<TableDuAn> TableDuAns { get; set; } = new List<TableDuAn>();
 }

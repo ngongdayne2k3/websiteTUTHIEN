@@ -1,0 +1,140 @@
+﻿
+@layer base {
+    :root {
+        --background: 0 0% 100%;
+        --foreground: 240 10% 3.9%;
+        --card: 0 0% 100%;
+        --card-foreground: 240 10% 3.9%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 240 10% 3.9%;
+        --primary: 240 5.9% 10%;
+        --primary-foreground: 0 0% 98%;
+        --secondary: 240 4.8% 95.9%;
+        --secondary-foreground: 240 5.9% 10%;
+        --muted: 240 4.8% 95.9%;
+        --muted-foreground: 240 3.8% 46.1%;
+        --accent: 240 4.8% 95.9%;
+        --accent-foreground: 240 5.9% 10%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 240 5.9% 90%;
+        --input: 240 5.9% 90%;
+        --ring: 240 5.9% 10%;
+        --radius: 0.5rem;
+    }
+
+    .dark {
+        --background: 240 10% 3.9%;
+        --foreground: 0 0% 98%;
+        --card: 240 10% 3.9%;
+        --card-foreground: 0 0% 98%;
+        --popover: 240 10% 3.9%;
+        --popover-foreground: 0 0% 98%;
+        --primary: 0 0% 98%;
+        --primary-foreground: 240 5.9% 10%;
+        --secondary: 240 3.7% 15.9%;
+        --secondary-foreground: 0 0% 98%;
+        --muted: 240 3.7% 15.9%;
+        --muted-foreground: 240 5% 64.9%;
+        --accent: 240 3.7% 15.9%;
+        --accent-foreground: 0 0% 98%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 240 3.7% 15.9%;
+        --input: 240 3.7% 15.9%;
+        --ring: 240 4.9% 83.9%;
+    }
+}
+/* Đ?m b?o th? cha s? d?ng flexbox */
+.flex {
+    display: flex;
+}
+
+/* Cho phép các ph?n t? con b?c xu?ng hàng n?u không đ? không gian */
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+/* Căn gi?a các item trong container */
+.justify-center {
+    justify-content: center;
+}
+
+/* Kho?ng cách gi?a các ph?n t? */
+.gap-4 {
+    gap: 1rem; /* Tương đương 16px */
+}
+
+/* Đ?nh kích thư?c cho t?ng card */
+.w-72 {
+    width: 18rem; /* Tương đương 288px */
+}
+
+/* Reset cơ bản */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+header {
+    background-color: #0056b3;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    header a {
+        color: white;
+        text-decoration: none;
+        margin: 0 1rem;
+    }
+
+/* Container */
+.container {
+    margin: 2rem auto;
+    max-width: 800px;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* Profile */
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+    .profile img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+
+/* Details Section */
+.details {
+    margin: 1rem 0;
+}
+
+/* List Section */
+.list {
+    margin: 2rem 0;
+}
+
+.list-item {
+    border-bottom: 1px solid #ddd;
+    padding: 1rem 0;
+}
+
+/* Footer */
+footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 1rem;
+    border-top: 1px solid #ddd;
+}
+

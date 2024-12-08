@@ -1,0 +1,38 @@
+﻿@model IEnumerable<websiteTUTHIEN.Models.TableDuAn>
+
+@{
+    ViewData["Title"] = "Danh sách Du An";
+}
+
+<!-- Main -->
+<section id="main" class="container">
+    <section class="box special">
+        <header class="major">
+            <h2>Danh sách Dự Án</h2>
+        </header>
+
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-6 col-12-narrower">
+                    <section class="box special">
+
+
+
+
+                        <h3>@item.TenDuAn</h3>
+
+                        <p>
+                            @(item.NoidungDuAn.Length > 100
+                                ? item.NoidungDuAn.Substring(0, 100) + "..."
+                                : item.NoidungDuAn)
+                        </p>
+                        <ul class="actions special">
+                            <li><a href="@Url.Action("Details", "DuAn", new { id = item.MaDuAn })" class="button alt">Xem chi tiết</a></li>
+                        </ul>
+                    </section>
+                </div>
+            }
+        </div>
+    </section>
+</section>

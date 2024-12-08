@@ -141,6 +141,10 @@
       "PackagePath": "staticwebassets\\assets\\img\\user8-128x128.jpg"
     },
     {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\css\\admin.css",
+      "PackagePath": "staticwebassets\\css\\admin.css"
+    },
+    {
       "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\css\\adminlte.css",
       "PackagePath": "staticwebassets\\css\\adminlte.css"
     },
@@ -173,12 +177,48 @@
       "PackagePath": "staticwebassets\\css\\adminlte.rtl.min.css.map"
     },
     {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\css\\main.css",
+      "PackagePath": "staticwebassets\\css\\main.css"
+    },
+    {
       "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\css\\styles.css",
+      "PackagePath": "staticwebassets\\css\\styles.css"
+    },
+    {
       "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\avatar.png",
+      "PackagePath": "staticwebassets\\images\\avatar.png"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\banner.jpg",
+      "PackagePath": "staticwebassets\\images\\banner.jpg"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\pic01.png",
+      "PackagePath": "staticwebassets\\images\\pic01.png"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\pic02.png",
+      "PackagePath": "staticwebassets\\images\\pic02.png"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\pic03.png",
+      "PackagePath": "staticwebassets\\images\\pic03.png"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\pic04.jpg",
+      "PackagePath": "staticwebassets\\images\\pic04.jpg"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\pic05.jpg",
+      "PackagePath": "staticwebassets\\images\\pic05.jpg"
     },
     {
       "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\js\\adminlte.js",
@@ -197,8 +237,36 @@
       "PackagePath": "staticwebassets\\js\\adminlte.min.js.map"
     },
     {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\js\\breakpoints.min.js",
+      "PackagePath": "staticwebassets\\js\\breakpoints.min.js"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\js\\browser.min.js",
+      "PackagePath": "staticwebassets\\js\\browser.min.js"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\js\\jquery.dropotron.min.js",
+      "PackagePath": "staticwebassets\\js\\jquery.dropotron.min.js"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\js\\jquery.min.js",
+      "PackagePath": "staticwebassets\\js\\jquery.min.js"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\js\\jquery.scrollex.min.js",
+      "PackagePath": "staticwebassets\\js\\jquery.scrollex.min.js"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\js\\main.js",
+      "PackagePath": "staticwebassets\\js\\main.js"
+    },
+    {
       "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\js\\util.js",
+      "PackagePath": "staticwebassets\\js\\util.js"
     },
     {
       "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\lib\\bootstrap\\LICENSE",
@@ -427,6 +495,94 @@
     {
       "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\sass\\libs\\_breakpoints.scss",
+      "PackagePath": "staticwebassets\\sass\\libs\\_breakpoints.scss"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\sass\\libs\\_functions.scss",
+      "PackagePath": "staticwebassets\\sass\\libs\\_functions.scss"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\sass\\libs\\_html-grid.scss",
+      "PackagePath": "staticwebassets\\sass\\libs\\_html-grid.scss"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\sass\\libs\\_mixins.scss",
+      "PackagePath": "staticwebassets\\sass\\libs\\_mixins.scss"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\sass\\libs\\_vars.scss",
+      "PackagePath": "staticwebassets\\sass\\libs\\_vars.scss"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\sass\\libs\\_vendor.scss",
+      "PackagePath": "staticwebassets\\sass\\libs\\_vendor.scss"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\sass\\main.scss",
+      "PackagePath": "staticwebassets\\sass\\main.scss"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\webfonts\\fa-brands-400.eot",
+      "PackagePath": "staticwebassets\\webfonts\\fa-brands-400.eot"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\webfonts\\fa-brands-400.svg",
+      "PackagePath": "staticwebassets\\webfonts\\fa-brands-400.svg"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\webfonts\\fa-brands-400.ttf",
+      "PackagePath": "staticwebassets\\webfonts\\fa-brands-400.ttf"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\webfonts\\fa-brands-400.woff",
+      "PackagePath": "staticwebassets\\webfonts\\fa-brands-400.woff"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\webfonts\\fa-brands-400.woff2",
+      "PackagePath": "staticwebassets\\webfonts\\fa-brands-400.woff2"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\webfonts\\fa-regular-400.eot",
+      "PackagePath": "staticwebassets\\webfonts\\fa-regular-400.eot"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\webfonts\\fa-regular-400.svg",
+      "PackagePath": "staticwebassets\\webfonts\\fa-regular-400.svg"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\webfonts\\fa-regular-400.ttf",
+      "PackagePath": "staticwebassets\\webfonts\\fa-regular-400.ttf"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\webfonts\\fa-regular-400.woff",
+      "PackagePath": "staticwebassets\\webfonts\\fa-regular-400.woff"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\webfonts\\fa-regular-400.woff2",
+      "PackagePath": "staticwebassets\\webfonts\\fa-regular-400.woff2"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\webfonts\\fa-solid-900.eot",
+      "PackagePath": "staticwebassets\\webfonts\\fa-solid-900.eot"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\webfonts\\fa-solid-900.svg",
+      "PackagePath": "staticwebassets\\webfonts\\fa-solid-900.svg"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\webfonts\\fa-solid-900.ttf",
+      "PackagePath": "staticwebassets\\webfonts\\fa-solid-900.ttf"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\webfonts\\fa-solid-900.woff",
+      "PackagePath": "staticwebassets\\webfonts\\fa-solid-900.woff"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\webfonts\\fa-solid-900.woff2",
+      "PackagePath": "staticwebassets\\webfonts\\fa-solid-900.woff2"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.websiteTUTHIEN.props",

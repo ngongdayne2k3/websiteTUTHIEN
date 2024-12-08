@@ -30,6 +30,26 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/repos/ASP.NET MVC/websiteTUTHIEN/websiteTUTHIEN/Views/BaiBao/BaiBao.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFpQmFvXEJhaUJhby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/ASP.NET MVC/websiteTUTHIEN/websiteTUTHIEN/Views/BaiBao/BaiBaoIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFpQmFvXEJhaUJhb0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/ASP.NET MVC/websiteTUTHIEN/websiteTUTHIEN/Views/BaiBao/ChiTietBaiBao.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFpQmFvXENoaVRpZXRCYWlCYW8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/ASP.NET MVC/websiteTUTHIEN/websiteTUTHIEN/Views/DuAn/DuAn.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHVBblxEdUFuLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/ASP.NET MVC/websiteTUTHIEN/websiteTUTHIEN/Views/DuAn/DuAnIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHVBblxEdUFuSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/repos/ASP.NET MVC/websiteTUTHIEN/websiteTUTHIEN/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -42,8 +62,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/repos/ASP.NET MVC/websiteTUTHIEN/websiteTUTHIEN/Views/Shared/_AdminLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/repos/ASP.NET MVC/websiteTUTHIEN/websiteTUTHIEN/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/ASP.NET MVC/websiteTUTHIEN/websiteTUTHIEN/Views/User/DangKi.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxEYW5nS2kuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/ASP.NET MVC/websiteTUTHIEN/websiteTUTHIEN/Views/User/DangNhap.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxEYW5nTmhhcC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/ASP.NET MVC/websiteTUTHIEN/websiteTUTHIEN/Views/User/EditProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxFZGl0UHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/ASP.NET MVC/websiteTUTHIEN/websiteTUTHIEN/Views/User/NguoiDung.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxOZ3VvaUR1bmcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/repos/ASP.NET MVC/websiteTUTHIEN/websiteTUTHIEN/Views/_ViewImports.cshtml]

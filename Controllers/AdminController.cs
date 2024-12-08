@@ -16,6 +16,11 @@ namespace websiteTUTHIEN.Controllers
             env = _env;
         }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         //DanhMucDuAn
         //GET: Admin/IndexDanhMucDuAn
         public async Task<IActionResult> IndexDanhMucDuAn()
@@ -183,6 +188,8 @@ namespace websiteTUTHIEN.Controllers
         public IActionResult CreateBaiBao()
         {
             ViewData["DanhMucBaiBao"] = new SelectList(context.TableDanhMucBaiBaos, "MaDanhMucBaiBao", "TenDanhMucBaiBao");
+            ViewData["NgayBatDau"] = DateTime.Today;
+            ViewData["NgayKetThuc"] = DateTime.Today;
             return View();
         }
 
@@ -202,12 +209,13 @@ namespace websiteTUTHIEN.Controllers
                     }
                     baiBao.HinhanhBaiBao = "/images/baibao/" + fileName;
                 }
-                baiBao.NgayDangBaiBao = DateTime.Now;
                 context.TableBaiBaos.Add(baiBao);
                 await context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexBaiBao));
             }
             ViewData["DanhMucBaiBao"] = new SelectList(context.TableDanhMucBaiBaos, "MaDanhMucBaiBao", "TenDanhMucBaiBao");
+            ViewData["NgayBatDau"] = DateTime.Today;
+            ViewData["NgayKetThuc"] = DateTime.Today;
             return View(baiBao);
         }
 

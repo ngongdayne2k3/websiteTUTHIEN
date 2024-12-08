@@ -1,8 +1,71 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<websiteTUTHIEN.Models.TableBaiBao>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Đường dẫn layout của bạn
+    ViewData["Title"] = "Trang chủ";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- Banner -->
+<section id="banner">
+    <h2>Vi mot tuong lai tuoi sang</h2>
+    <p>Hay chung tay quyen gop vi nhung con nguoi khong duoc may man trong cuoc song</p>
+    <ul class="actions special">
+    </ul>
+</section>
+
+<!-- Main -->
+<section id="main" class="container">
+    <section class="box special">
+        <header class="major">
+            <h2>Ghi cai lo gi vao day<br />lam l gi ma 2 dong</h2>
+            <p>
+                o day cx can cái gì do<br />
+                day cung the
+            </p>
+        </header>
+        <span class="image featured"><img src="images/pic01.png" alt="" /></span>
+    </section>
+
+    <section class="box special features">
+        <div class="row">
+            @foreach (var item in Model.Take(4)) // Lấy tối đa 4 bài báo
+            {
+                <div class="col-6 col-12-narrower">
+                    <section class="box special">
+                        <span class="icon solid major fa-file-alt accent2"></span>
+                        <h3>@item.TenBaiBao</h3>    
+                        <p>
+                            @(item.NoidungBaiBao.Length > 20
+                                ? item.NoidungBaiBao.Substring(0, 20) + "..."
+                                : item.NoidungBaiBao)
+                        </p>
+                        <ul class="actions special">
+                            <li>
+                                <a href="@Url.Action("BaiBaoIndex", "BaiBao", new { id = item.MaBaiBao })" class="button alt">
+                                    Xem chi tiết
+                                </a>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+            }
+        </div>
+    </section>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+    <h2>Sign up for beta access</h2>
+    <p>Blandit varius ut praesent nascetur eu penatibus nisi risus faucibus nunc.</p>
+
+    <form>
+        <div class="row gtr-50 gtr-uniform">
+            <div class="col-8 col-12-mobilep">
+                <input type="email" name="email" id="email" placeholder="Email Address" />
+            </div>
+            <div class="col-4 col-12-mobilep">
+                <input type="submit" value="Sign Up" class="fit" />
+            </div>
+        </div>
+    </form>
+</section>

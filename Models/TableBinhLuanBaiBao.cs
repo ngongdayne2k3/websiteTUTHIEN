@@ -13,7 +13,7 @@ public partial class TableBinhLuanBaiBao
 
     public string NoidungBinhLuan { get; set; } = null!;
 
-    public DateOnly NgayBinhLuan { get; set; }
+    public DateTime NgayBinhLuan { get; set; }
 
     public virtual TableBaiBao MaBaiBaoNavigation { get; set; } = null!;
 

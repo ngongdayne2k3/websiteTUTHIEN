@@ -1,0 +1,38 @@
+﻿@model IEnumerable<websiteTUTHIEN.Models.TableBaiBao>
+
+@{
+    ViewData["Title"] = "Danh sách Bài Báo";
+}
+
+<!-- Main -->
+<section id="main" class="container">
+    <section class="box special features">
+        <header class="major">
+            <h2>Danh sách Bài Báo</h2>
+        </header>
+
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-6 col-12-narrower">
+                    <section class="box special">
+                        <span class="icon solid major fa-file-alt accent2"></span>
+                        <h3>@item.TenBaiBao</h3>
+                        <p>
+                            @(item.NoidungBaiBao.Length > 20
+                                ? item.NoidungBaiBao.Substring(0, 20) + "..."
+                                : item.NoidungBaiBao)
+                        </p>
+                        <ul class="actions special">
+                            <li>
+                                <a href="@Url.Action("BaiBaoIndex", "BaiBao", new { id = item.MaBaiBao })" class="button alt">
+                                    Xem chi tiết
+                                </a>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+            }
+        </div>
+    </section>
+</section>

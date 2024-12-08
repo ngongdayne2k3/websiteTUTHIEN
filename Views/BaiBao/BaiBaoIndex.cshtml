@@ -1,0 +1,156 @@
+﻿@model IEnumerable<websiteTUTHIEN.Models.TableBaiBao>
+
+@{
+    ViewData["Title"] = "Bài Báo";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Bài Báo</title>
+    <style>
+        /* Reset cơ bản */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f8f8;
+            padding: 20px;
+        }
+
+        /* Tiêu đề và thông tin */
+        .article-title {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .article-info {
+            font-size: 0.9em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        /* Ảnh bìa */
+        .article-image img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .image-caption {
+            font-size: 0.8em;
+            color: #666;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Nội dung bài viết */
+        .article-content p {
+            margin-bottom: 15px;
+        }
+
+        .article-content h2 {
+            font-size: 1.5em;
+            margin: 20px 0 10px;
+            color: #444;
+        }
+
+        .highlight {
+            background: #f0f9ff;
+            border-left: 5px solid #007BFF;
+            padding: 10px 15px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #333;
+        }
+
+        /* Gợi ý bài viết liên quan */
+        .related-articles {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+            .related-articles h3 {
+                margin-bottom: 15px;
+            }
+
+            .related-articles a {
+                color: #007BFF;
+                text-decoration: none;
+                display: block;
+                margin-bottom: 10px;
+            }
+
+                .related-articles a:hover {
+                    text-decoration: underline;
+                }
+
+        /* Chia sẻ mạng xã hội */
+        .social-share {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+        }
+
+            .social-share button {
+                background: #007BFF;
+                color: #fff;
+                border: none;
+                padding: 10px 15px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+                .social-share button:hover {
+                    background: #0056b3;
+                }
+    </style>
+</head>
+<body>
+    <article>
+        <h1 class="article-title">Tiêu đề bài báo: Làm thế nào để viết một bài báo chi tiết</h1>
+        <p class="article-info">Ngày đăng: 4/12/2024 | Tác giả: Nguyễn Văn A | Chuyên mục: Công Nghệ</p>
+
+        <div class="article-image">
+            <img src="example.jpg" alt="Ảnh minh họa bài báo">
+            <p class="image-caption">Hình minh họa: Ảnh đẹp về công nghệ.</p>
+        </div>
+
+        <div class="article-content">
+            <p>Đoạn mở đầu bài viết, giới thiệu chủ đề một cách ngắn gọn và thu hút người đọc.</p>
+
+            <h2>Tiêu đề phụ: Tại sao bài báo cần chi tiết?</h2>
+            <p>Một bài báo chi tiết cung cấp giá trị thực sự cho người đọc. Nó giúp họ hiểu sâu hơn về chủ đề...</p>
+
+            <div class="highlight">
+                "Một bài báo tốt không chỉ cung cấp thông tin mà còn làm phong phú kiến thức của người đọc."
+            </div>
+
+            <h2>Tiêu đề phụ: Các bước xây dựng nội dung chất lượng</h2>
+            <p>Bước đầu tiên là nghiên cứu kỹ lưỡng...</p>
+        </div>
+
+        <div class="social-share">
+            <button>Chia sẻ Facebook</button>
+            <button>Chia sẻ Twitter</button>
+            <button>Sao chép liên kết</button>
+        </div>
+
+        <div class="related-articles">
+            <h3>Bài viết liên quan:</h3>
+            <a href="#">Làm thế nào để viết tiêu đề hấp dẫn?</a>
+            <a href="#">5 cách tối ưu hóa bài viết SEO</a>
+            <a href="#">Thiết kế giao diện web hiện đại</a>
+        </div>
+    </article>
+</body>
+</html>

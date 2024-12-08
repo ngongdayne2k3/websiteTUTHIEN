@@ -16,10 +16,20 @@ namespace websiteTUTHIEN.Controllers
             context = _context;
         }
 
+        // Action để hiển thị danh sách bài báo
+        public IActionResult BaiBao()
+        {
+            // Lấy tất cả bài báo từ cơ sở dữ liệu
+            var baiBaos = context.TableBaiBaos.ToList();
+
+            // Truyền danh sách bài báo vào View
+            return View(baiBaos);
+        }
 
         //Phân trang, tìm kiếm, sắp xếp, chưa phân loại?
         public ViewResult IndexBaiBao(string sortOrder, string searchString, string currentFilter, int? page)
         {
+
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSoreParm = sortOrder == "Date" ? "date_desc" : "Date";
             var baiBao = from s in context.TableBaiBaos select s;
@@ -71,7 +81,7 @@ namespace websiteTUTHIEN.Controllers
         {
             if (ModelState.IsValid)
             {
-                binhLuan.NgayBinhLuan = DateOnly.FromDateTime(DateTime.Now);
+                binhLuan.NgayBinhLuan = DateTime.Now;
                 context.TableBinhLuanBaiBaos.Add(binhLuan);
                 context.SaveChanges();
                 return RedirectToAction("ChiTietBaiBao", new { id = binhLuan.MaBaiBao });

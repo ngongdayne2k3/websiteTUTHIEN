@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.EntityFrameworkCore;
 using websiteTUTHIEN.Models;
 
@@ -15,53 +16,118 @@ namespace websiteTUTHIEN.Controllers
             env = _env;
         }
 
+        public IActionResult NguoiDung()
+        {
+            return View();
+        }
+
         public IActionResult Dangki()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Dangki(TableNguoiDung user)
+        public async Task<IActionResult> DangKi([Bind("TenNguoiDung,Email,TenTk,MatKhau")] TableNguoiDung nguoiDung)
         {
             if (ModelState.IsValid)
             {
-                var existingUser = await context.TableNguoiDungs.FirstOrDefaultAsync(u => u.TenTk == user.TenTk);
-                if (existingUser == null)
+                // Xử lý chuỗi để đảm bảo không lỗi khi so sánh
+                var emailInput = nguoiDung.Email.Trim().ToLower();
+                var usernameInput = nguoiDung.TenTk.Trim();
+
+                // Kiểm tra email đã tồn tại
+                var checkEmail = await context.TableNguoiDungs
+                    .FirstOrDefaultAsync(x => x.Email.ToLower() == emailInput);
+                if (checkEmail != null)
                 {
-                    context.TableNguoiDungs.Add(user);
-                    await context.SaveChangesAsync();
-                    return RedirectToAction("Login");
+                    ModelState.AddModelError("", "Địa chỉ Email đã tồn tại");
+                    return View();
                 }
-                ModelState.AddModelError("", "Tên người dùng đã tồn tại.");
+
+                // Kiểm tra tên tài khoản đã tồn tại
+                var checkTK = await context.TableNguoiDungs
+                    .FirstOrDefaultAsync(x => x.TenTk == usernameInput);
+                if (checkTK != null)
+                {
+                    ModelState.AddModelError("", "Tên tài khoản đã tồn tại");
+                    return View();
+                }
+
+                // Mã hóa mật khẩu (dùng BCrypt)
+                nguoiDung.MatKhau = BCrypt.Net.BCrypt.HashPassword(nguoiDung.MatKhau);
+
+                //Gán avatar mặc định vào khi tạo tài khoản mới
+                nguoiDung.AvatarNguoiDung = "../images/avatar.png";
+                try
+                {
+                    // Thêm người dùng vào cơ sở dữ liệu
+                    context.TableNguoiDungs.Add(nguoiDung);
+                    await context.SaveChangesAsync();
+
+                    // Lưu thông tin người dùng vào session
+                    HttpContext.Session.SetString("UserId", nguoiDung.MaNguoiDung.ToString());
+                    HttpContext.Session.SetString("TenTK", nguoiDung.TenTk);
+
+                    // Chuyển hướng về trang chủ
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Có lỗi xảy ra khi lưu dữ liệu: " + ex.Message);
+                    return View();
+                }
             }
-            return View(user);
+
+            // Trả lại view nếu model không hợp lệ
+            return View();
         }
 
+        [HttpGet]
         public IActionResult DangNhap()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> DangNhap(string username, string password)
+        [ValidateAntiForgeryToken]
+        public IActionResult DangNhap(TableNguoiDung u)
         {
-            if (ModelState.IsValid)
+            // Find the user by username
+            var user = context.TableNguoiDungs.FirstOrDefault(x => x.TenTk.Equals(u.TenTk));
+
+            if (user != null)
             {
-                var user = await context.TableNguoiDungs.FirstOrDefaultAsync(u => u.TenTk == username && u.MatKhau == password);
-                if (user != null)
+                // Verify the password
+                if (BCrypt.Net.BCrypt.Verify(u.MatKhau, user.MatKhau))
                 {
-                    HttpContext.Session.SetInt32("UserId", user.MaNguoiDung);
-                    HttpContext.Session.SetString("Username", user.TenTk);
+                    ViewBag.Thongbao = "Đăng nhập thành công";
+                    // Store only necessary user information in the session
+                    HttpContext.Session.SetInt32("MaTK", user.MaNguoiDung);
+                    HttpContext.Session.SetString("TenTk", user.TenTk);
+                    HttpContext.Session.SetString("TenND", user.TenNguoiDung);
+                    HttpContext.Session.SetString("HinhAnh", user.AvatarNguoiDung);// Assuming you have a property for the user's name
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError("", "Sai tên đăng nhập hoặc mật khẩu.");
+                else
+                {
+                    // Password is incorrect
+                    ModelState.AddModelError("", "Mật khẩu không chính xác.");
+                }
             }
-            return View();
+            else
+            {
+                // User not found
+                ModelState.AddModelError("", "Đăng Nhập Thất Bại! Kiểm Tra Lại Thông Tin Đăng Nhập");
+            }
+
+            // If we reach here, something went wrong, return to the login view with errors
+            return View(u); // Return the view with the model to show validation errors
         }
+
 
         public IActionResult Dangxuat()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction("Login");
+            return RedirectToAction("DangNhap");
         }
 
         public IActionResult EditProfile()
@@ -169,7 +235,7 @@ namespace websiteTUTHIEN.Controllers
                     }
                     duAn.Hinhanh = "/images/duan/" + fileName;
                 }
-                var userId = HttpContext.Session.GetInt32("UserId");
+                var userId = HttpContext.Session.GetInt32("MaTK");
                 duAn.MaNguoiDung = userId ?? 0;
                 duAn.DaDuyetBai = false;
                 duAn.DaKetThucDuAn = false;

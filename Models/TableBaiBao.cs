@@ -15,7 +15,7 @@ public partial class TableBaiBao
 
     public DateTime NgayDangBaiBao { get; set; }
 
-    public string HinhanhBaiBao { get; set; } = null!;
+    public string? HinhanhBaiBao { get; set; }
 
     public int MaDanhMucBaiBao { get; set; }
 

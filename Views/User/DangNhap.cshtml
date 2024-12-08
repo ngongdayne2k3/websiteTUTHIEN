@@ -1,0 +1,22 @@
+﻿@model websiteTUTHIEN.Models.TableNguoiDung
+@{
+    ViewData["Title"] = "Đăng Nhập";
+}
+<div class="container">
+    <h2>Đăng Nhập</h2>
+    <form asp-action="DangNhap" method="post">
+        <div class="form-group">
+            <label asp-for="TenTk" class="control-label login-label"></label>
+            <input asp-for="TenTk" class="form-control login-input" />
+            <span asp-validation-for="TenTk" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="MatKhau" class="control-label login-label"></label>
+            <input asp-for="MatKhau" type="password" class="form-control login-input" />
+            <span asp-validation-for="MatKhau" class="text-danger"></span>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Đăng Nhập</button>
+        </div>
+        <p>Chưa có tài khoản? <a asp-action="Dangki">Đăng ký ngay</a></p>
+    </form>
+</div>
