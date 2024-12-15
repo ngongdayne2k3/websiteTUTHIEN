@@ -29,40 +29,34 @@ namespace websiteTUTHIEN.Controllers
         //Phân trang, tìm kiếm, sắp xếp, chưa phân loại?
         public ViewResult IndexBaiBao(string sortOrder, string searchString, string currentFilter, int? page)
         {
+            // Set sorting options
+            ViewBag.NameSortParm = sortOrder == "name_desc" ? "name_asc" : "name_desc";
+            ViewBag.DateSortParm = sortOrder == "date_desc" ? "date_asc" : "date_desc";
 
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.DateSoreParm = sortOrder == "Date" ? "date_desc" : "Date";
-            var baiBao = from s in context.TableBaiBaos select s;
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    baiBao = baiBao.OrderByDescending(s => s.TenBaiBao);
-                    break;
-                case "Date":
-                    baiBao = baiBao.OrderBy(s => s.NgayDangBaiBao);
-                    break;
-                case "date_desc":
-                    baiBao = baiBao.OrderByDescending(s => s.NgayDangBaiBao);
-                    break;
-                default:
-                    baiBao = baiBao.OrderBy(s => s.TenBaiBao);
-                    break;
-            }
+            // Xử lý tìm kiếm
+            searchString ??= currentFilter;
+            ViewBag.currentFilter = searchString;
+
+            // Lọc và sắp xếp dữ liệu
+            var baiBao = context.TableBaiBaos.AsQueryable();
+
             if (!string.IsNullOrEmpty(searchString))
             {
                 baiBao = baiBao.Where(p => p.TenBaiBao.Contains(searchString));
             }
-            if (searchString != null)
+
+            baiBao = sortOrder switch
             {
-                page = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
-            ViewBag.currentFilter = searchString;
+                "name_desc" => baiBao.OrderByDescending(s => s.TenBaiBao),
+                "Date" => baiBao.OrderBy(s => s.NgayDangBaiBao),
+                "date_desc" => baiBao.OrderByDescending(s => s.NgayDangBaiBao),
+                _ => baiBao.OrderBy(s => s.TenBaiBao),
+            };
+
+            // Phân trang
             int pageSize = 3;
-            int pageNumber = (page ?? 1);
+            int pageNumber = page ?? 1;
+
             return View(baiBao.ToPagedList(pageNumber, pageSize));
         }
 

@@ -68,7 +68,7 @@ namespace websiteTUTHIEN.Controllers
                     HttpContext.Session.SetString("TenTK", nguoiDung.TenTk);
 
                     // Chuyển hướng về trang chủ
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("DangNhap", "User");
                 }
                 catch (Exception ex)
                 {
@@ -239,7 +239,6 @@ namespace websiteTUTHIEN.Controllers
                 duAn.MaNguoiDung = userId ?? 0;
                 duAn.DaDuyetBai = false;
                 duAn.DaKetThucDuAn = false;
-                duAn.Ngaybatdau = DateTime.Today;
                 duAn.SoTienHienTai = 0;
                 context.Add(duAn);
                 await context.SaveChangesAsync();

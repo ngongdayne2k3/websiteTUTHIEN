@@ -1,0 +1,38 @@
+﻿@model IEnumerable<websiteTUTHIEN.Models.TableNguoiDung>
+
+@{
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+    ViewData["Title"] = "Danh Sách Người Dùng";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Tên Người Dùng</th>
+            <th>Tên Tài Khoản</th>
+            <th>Số Điện Thoại</th>
+            <th>Email</th>
+            <th>Hành Động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaNguoiDung</td>
+                <td>@item.TenNguoiDung</td>
+                <td>@item.TenTk</td>
+                <td>@item.SdtnguoiDung</td>
+                <td>@item.Email</td>
+                <td>
+                    <a class="btn btn-info" asp-action="Chinhsua" asp-route-id="@item.MaNguoiDung">Chỉnh Sửa</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.MaNguoiDung">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

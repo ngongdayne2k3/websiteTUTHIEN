@@ -1,0 +1,23 @@
+﻿@model websiteTUTHIEN.Models.TableDanhMucDuAn
+
+@{
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+    ViewData["Title"] = "Thêm Mới Danh Mục Dự Án";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="CreateDanhMucDuAn" method="post">
+    <div class="form-group">
+        <label for="TenDanhMucDa">Tên Danh Mục</label>
+        <input type="text" class="form-control" id="TenDanhMucDa" name="TenDanhMucDa" required />
+    </div>
+    <div class="form-group">
+        <label for="MotaDanhMuc">Mô Tả</label>
+        <textarea class="form-control" id="MotaDanhMuc" name="MotaDanhMuc"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a class="btn btn-secondary" asp-action="IndexDanhMucDuAn">Hủy</a>
+</form>
+
+

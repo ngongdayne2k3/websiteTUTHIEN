@@ -1,55 +1,126 @@
 ﻿@model websiteTUTHIEN.Models.TableBaiBao
 
 @{
-    ViewData["Title"] = "ChiTietBaiBao";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Chi Tiết Bài Báo";
 }
 
-<h1>ChiTietBaiBao</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <style>
+        /* Các kiểu CSS từ mã bạn đã cung cấp */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<div>
-    <h4>TableBaiBao</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TenBaiBao)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TenBaiBao)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TenTacGia)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TenTacGia)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NoidungBaiBao)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NoidungBaiBao)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NgayDangBaiBao)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NgayDangBaiBao)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HinhanhBaiBao)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HinhanhBaiBao)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaDanhMucBaiBaoNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaDanhMucBaiBaoNavigation.MaDanhMucBaiBao)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.MaBaiBao">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f8f8;
+            padding: 20px;
+        }
+
+        .article-title {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .article-info {
+            font-size: 0.9em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .article-image img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .image-caption {
+            font-size: 0.8em;
+            color: #666;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .article-content p {
+            margin-bottom: 15px;
+        }
+
+        .article-content h2 {
+            font-size: 1.5em;
+            margin: 20px 0 10px;
+            color: #444;
+        }
+
+        .highlight {
+            background: #f0f9ff;
+            border-left: 5px solid #007BFF;
+            padding: 10px 15px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #333;
+        }
+
+        .related-articles {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+            .related-articles h3 {
+                margin-bottom: 15px;
+            }
+
+            .related-articles a {
+                color: #007BFF;
+                text-decoration: none;
+                display: block;
+                margin-bottom: 10px;
+            }
+
+                .related-articles a:hover {
+                    text-decoration: underline;
+                }
+
+        .social-share {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+        }
+
+            .social-share button {
+                background: #007BFF;
+                color: #fff;
+                border: none;
+                padding: 10px 15px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+                .social-share button:hover {
+                    background: #0056b3;
+                }
+    </style>
+</head>
+<body>
+    <article>
+        <h1 class="article-title">@Model.TenBaiBao</h1>
+        <p class="article-info"><strong>Tác giả:</strong> @Model.TenTacGia</p>
+        <p class="article-info"><strong>Ngày đăng:</strong> @Model.NgayDangBaiBao.ToString("dd/MM/yyyy")</p>
+
+
+        <div class="article-content">
+            <p>@Html.Raw(Model.NoidungBaiBao)</p>
+        </div>
+
+    </article>
+</body>
+</html>

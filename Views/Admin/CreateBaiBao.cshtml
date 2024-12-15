@@ -1,0 +1,73 @@
+﻿@model websiteTUTHIEN.Models.TableBaiBao
+@{
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Thêm Bài Báo</h2>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form asp-action="CreateBaiBao" method="post" enctype="multipart/form-data">
+                <!-- Tên Bài Báo -->
+                <div class="form-group mb-3">
+                    <label for="TenBaiBao" class="form-label"><strong>Tên Bài Báo</strong></label>
+                    <input type="text" asp-for="TenBaiBao" class="form-control" placeholder="Nhập tên bài báo" />
+                    <span asp-validation-for="TenBaiBao" class="text-danger"></span>
+                </div>
+
+                <!-- Tên Tác Giả -->
+                <div class="form-group mb-3">
+                    <label for="TenTacGia" class="form-label"><strong>Tên Tác Giả</strong></label>
+                    <input type="text" asp-for="TenTacGia" class="form-control" placeholder="Nhập tên tác giả" />
+                    <span asp-validation-for="TenTacGia" class="text-danger"></span>
+                </div>
+
+                <!-- Nội Dung -->
+                <div class="form-group mb-3">
+                    <label for="NoidungBaiBao" class="form-label"><strong>Nội Dung</strong></label>
+                    <textarea id="NoidungBaiBao" asp-for="NoidungBaiBao" class="form-control"></textarea>
+                    <span asp-validation-for="NoidungBaiBao" class="text-danger"></span>
+                </div>
+
+                <!-- Hình Ảnh -->
+                <div class="form-group mb-3">
+                    <label for="HinhanhBaiBao" class="form-label"><strong>Hình Ảnh</strong></label>
+                    <input type="file" asp-for="HinhanhBaiBao" class="form-control" name="imageFile" />
+                    <span asp-validation-for="HinhanhBaiBao" class="text-danger"></span>
+                </div>
+
+                <!-- Danh Mục -->
+                <div class="form-group mb-3">
+                    <label for="MaDanhMucBaiBao" class="form-label"><strong>Danh Mục</strong></label>
+                    <select asp-for="MaDanhMucBaiBao" asp-items="ViewBag.MaDanhMucBaiBao" class="form-select">
+                        <option value="">Chọn danh mục</option>
+                    </select>
+                    <span asp-validation-for="MaDanhMucBaiBao" class="text-danger"></span>
+                </div>
+
+                <!-- Buttons -->
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Lưu</button>
+                    <a asp-action="IndexBaiBao" class="btn btn-secondary"><i class="fas fa-times"></i> Hủy</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Chèn thư viện TinyMCE từ CDN -->
+<script src="https://cdn.tiny.cloud/1/2u90qtsogx97pqj9k1a99q7u7ir2n0efqgm95z4zeu4rarbn/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script>
+    // Cấu hình TinyMCE
+    tinymce.init({
+        selector: '#NoidungBaiBao',
+        plugins: 'image link code lists',
+        toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist | link image',
+        height: 400,
+        branding: false,  // Tắt logo TinyMCE
+        image_caption: true,
+        automatic_uploads: true,
+        file_picker_types: 'image',
+    });
+</script>

@@ -1,0 +1,22 @@
+﻿@model websiteTUTHIEN.Models.TableDanhMucBaiBao
+
+@{
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+    ViewData["Title"] = "Chỉnh Sửa Danh Mục Bài Báo";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="EditDanhMucBaiBao" method="post">
+    <input type="hidden" asp-for="MaDanhMucBaiBao" />
+    <div class="form-group">
+        <label for="TenDanhMucBaiBao">Tên Danh Mục</label>
+        <input type="text" class="form-control" id="TenDanhMucBaiBao" asp-for="TenDanhMucBaiBao" required />
+    </div>
+    <div class="form-group">
+        <label for="MotaDanhMuc">Mô Tả</label>
+        <textarea class="form-control" id="MotaDanhMuc" asp-for="MotaDanhMuc" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a class="btn btn-secondary" asp-action="IndexDanhMucBaiBao">Hủy</a>
+</form>

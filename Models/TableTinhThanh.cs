@@ -7,11 +7,11 @@ public partial class TableTinhThanh
 {
     public int MaTinhThanh { get; set; }
 
-    public string TenTinhThanh { get; set; } = null!;
+    public string TenTinhThanh { get; set; }
 
     public int MaVungMien { get; set; }
 
-    public virtual TableVungMien MaVungMienNavigation { get; set; } = null!;
+    public virtual TableVungMien MaVungMienNavigation { get; set; }
 
     public virtual ICollection<TableDuAn> TableDuAns { get; set; } = new List<TableDuAn>();
 }

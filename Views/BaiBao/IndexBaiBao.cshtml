@@ -1,0 +1,183 @@
+﻿@model X.PagedList.IPagedList<websiteTUTHIEN.Models.TableBaiBao>
+@using X.PagedList.Mvc.Core
+@using X.PagedList
+
+
+
+@{
+    ViewBag.Title = "Danh sách bài báo";
+    var selectedNameDesc = ViewBag.NameSortParm == "name_desc" ? "selected" : "";
+    var selectedDate = ViewBag.NameSortParm == "Date" ? "selected" : "";
+    var selectedDateDesc = ViewBag.NameSortParm == "date_desc" ? "selected" : "";
+}
+
+<h2 style="margin-top: 30px;margin-bottom:30px" class="text-center">Danh sách bài báo</h2>
+
+<form method="get" id="filterForm">
+    <div class="form-inline">
+        <!-- Tìm kiếm theo tên bài báo -->
+        <input type="text" name="searchString" class="form-control"
+               value="@ViewBag.currentFilter"
+               placeholder="Tìm kiếm theo tên bài báo..." />
+
+        <!-- Bộ lọc theo tên -->
+        <select name="sortOrder" class="form-control" onchange="document.getElementById('filterForm').submit()">
+            <!option value="name_desc" @(ViewBag.NameSortParm == "name_desc" ? "selected" : "")>Tên giảm dần</!option>
+            <!option value="Date" @(ViewBag.NameSortParm == "Date" ? "selected" : "")>Viết gần đây</!option>
+            <!option value="date_desc" @(ViewBag.NameSortParm == "date_desc" ? "selected" : "")>Viết cũ hơn</!option>
+        </select>
+    </div>
+</form>
+
+
+<div class="row d-flex justify-content-center">
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card d-flex flex-column" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); height: 100%;">
+                    <!-- Hình ảnh minh họa -->
+                    <img src="@item.HinhanhBaiBao" class="card-img-top" alt="@item.TenBaiBao">
+                    <div class="card-body">
+                        <!-- Tiêu đề bài báo -->
+                        <h5 class="card-title">
+                            @item.TenBaiBao
+                        </h5>
+                        <!-- Nội dung bài báo (100 ký tự) -->
+                        <p class="card-text">
+                            @(item.NoidungBaiBao.Length > 100
+                                ? item.NoidungBaiBao.Substring(0, 100) + "..."
+                                : item.NoidungBaiBao)
+                        </p>
+                        <!-- Nút Xem chi tiết -->
+                        <div class="text-center">
+                            <a href="@Url.Action("ChiTietBaiBao", "BaiBao", new { id = item.MaBaiBao })" class="btn btn-primary">
+                                Xem chi tiết
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <style>
+                .form-row {
+                    display: flex;
+                    justify-content: center; /* Căn giữa tất cả các phần tử trong form */
+                }
+
+                .input-group {
+                    width: 100%;
+                }
+
+                .input-group-append {
+                    margin-left: 10px; /* Giảm khoảng cách giữa ô input và nút */
+                }
+
+                .input-group .form-control {
+                    border-radius: 5px 0 0 5px; /* Bo góc trái cho input */
+                }
+
+                .input-group .btn {
+                    border-radius: 0 5px 5px 0; /* Bo góc phải cho nút */
+                }   
+                .card {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between; /* Đẩy nội dung giãn cách */
+                    height: 100%; /* Đảm bảo thẻ card có chiều cao đầy đủ */
+                }
+
+                .card-body {
+                    flex-grow: 1; /* Nội dung chính chiếm khoảng trống còn lại */
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                }
+
+                .card .btn {
+                    margin-top: auto; /* Đẩy nút xuống cuối */
+                }
+
+                .card img {
+                    height: 180px;
+                    object-fit: cover;
+                }
+
+                .card-title {
+                    min-height: 48px;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 2;
+                    overflow: hidden;
+                }
+
+                .card-text {
+                    max-height: 100px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .text-center {
+                    display: flex;
+                    justify-content: center; /* Căn giữa nội dung */
+                    align-items: center; /* Căn giữa theo chiều dọc */
+                    margin-top: 20px; /* Thêm khoảng cách phía trên nếu cần */
+                }
+
+                .pagination {
+                    display: flex;
+                    justify-content: center; /* Căn giữa các nút phân trang */
+                    padding: 0; /* Bỏ padding mặc định */
+                }
+
+                    .pagination li {
+                        list-style-type: none; /* Bỏ dấu chấm đầu dòng */
+                        margin: 0 5px; /* Thêm khoảng cách giữa các nút */
+                    }
+
+                        .pagination li a, .pagination li span {
+                            padding: 8px 16px;
+                            border: 1px solid #ccc;
+                            border-radius: 4px;
+                            color: #007bff;
+                            text-decoration: none;
+                        }
+
+                            .pagination li a:hover, .pagination li span:hover {
+                                background-color: #007bff;
+                                color: white;
+                            }
+
+                    .pagination .active a {
+                        background-color: #007bff;
+                        color: white;
+                    }
+            </style>
+
+        }   
+    }
+    else
+    {
+        <div class="col-12 text-center">
+            <p>Không có bài báo nào để hiển thị</p>
+        </div>
+    }
+</div>
+
+<div class="text-center">
+    @Html.PagedListPager(Model, page => Url.Action("IndexBaiBao",
+            new { page, sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.currentFilter }))
+</div>
+
+<script>
+    let searchTimeout;
+    const searchBox = document.querySelector('input[name="searchString"]');
+
+    searchBox.addEventListener('input', function () {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            document.getElementById('filterForm').submit();
+        }, 500); // Gửi form sau 500ms nếu không nhập thêm
+    });
+</script>
+

@@ -21,6 +21,7 @@ namespace websiteTUTHIEN.Controllers
             return View();
         }
 
+        #region Danh Mục dự án
         //DanhMucDuAn
         //GET: Admin/IndexDanhMucDuAn
         public async Task<IActionResult> IndexDanhMucDuAn()
@@ -119,8 +120,9 @@ namespace websiteTUTHIEN.Controllers
             await context.SaveChangesAsync();
             return RedirectToAction(nameof(IndexDanhMucDuAn));
         }
+        #endregion
 
-        //-------------------------------NguoiDung
+        #region  Người dùng
         public async Task<IActionResult> IndexND()
         {
             return View(await context.TableNguoiDungs.ToListAsync());
@@ -156,7 +158,7 @@ namespace websiteTUTHIEN.Controllers
                 user.DiaChi = updatedUser.DiaChi;
                 user.NamSinh = updatedUser.NamSinh;
                 await context.SaveChangesAsync();
-                return RedirectToAction("ListNguoiDung");
+                return RedirectToAction(nameof(IndexND));
             }
             return View(updatedUser);
         }
@@ -180,16 +182,15 @@ namespace websiteTUTHIEN.Controllers
                 context.TableNguoiDungs.Remove(user);
                 await context.SaveChangesAsync();
             }
-            return RedirectToAction("ListNguoiDung");
+            return RedirectToAction(nameof(IndexND));
         }
+        #endregion
 
-
+        #region Bài Báo
         //------------------Hiển thị bài báo
         public IActionResult CreateBaiBao()
         {
-            ViewData["DanhMucBaiBao"] = new SelectList(context.TableDanhMucBaiBaos, "MaDanhMucBaiBao", "TenDanhMucBaiBao");
-            ViewData["NgayBatDau"] = DateTime.Today;
-            ViewData["NgayKetThuc"] = DateTime.Today;
+            ViewBag.MaDanhMucBaiBao = new SelectList(context.TableDanhMucBaiBaos.ToList(), nameof(TableDanhMucBaiBao.MaDanhMucBaiBao), nameof(TableDanhMucBaiBao.TenDanhMucBaiBao));
             return View();
         }
 
@@ -202,20 +203,19 @@ namespace websiteTUTHIEN.Controllers
                 if (imageFile != null)
                 {
                     var fileName = Path.GetFileName(imageFile.FileName);
-                    var filePath = Path.Combine(env.WebRootPath, "images", fileName);
+                    var filePath = Path.Combine(env.WebRootPath, "images", "baibao", fileName);
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
                         await imageFile.CopyToAsync(stream);
                     }
-                    baiBao.HinhanhBaiBao = "/images/baibao/" + fileName;
+                    baiBao.HinhanhBaiBao = "../images/baibao/" + fileName;
                 }
+                baiBao.NgayDangBaiBao = DateTime.Now;
                 context.TableBaiBaos.Add(baiBao);
                 await context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexBaiBao));
             }
-            ViewData["DanhMucBaiBao"] = new SelectList(context.TableDanhMucBaiBaos, "MaDanhMucBaiBao", "TenDanhMucBaiBao");
-            ViewData["NgayBatDau"] = DateTime.Today;
-            ViewData["NgayKetThuc"] = DateTime.Today;
+            ViewBag.MaDanhMucBaiBao = new SelectList(context.TableDanhMucBaiBaos.ToList(), nameof(TableDanhMucBaiBao.MaDanhMucBaiBao), nameof(TableDanhMucBaiBao.TenDanhMucBaiBao));
             return View(baiBao);
         }
 
@@ -255,13 +255,14 @@ namespace websiteTUTHIEN.Controllers
                     if (imageFile != null)
                     {
                         var fileName = Path.GetFileName(imageFile.FileName);
-                        var filePath = Path.Combine(env.WebRootPath, "images", fileName);
+                        var filePath = Path.Combine(env.WebRootPath, "images", "baibao", fileName);
                         using (var stream = new FileStream(filePath, FileMode.Create))
                         {
                             await imageFile.CopyToAsync(stream);
                         }
-                        baiBao.HinhanhBaiBao = "/images/baibao/" + fileName;
+                        baiBao.HinhanhBaiBao = "../images/baibao/" + fileName;
                     }
+                    baiBao.NgayDangBaiBao = DateTime.Now;
                     context.TableBaiBaos.Update(baiBao);
                     await context.SaveChangesAsync();
                 }
@@ -304,7 +305,9 @@ namespace websiteTUTHIEN.Controllers
             await context.SaveChangesAsync();
             return RedirectToAction(nameof(IndexBaiBao));
         }
+        #endregion
 
+        #region Danh mục bài báo
         //-----------------------------Danh mục bài báo
         public async Task<IActionResult> IndexDanhMucBaiBao()
         {
@@ -398,5 +401,7 @@ namespace websiteTUTHIEN.Controllers
             await context.SaveChangesAsync();
             return RedirectToAction(nameof(IndexDanhMucBaiBao));
         }
+
+        #endregion
     }
 }

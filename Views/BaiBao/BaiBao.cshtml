@@ -14,25 +14,62 @@
         <div class="row">
             @foreach (var item in Model)
             {
-                <div class="col-6 col-12-narrower">
-                    <section class="box special">
-                        <span class="icon solid major fa-file-alt accent2"></span>
-                        <h3>@item.TenBaiBao</h3>
-                        <p>
-                            @(item.NoidungBaiBao.Length > 20
-                                ? item.NoidungBaiBao.Substring(0, 20) + "..."
-                                : item.NoidungBaiBao)
-                        </p>
-                        <ul class="actions special">
-                            <li>
-                                <a href="@Url.Action("BaiBaoIndex", "BaiBao", new { id = item.MaBaiBao })" class="button alt">
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="card" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                        <!-- Hình ảnh minh họa -->
+                        <img src="image-placeholder.jpg" class="card-img-top" alt="@item.TenBaiBao">
+                        <div class="card-body">
+                            <!-- Tiêu đề bài báo -->
+                            <h5 class="card-title">
+                                @item.TenBaiBao
+                            </h5>
+                            <!-- Nội dung bài báo (100 ký tự) -->
+                            <p class="card-text">
+                                @(item.NoidungBaiBao.Length > 100
+                                    ? item.NoidungBaiBao.Substring(0, 100) + "..."
+                                    : item.NoidungBaiBao)
+                            </p>
+                            <!-- Nút Xem chi tiết -->
+                            <div class="text-center">
+                                <a href="@Url.Action("BaiBaoIndex", "BaiBao", new { id = item.MaBaiBao })" class="btn btn-primary">
                                     Xem chi tiết
                                 </a>
-                            </li>
-                        </ul>
-                    </section>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             }
         </div>
+        <style>
+            .card {
+                display: flex;
+                flex-direction: column;
+                height: 100%; /* Chiều cao thẻ bằng 100% chiều cao của cột */
+            }
+
+            .card-body {
+                flex-grow: 1; /* Đảm bảo nội dung bên trong phát triển để chiếm tối đa chiều cao */
+            }
+
+            .card img {
+                height: 180px; /* Đặt chiều cao cố định cho hình ảnh */
+                object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
+            }
+
+            .card-title {
+                min-height: 48px; /* Đảm bảo vùng tiêu đề có cùng kích thước */
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2; /* Giới hạn hiển thị 2 dòng */
+                overflow: hidden;
+            }
+
+            .card-text {
+                max-height: 100px; /* Giới hạn chiều cao nội dung mô tả */
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        </style>
+
     </section>
 </section>

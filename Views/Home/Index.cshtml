@@ -7,11 +7,58 @@
 
 <!-- Banner -->
 <section id="banner">
-    <h2>Vi mot tuong lai tuoi sang</h2>
-    <p>Hay chung tay quyen gop vi nhung con nguoi khong duoc may man trong cuoc song</p>
-    <ul class="actions special">
-    </ul>
+    <div class="slides">
+        <!-- Slide 1 -->
+        <div class="slide active" style="background-image: url('../images/banner.jpg');">
+            <h2>Vì một tương lai tươi sáng</h2>
+            <p>Hãy chung tay quyên góp vì những con người không được may mắn trong cuộc sống</p>
+        </div>
+        <!-- Slide 2 -->
+        <div class="slide" style="background-image: url('../images/pic05.jpg');">
+            <h2>Hãy sẻ chia</h2>
+            <p>Đừng để ai bị bỏ lại phía sau</p>
+        </div>
+        <!-- Slide 3 -->
+        <div class="slide" style="background-image: url('../images/pic06.jpg');">
+            <h2>Hành động hôm nay</h2>
+            <p>Vì một ngày mai tốt đẹp hơn</p>
+        </div>
+    </div>
+    <button class="control prev">&lt;</button>
+    <button class="control next">&gt;</button>
 </section>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const slides = document.querySelectorAll(".slide");
+        const prevButton = document.querySelector(".control.prev");
+        const nextButton = document.querySelector(".control.next");
+        let currentIndex = 0;
+
+        // Hiển thị slide theo chỉ số
+        function showSlide(index) {
+            slides[currentIndex].classList.remove("active");
+            currentIndex = (index + slides.length) % slides.length; // Đảm bảo chỉ số hợp lệ
+            slides[currentIndex].classList.add("active");
+        }
+
+        // Chuyển đến slide trước
+        prevButton.addEventListener("click", function () {
+            showSlide(currentIndex - 1);
+        });
+
+        // Chuyển đến slide tiếp theo
+        nextButton.addEventListener("click", function () {
+            showSlide(currentIndex + 1);
+        });
+
+        // Tự động chuyển slide sau mỗi 5 giây
+        setInterval(function () {
+            showSlide(currentIndex + 1);
+        }, 10000);
+    });
+
+
+</script>
 
 <!-- Main -->
 <section id="main" class="container">
@@ -23,11 +70,13 @@
                 day cung the
             </p>
         </header>
-        <span class="image featured"><img src="images/pic01.png" alt="" /></span>
     </section>
 
     <section class="box special features">
         <div class="row">
+            <p style="font-size: 36px;">
+                Bai Bao 
+            </p>
             @foreach (var item in Model.Take(4)) // Lấy tối đa 4 bài báo
             {
                 <div class="col-6 col-12-narrower">
@@ -55,17 +104,54 @@
 
 <!-- CTA -->
 <section id="cta">
-    <h2>Sign up for beta access</h2>
-    <p>Blandit varius ut praesent nascetur eu penatibus nisi risus faucibus nunc.</p>
+    <h2>Đăng nhập để nhận thêm nhiều thông tin hơn</h2>
 
     <form>
         <div class="row gtr-50 gtr-uniform">
-            <div class="col-8 col-12-mobilep">
-                <input type="email" name="email" id="email" placeholder="Email Address" />
-            </div>
-            <div class="col-4 col-12-mobilep">
-                <input type="submit" value="Sign Up" class="fit" />
+            <div class="col-12 text-center">
+                <input type="submit" value="Đăng nhập" class="fit btn-login" asp-controller="User" asp-action="DangNhap" />
+                <input type="submit" value="Đăng ký" class="fit btn-register" asp-controller="User" asp-action="DangKi" />
             </div>
         </div>
+        <style>
+            /* Căn giữa các phần tử */
+            .text-center {
+                text-align: center;
+            }
+
+            /* Thiết lập các nút trong cùng một hàng ngang */
+            .row .col-12 {
+                display: flex;
+                justify-content: center; /* Căn giữa các nút */
+                gap: 10px; /* Khoảng cách giữa các nút */
+            }
+
+            /* Kiểu dáng cho các nút */
+            .fit {
+                padding: 10px 20px;
+                font-size: 16px;
+                border: none;
+                cursor: pointer;
+                width: 150px; /* Chiều rộng của nút */
+            }
+
+            /* Nút Đăng nhập */
+            .btn-login {
+                background-color: #1E9FB4;
+                color: white;
+            }
+
+            /* Nút Đăng ký */
+            .btn-register {
+                background-color: #8a8383; /* Màu đỏ */
+                color: white;
+            }
+
+            .fit:hover {
+                opacity: 0.8;
+            }
+
+        </style>
     </form>
+
 </section>

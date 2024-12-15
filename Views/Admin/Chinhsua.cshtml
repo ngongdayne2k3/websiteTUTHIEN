@@ -1,0 +1,46 @@
+﻿@model websiteTUTHIEN.Models.TableNguoiDung
+
+@{
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+    ViewData["Title"] = "Chỉnh Sửa Người Dùng";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Chinhsua" method="post">
+    <input type="hidden" asp-for="MaNguoiDung" />
+    <div class="form-group">
+        <label for="TenNguoiDung">Tên Người Dùng</label>
+        <input type="text" class="form-control" id="TenNguoiDung" asp-for="TenNguoiDung" required />
+    </div>
+    <div class="form-group">
+        <label for="AvatarNguoiDung">Avatar (URL)</label>
+        <input type="text" class="form-control" id="AvatarNguoiDung" asp-for="AvatarNguoiDung" />
+    </div>
+    <div class="form-group">
+        <label for="TenTk">Tên Tài Khoản</label>
+        <input type="text" class="form-control" id="TenTk" asp-for="TenTk" required />
+    </div>
+    <div class="form-group">
+        <label for="MatKhau">Mật Khẩu</label>
+        <input type="password" class="form-control" id="MatKhau" asp-for="MatKhau" required />
+    </div>
+    <div class="form-group">
+        <label for="SdtnguoiDung">Số Điện Thoại</label>
+        <input type="number" class="form-control" id="SdtnguoiDung" asp-for="SdtnguoiDung" />
+    </div>
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="email" class="form-control" id="Email" asp-for="Email" required />
+    </div>
+    <div class="form-group">
+        <label for="DiaChi">Địa Chỉ</label>
+        <input type="text" class="form-control" id="DiaChi" asp-for="DiaChi" />
+    </div>
+    <div class="form-group">
+        <label for="NamSinh">Năm Sinh</label>
+        <input type="date" class="form-control" id="NamSinh" asp-for="NamSinh" />
+    </div>
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a class="btn btn-secondary" asp-action="IndexND">Hủy</a>
+</form>

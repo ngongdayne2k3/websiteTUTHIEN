@@ -1,0 +1,36 @@
+﻿@model IEnumerable<websiteTUTHIEN.Models.TableDanhMucDuAn>
+@{
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+    ViewData["Title"] = "Danh MụcDự án";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="CreateDanhMucDuAn">Thêm Mới Danh Mục</a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Tên Danh Mục</th>
+            <th>Mô Tả</th>
+            <th>Hành Động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaDanhMucDa</td>
+                <td>@item.TenDanhMucDa</td>
+                <td>@item.MotaDanhMuc</td>
+                <td>
+                    <a class="btn btn-info" asp-action="EditDanhMucDuAn" asp-route-id="@item.MaDanhMucDa">Chỉnh Sửa</a>
+                    <a class="btn btn-danger" asp-action="DeleteDanhMucDuAn" asp-route-id="@item.MaDanhMucDa">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

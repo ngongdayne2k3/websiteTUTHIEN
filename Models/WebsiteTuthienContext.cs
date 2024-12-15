@@ -51,12 +51,15 @@ public partial class WebsiteTuthienContext : DbContext
 
             entity.Property(e => e.MaAdmin).HasColumnName("maAdmin");
             entity.Property(e => e.Diachi)
+                .IsRequired()
                 .HasMaxLength(100)
                 .HasColumnName("diachi");
             entity.Property(e => e.Hinhanh)
+                .IsRequired()
                 .HasMaxLength(255)
                 .HasColumnName("hinhanh");
             entity.Property(e => e.Matkhau)
+                .IsRequired()
                 .HasMaxLength(100)
                 .HasColumnName("matkhau");
             entity.Property(e => e.Namsinh)
@@ -66,9 +69,11 @@ public partial class WebsiteTuthienContext : DbContext
                 .HasColumnType("decimal(10, 0)")
                 .HasColumnName("sdt");
             entity.Property(e => e.TenTk)
+                .IsRequired()
                 .HasMaxLength(100)
                 .HasColumnName("tenTk");
             entity.Property(e => e.Tenadmin)
+                .IsRequired()
                 .HasMaxLength(100)
                 .HasColumnName("tenadmin");
         });
@@ -87,11 +92,15 @@ public partial class WebsiteTuthienContext : DbContext
             entity.Property(e => e.NgayDangBaiBao)
                 .HasColumnType("datetime")
                 .HasColumnName("ngayDangBaiBao");
-            entity.Property(e => e.NoidungBaiBao).HasColumnName("noidungBaiBao");
+            entity.Property(e => e.NoidungBaiBao)
+                .IsRequired()
+                .HasColumnName("noidungBaiBao");
             entity.Property(e => e.TenBaiBao)
+                .IsRequired()
                 .HasMaxLength(500)
                 .HasColumnName("tenBaiBao");
             entity.Property(e => e.TenTacGia)
+                .IsRequired()
                 .HasMaxLength(100)
                 .HasColumnName("tenTacGia");
 
@@ -114,6 +123,7 @@ public partial class WebsiteTuthienContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("ngayBinhLuan");
             entity.Property(e => e.NoidungBinhLuan)
+                .IsRequired()
                 .HasMaxLength(255)
                 .HasColumnName("noidungBinhLuan");
 
@@ -136,9 +146,11 @@ public partial class WebsiteTuthienContext : DbContext
 
             entity.Property(e => e.MaDanhMucBaiBao).HasColumnName("maDanhMucBaiBao");
             entity.Property(e => e.MotaDanhMuc)
+                .IsRequired()
                 .HasMaxLength(500)
                 .HasColumnName("motaDanhMuc");
             entity.Property(e => e.TenDanhMucBaiBao)
+                .IsRequired()
                 .HasMaxLength(100)
                 .HasColumnName("tenDanhMucBaiBao");
         });
@@ -154,6 +166,7 @@ public partial class WebsiteTuthienContext : DbContext
                 .HasMaxLength(500)
                 .HasColumnName("motaDanhMuc");
             entity.Property(e => e.TenDanhMucDa)
+                .IsRequired()
                 .HasMaxLength(100)
                 .HasColumnName("tenDanhMucDA");
         });
@@ -186,10 +199,13 @@ public partial class WebsiteTuthienContext : DbContext
             entity.Property(e => e.Ngayketthuc)
                 .HasColumnType("datetime")
                 .HasColumnName("ngayketthuc");
-            entity.Property(e => e.NoidungDuAn).HasColumnName("noidungDuAn");
+            entity.Property(e => e.NoidungDuAn)
+                .IsRequired()
+                .HasColumnName("noidungDuAn");
             entity.Property(e => e.SoTienHienTai).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.SoTienMucTieu).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.TenDuAn)
+                .IsRequired()
                 .HasMaxLength(500)
                 .HasColumnName("tenDuAn");
 
@@ -200,7 +216,6 @@ public partial class WebsiteTuthienContext : DbContext
 
             entity.HasOne(d => d.MaNguoiDungNavigation).WithMany(p => p.TableDuAns)
                 .HasForeignKey(d => d.MaNguoiDung)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_TableDuAn_TableNguoiDung");
 
             entity.HasOne(d => d.MaTinhThanhNavigation).WithMany(p => p.TableDuAns)
@@ -216,7 +231,9 @@ public partial class WebsiteTuthienContext : DbContext
             entity.ToTable("TableHinhThucQuyenGop");
 
             entity.Property(e => e.MaHinhThucQuyenGop).HasColumnName("maHinhThucQuyenGop");
-            entity.Property(e => e.HinhThucQuyenGop).HasMaxLength(50);
+            entity.Property(e => e.HinhThucQuyenGop)
+                .IsRequired()
+                .HasMaxLength(50);
         });
 
         modelBuilder.Entity<TableNguoiDung>(entity =>
@@ -230,8 +247,11 @@ public partial class WebsiteTuthienContext : DbContext
                 .HasMaxLength(300)
                 .HasColumnName("avatarNguoiDung");
             entity.Property(e => e.DiaChi).HasMaxLength(255);
-            entity.Property(e => e.Email).HasMaxLength(50);
+            entity.Property(e => e.Email)
+                .IsRequired()
+                .HasMaxLength(50);
             entity.Property(e => e.MatKhau)
+                .IsRequired()
                 .HasMaxLength(100)
                 .HasColumnName("matKhau");
             entity.Property(e => e.NamSinh).HasColumnType("datetime");
@@ -239,9 +259,11 @@ public partial class WebsiteTuthienContext : DbContext
                 .HasColumnType("decimal(10, 0)")
                 .HasColumnName("SDTNguoiDung");
             entity.Property(e => e.TenNguoiDung)
+                .IsRequired()
                 .HasMaxLength(100)
                 .HasColumnName("tenNguoiDung");
             entity.Property(e => e.TenTk)
+                .IsRequired()
                 .HasMaxLength(100)
                 .HasColumnName("tenTK");
         });
@@ -253,12 +275,19 @@ public partial class WebsiteTuthienContext : DbContext
             entity.ToTable("TableQuyenGop");
 
             entity.Property(e => e.MaQuyenGop).ValueGeneratedNever();
-            entity.Property(e => e.GhiChuQuyenGop).HasMaxLength(200);
-            entity.Property(e => e.GiaTriQuyenGop).HasMaxLength(50);
+            entity.Property(e => e.DaXacNhan).HasColumnName("daXacNhan");
+            entity.Property(e => e.GhiChuQuyenGop)
+                .IsRequired()
+                .HasMaxLength(200);
+            entity.Property(e => e.GiaTriQuyenGop)
+                .IsRequired()
+                .HasMaxLength(50);
             entity.Property(e => e.MaDuAn).HasColumnName("maDuAn");
             entity.Property(e => e.MaHinhThucQuyenGop).HasColumnName("maHinhThucQuyenGop");
             entity.Property(e => e.NgayQuyenGop).HasColumnType("datetime");
-            entity.Property(e => e.TenNguoiQuyenGop).HasMaxLength(100);
+            entity.Property(e => e.TenNguoiQuyenGop)
+                .IsRequired()
+                .HasMaxLength(100);
 
             entity.HasOne(d => d.MaDuAnNavigation).WithMany(p => p.TableQuyenGops)
                 .HasForeignKey(d => d.MaDuAn)
@@ -282,6 +311,7 @@ public partial class WebsiteTuthienContext : DbContext
                 .HasColumnName("maTinhThanh");
             entity.Property(e => e.MaVungMien).HasColumnName("maVungMien");
             entity.Property(e => e.TenTinhThanh)
+                .IsRequired()
                 .HasMaxLength(60)
                 .HasColumnName("tenTinhThanh");
 
@@ -299,6 +329,7 @@ public partial class WebsiteTuthienContext : DbContext
 
             entity.Property(e => e.MaVungMien).HasColumnName("maVungMien");
             entity.Property(e => e.TenVungMien)
+                .IsRequired()
                 .HasMaxLength(100)
                 .HasColumnName("tenVungMien");
         });

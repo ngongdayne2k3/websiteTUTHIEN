@@ -1,0 +1,32 @@
+﻿@model websiteTUTHIEN.Models.TableDanhMucBaiBao
+
+@{
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+    ViewData["Title"] = "Xóa Danh Mục Bài Báo";
+}
+
+
+<h2>Xác nhận xóa danh mục bài báo</h2>
+<p>Bạn có chắc chắn muốn xóa danh mục bài báo sau?</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tên danh mục</th>
+            <th>Mô tả</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.TenDanhMucBaiBao</td>
+            <td>@Model.MotaDanhMuc</td>
+        </tr>
+    </tbody>
+</table>
+
+<form asp-action="DeleteDanhMucBaiBao" asp-controller="Admin" method="post">
+    <input type="hidden" asp-for="MaDanhMucBaiBao" />
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a href="@Url.Action("IndexDanhMucBaiBao", "DanhMucBaiBao")" class="btn btn-secondary">Hủy</a>
+</form>
+

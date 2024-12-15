@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using websiteTUTHIEN.Models;
+using websiteTUTHIEN.Services.VnPay;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -10,7 +12,8 @@ builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddDbContext<WebsiteTuthienContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-//session
+
+//Session
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30); // Thời gian tồn tại của session
@@ -18,6 +21,9 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true; // Đảm bảo session hoạt động ngay cả khi không bật cookie tracking
 });
 
+
+//Connect VnPay
+builder.Services.AddScoped<IVnPayService, VnPayService>();
 
 var app = builder.Build();
 

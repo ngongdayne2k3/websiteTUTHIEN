@@ -1,0 +1,121 @@
+﻿@model websiteTUTHIEN.Models.TableDuAn
+
+@{
+    ViewData["Title"] = "Thêm Dự Án";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .custom-card {
+            margin: 50px auto;
+            max-width: 700px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .btn-custom {
+            background-color: #198754;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+            .btn-custom:hover {
+                background-color: #146c43;
+                color: white;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="custom-card">
+            <h2>Thêm Dự Án Mới</h2>
+            <form asp-action="CreateDuAn" asp-controller="User" enctype="multipart/form-data" method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+                    <label for="TenDuAn" class="form-label">Tên Dự Án</label>
+                    <input type="text" id="TenDuAn" name="TenDuAn" class="form-control" value="@Model?.TenDuAn" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="NoidungDuAn" class="form-label">Nội Dung Dự Án</label>
+                    <textarea id="NoidungDuAn" name="NoidungDuAn" class="form-control" rows="4" required>@Model?.NoidungDuAn</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="SoTienMucTieu" class="form-label">Số Tiền Mục Tiêu</label>
+                    <input type="number" id="SoTienMucTieu" name="SoTienMucTieu" class="form-control" value="@Model?.SoTienMucTieu" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="SoTienHienTai" class="form-label">Số Tiền Hiện tại</label>
+                    <input type="number" id="SoTienHienTai" name="SoTienHienTai" class="form-control" value="@Model?.SoTienHienTai" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="imageFile" class="form-label">Hình Ảnh</label>
+                    <input type="file" id="imageFile" name="imageFile" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label for="Ngaybatdau" class="form-label">Ngày Bắt Đầu</label>
+                    <input type="date" id="Ngaybatdau" name="Ngaybatdau" class="form-control" value="@Model?.Ngaybatdau.ToString("yyyy-MM-dd")" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Ngayketthuc" class="form-label">Ngày Kết Thúc</label>
+                    <input type="date" id="Ngayketthuc" name="Ngayketthuc" class="form-control" value="@Model?.Ngayketthuc.ToString("yyyy-MM-dd")" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="MaDanhMuDa">Danh Mục</label>
+                    <select asp-for="MaDanhMucDa" asp-items="ViewBag.DanhMucDa" class="form-control"></select>
+                    <span asp-validation-for="MaDanhMucDa" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="MaTinhThanh">Tỉnh Thành</label>
+                    <select asp-for="MaTinhThanh" asp-items="ViewBag.TinhThanh" class="form-control"></select>
+                    <span asp-validation-for="MaTinhThanh" class="text-danger"></span>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input type="checkbox" id="CoNghiemTrong" name="CoNghiemTrong" class="form-check-input" value="true" @(Model?.CoNghiemTrong == true ? "checked" : "")>
+                    <label class="form-check-label" for="CoNghiemTrong">Có Nghiêm Trọng</label>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-custom">Thêm Dự Án</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

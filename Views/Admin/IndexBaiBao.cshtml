@@ -1,0 +1,41 @@
+﻿@model IEnumerable<websiteTUTHIEN.Models.TableBaiBao>
+@{
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+}
+
+<h2>Danh sách Bài Báo</h2>
+<a asp-action="CreateBaiBao" class="btn btn-primary mb-3">Thêm Bài Báo</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Mã</th>
+            <th>Tên Bài Báo</th>
+            <th>Tác Giả</th>
+            <th>Danh Mục</th>
+            <th>Hình Ảnh</th>
+            <th>Ngày Đăng</th>
+            <th>Hành Động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaBaiBao</td>
+                <td>@item.TenBaiBao</td>
+                <td>@item.TenTacGia</td>
+				<td>@item.MaDanhMucBaiBao</td>
+                <td>
+                    <img src="@item.HinhanhBaiBao" alt="@item.TenBaiBao" style="width: 100px;" />
+                </td>
+                <td>@item.NgayDangBaiBao.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <a asp-action="EditBaiBao" asp-route-id="@item.MaBaiBao" class="btn btn-warning btn-sm">Sửa</a>
+                    <a asp-action="DeleteBaiBao" asp-route-id="@item.MaBaiBao" class="btn btn-danger btn-sm">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -29,7 +29,7 @@ namespace websiteTUTHIEN.Controllers
 
         public IActionResult ChiTietDuAn(int id)
         {
-            var duan = context.TableDuAns.FirstOrDefault(p => p.MaDanhMucDa == id);
+            var duan = context.TableDuAns.FirstOrDefault(p => p.MaDuAn == id);
             if (duan == null)
             {
                 return NotFound();

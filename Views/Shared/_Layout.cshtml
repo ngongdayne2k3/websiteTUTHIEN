@@ -15,6 +15,8 @@
     <!-- CSS -->
     <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/fontawesome-all.min.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
 </head>
 <body>
     <div id="page-wrapper">
@@ -22,15 +24,14 @@
         <!-- Header -->
         <!-- Header -->
         <header id="header">
-            <h1><a href="/">Website Từ Thiện</a></h1>
+            <h1><a href="/" style="font-size: 1.75rem; ertical-align: ">Website Từ Thiện</a></h1>
             <nav id="nav">
                 <ul>
                     <li><a href="/"></a></li>
                     <li>
                         <a asp-controller="Home" asp-action="Index">Trang chủ</a>
-                        <a asp-controller="DuAn" asp-action="DuAn">Dự án</a>
-                        <a asp-controller="BaiBao" asp-action="BaiBao">Bài báo</a>
-                        
+                        <a asp-controller="DuAn" asp-action="IndexDuAn">Dự án</a>
+						<a asp-controller="BaiBao" asp-action="IndexBaiBao">Bài báo</a>
                         <a asp-controller="Admin" asp-action="Index">Admin</a>
                         <a href="@Url.Action("Index", "Admin")">Quản Trị</a>
                         <a asp-controller="User" asp-action="Edit">Trợ giúp</a>
@@ -39,28 +40,65 @@
                         {
                             @if (!string.IsNullOrEmpty(Context.Session.GetString("HinhAnh")))
                             {
-                                <img src="@Context.Session.GetString("HinhAnh")" alt="Avatar" style="width: 35px; height: 35px; border-radius: 50%; margin-right: 0px; margin-left: 20px; vertical-align: middle;" />
+                                <img src="@Context.Session.GetString("HinhAnh")" alt="Avatar"
+                                     style="width: 35px; height: 35px; border-radius: 50%; margin-right: 0px; margin-left: 20px; vertical-align: middle;" />
                             }
                             else
                             {
-                                <img src="/images/default-avatar.png" alt="Avatar" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;" />
+                                <img src="/images/default-avatar.png" alt="Avatar"
+                                     style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;" />
                             }
-                            <a class="simple-text logo-normal">
 
-                                @Context.Session.GetString("TenND") <!-- Hiển thị tên tài khoản -->
-                            </a>
-                            <!-- Thêm link đăng xuất -->
-                            <a asp-controller="User" asp-action="Dangxuat" class="btn btn-secondary">Đăng xuất</a>
+                            <div class="user-menu-container" style="display: inline-block; position: relative;">
+                                <a class="simple-text logo-normal" id="user-dropdown-toggle" style="cursor: pointer;">
+                                    @Context.Session.GetString("TenND") <!-- Hiển thị tên tài khoản -->
+                                </a>
+                                <!-- Dropdown Menu -->
+                                <div class="user-dropdown" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); border-radius: 5px; padding: 10px; min-width: 150px; z-index: 100;">
+                                    <a asp-controller="User" asp-action="Nguoidung" style="display: block; padding: 5px; text-decoration: none; color: #333;">Người dùng</a>
+                                    <a asp-controller="User" asp-action="Dangxuat" style="display: block; padding: 5px; text-decoration: none; color: #333;">Đăng xuất</a>
+                                </div>
+                            </div>
                         }
                         else
                         {
                             <a asp-controller="User" asp-action="NguoiDung">Người dùng</a>
                             <a asp-controller="User" asp-action="DangNhap" class="button">Đăng nhập</a>
-                            <a asp-controller="User" asp-action="DangKi" class="btn btn-secondary">Đăng ký</a>
+                            <a asp-controller="User" asp-action="DangKi" >Đăng ký</a>
                         }
                     </li>
                 </ul>
             </nav>
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const toggle = document.getElementById("user-dropdown-toggle");
+                    const dropdown = document.querySelector(".user-dropdown");
+
+                    toggle.addEventListener("click", function () {
+                        // Toggle visibility of the dropdown menu
+                        dropdown.style.display = dropdown.style.display === "none" || dropdown.style.display === "" ? "block" : "none";
+                    });
+
+                    // Ẩn dropdown khi nhấn ra ngoài
+                    document.addEventListener("click", function (event) {
+                        if (!toggle.contains(event.target) && !dropdown.contains(event.target)) {
+                            dropdown.style.display = "none";
+                        }
+                    });
+                });
+
+            </script>
+            <style>
+                .user-menu-container {
+                    position: relative;
+                    display: inline-block;
+                }
+
+                .user-dropdown a:hover {
+                    background-color: #f1f1f1;
+                    color: #000;
+                }
+            </style>
         </header>
 
 
@@ -69,21 +107,82 @@
 
         <!-- Footer -->
         <footer id="footer">
-            <div class="social-icons">
-                <span>DoAnCN © 2024</span>
-                <span>◯</span>
-                <span>☰</span>
-                <span>♔</span>
+            <div class="container1">
+                <div class="section">
+                    <h3>VỀ NHÓM SINH VIÊN</h3>
+                    <p>Nhóm sinh viên được thành lập vào tháng 10 năm 2024, với mục tiêu phát triển trang web cho dự án Từ thiện. Nhóm gồm các sinh viên đến từ lớp 21DTHD5, chuyên ngành công nghệ phần mềm. Chúng tôi cam kết tạo ra các giải pháp công nghệ đơn giản và hiệu quả cho các tổ chức từ thiện.</p>
+                </div>
+                <div class="section">
+                    <h3>HƯỚNG DẪN – GIỚI THIỆU</h3>
+                    <ul>
+                        <li>Hướng dẫn sử dụng trang web</li>
+                        <li>Giới thiệu về nhóm</li>
+                        <li>Các dự án đã thực hiện</li>
+                        <li>Liên hệ với nhóm</li>
+                        <li>Đóng góp ý tưởng</li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h3>CHƯƠNG TRÌNH</h3>
+                    <ul>
+                        <li>Phát triển ứng dụng web</li>
+                        <li>Thiết kế giao diện người dùng</li>
+                        <li>Quản lý dự án Từ thiện</li>
+                        <li>Cung cấp giải pháp công nghệ cho các tổ chức từ thiện</li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h3>LIÊN HỆ NHÓM SINH VIÊN</h3>
+                    <p>📍 Địa chỉ: Khu E Đại học công nghệ Thành phố Hồ Chí Minh</p>
+                    <p>📞 Hotline: (84-028) 12345678</p>
+                    <p>Email: <a href="#">sinhvienhutech@gmail.com</a></p>
+                </div>
             </div>
-            <ul class="copyright">
-                <li>&copy; Website Tu Thien. By BNP</li>
-            </ul>
+
+            <style>
+                .container1 {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: 20px; /* Màu nền xanh dương */
+                    color:black;
+                    padding: 20px;
+                }
+
+                .section {
+                    padding: 15px;
+                }
+
+                h3 {
+                    font-size: 24px;
+                    margin-bottom: 10px;
+                }
+
+                ul {
+                    list-style-type: none;
+                    padding-left: 0;
+                }
+
+                    ul li {
+                        margin-bottom: 8px;
+                    }
+
+                a {
+                    color: black;
+                    text-decoration: none;
+                }
+
+                    a:hover {
+                        text-decoration: underline;
+                    }
+
+            </style>
         </footer>
     </div>
 
     <!-- JavaScript -->
     <script src="~/js/jquery.min.js" asp-append-version="true"></script>
     <script src="~/js/main.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

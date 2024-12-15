@@ -1,0 +1,21 @@
+﻿@model websiteTUTHIEN.Models.TableNguoiDung
+
+@{
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+    ViewData["Title"] = "Xóa Người Dùng";
+}
+
+<h2>Xác nhận Xóa</h2>
+
+<p>Bạn có chắc chắn muốn xóa người dùng sau không?</p>
+
+<ul>
+    <li><strong>Tên:</strong> @Model.TenNguoiDung</li>
+    <li><strong>Email:</strong> @Model.Email</li>
+</ul>
+
+<form asp-action="Delete" asp-controller="Admin" method="post">
+    <p>Bạn có chắc chắn muốn xóa?</p>
+    <button type="submit" class="btn btn-danger" >Xác nhận xóa</button>
+    <a href="@Url.Action("IndexND", "Admin")" class="btn btn-secondary">Hủy</a>
+</form>

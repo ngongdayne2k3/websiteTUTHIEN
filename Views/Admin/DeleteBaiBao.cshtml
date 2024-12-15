@@ -1,0 +1,30 @@
+﻿@model websiteTUTHIEN.Models.TableBaiBao
+@{
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+}
+
+
+<h2>Xác nhận xóa bài báo</h2>
+<p>Bạn có chắc chắn muốn xóa bài báo sau?</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tên bài báo</th>
+            <th>Tác giả</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.TenBaiBao</td>
+            <td>@Model.TenTacGia</td>
+        </tr>
+    </tbody>
+</table>
+
+<form asp-action="DeleteBaiBao" method="post">
+    <input type="hidden" asp-for="MaBaiBao" />
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a href="@Url.Action("IndexBaiBao", "BaiBao")" class="btn btn-secondary">Hủy</a>
+</form>
+

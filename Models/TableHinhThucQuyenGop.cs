@@ -7,7 +7,7 @@ public partial class TableHinhThucQuyenGop
 {
     public int MaHinhThucQuyenGop { get; set; }
 
-    public string HinhThucQuyenGop { get; set; } = null!;
+    public string HinhThucQuyenGop { get; set; }
 
     public virtual ICollection<TableQuyenGop> TableQuyenGops { get; set; } = new List<TableQuyenGop>();
 }

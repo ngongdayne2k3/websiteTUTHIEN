@@ -1,0 +1,37 @@
+﻿@model websiteTUTHIEN.Models.TableBaiBao
+@{
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+}
+
+<h2>Sửa Bài Báo</h2>
+
+<form asp-action="EditBaiBao" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="MaBaiBao" />
+    <div class="form-group">
+        <label for="TenBaiBao">Tên Bài Báo</label>
+        <input type="text" asp-for="TenBaiBao" class="form-control" />
+        <span asp-validation-for="TenBaiBao" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="TenTacGia">Tên Tác Giả</label>
+        <input type="text" asp-for="TenTacGia" class="form-control" />
+        <span asp-validation-for="TenTacGia" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="NoidungBaiBao">Nội Dung</label>
+        <textarea asp-for="NoidungBaiBao" class="form-control"></textarea>
+        <span asp-validation-for="NoidungBaiBao" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="HinhanhBaiBao">Hình Ảnh</label>
+        <input type="file" class="form-control" name="imageFile" />
+        <img src="@Model.HinhanhBaiBao" alt="@Model.TenBaiBao" style="width: 100px;" />
+    </div>
+    <div class="form-group">
+        <label for="MaDanhMucBaiBao">Danh Mục</label>
+        <select asp-for="MaDanhMucBaiBao" asp-items="ViewBag.DanhMucBaiBao" class="form-control"></select>
+        <span asp-validation-for="MaDanhMucBaiBao" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a asp-action="IndexBaiBao" class="btn btn-secondary">Hủy</a>
+</form>

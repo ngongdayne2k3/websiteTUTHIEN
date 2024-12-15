@@ -193,12 +193,60 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\119900216_p0.png",
+      "PackagePath": "staticwebassets\\images\\119900216_p0.png"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\120846260_p0.png",
+      "PackagePath": "staticwebassets\\images\\120846260_p0.png"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\124388991_p0.jpg",
+      "PackagePath": "staticwebassets\\images\\124388991_p0.jpg"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\Ky-648.png",
+      "PackagePath": "staticwebassets\\images\\Ky-648.png"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\Screenshot 2024-11-28 011140.png",
+      "PackagePath": "staticwebassets\\images\\Screenshot 2024-11-28 011140.png"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\Screenshot 2024-11-28 193637.png",
+      "PackagePath": "staticwebassets\\images\\Screenshot 2024-11-28 193637.png"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\Screenshot 2024-11-29 101422.png",
+      "PackagePath": "staticwebassets\\images\\Screenshot 2024-11-29 101422.png"
+    },
+    {
       "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\avatar.png",
       "PackagePath": "staticwebassets\\images\\avatar.png"
     },
     {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\baibao\\118115324_p0.png",
+      "PackagePath": "staticwebassets\\images\\baibao\\118115324_p0.png"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\baibao\\118179345_p0.png",
+      "PackagePath": "staticwebassets\\images\\baibao\\118179345_p0.png"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\baibao\\120846260_p0.png",
+      "PackagePath": "staticwebassets\\images\\baibao\\120846260_p0.png"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\baibao\\Ky-648.png",
+      "PackagePath": "staticwebassets\\images\\baibao\\Ky-648.png"
+    },
+    {
       "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\banner.jpg",
       "PackagePath": "staticwebassets\\images\\banner.jpg"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\duan\\hinhanha.jpg",
+      "PackagePath": "staticwebassets\\images\\duan\\hinhanha.jpg"
     },
     {
       "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\pic01.png",
@@ -219,6 +267,10 @@
     {
       "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\pic05.jpg",
       "PackagePath": "staticwebassets\\images\\pic05.jpg"
+    },
+    {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\images\\pic06.jpg",
+      "PackagePath": "staticwebassets\\images\\pic06.jpg"
     },
     {
       "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\js\\adminlte.js",
