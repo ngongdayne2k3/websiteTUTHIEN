@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Chi Tiết Bài Báo";
 }
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,6 +36,25 @@
             margin-bottom: 20px;
         }
 
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
         .article-image img {
             width: 100%;
             height: auto;
@@ -53,61 +71,6 @@
         .article-content p {
             margin-bottom: 15px;
         }
-
-        .article-content h2 {
-            font-size: 1.5em;
-            margin: 20px 0 10px;
-            color: #444;
-        }
-
-        .highlight {
-            background: #f0f9ff;
-            border-left: 5px solid #007BFF;
-            padding: 10px 15px;
-            margin: 20px 0;
-            font-style: italic;
-            color: #333;
-        }
-
-        .related-articles {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
-        }
-
-            .related-articles h3 {
-                margin-bottom: 15px;
-            }
-
-            .related-articles a {
-                color: #007BFF;
-                text-decoration: none;
-                display: block;
-                margin-bottom: 10px;
-            }
-
-                .related-articles a:hover {
-                    text-decoration: underline;
-                }
-
-        .social-share {
-            margin: 20px 0;
-            display: flex;
-            gap: 10px;
-        }
-
-            .social-share button {
-                background: #007BFF;
-                color: #fff;
-                border: none;
-                padding: 10px 15px;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-
-                .social-share button:hover {
-                    background: #0056b3;
-                }
     </style>
 </head>
 <body>
@@ -115,10 +78,15 @@
         <h1 class="article-title">@Model.TenBaiBao</h1>
         <p class="article-info"><strong>Tác giả:</strong> @Model.TenTacGia</p>
         <p class="article-info"><strong>Ngày đăng:</strong> @Model.NgayDangBaiBao.ToString("dd/MM/yyyy")</p>
+        <p class="article-info"><strong>Danh Mục:</strong> @Html.DisplayFor(model => @Model.MaDanhMucBaiBaoNavigation.TenDanhMucBaiBao)</p>
 
+        <div class="article-image">
+            <img src="~/img/@Model.HinhanhBaiBao" alt="@Model.TenBaiBao" />
+            <p class="image-caption">Ảnh minh họa: @Model.HinhanhBaiBao</p>
+        </div>
 
         <div class="article-content">
-            <p>@Html.Raw(Model.NoidungBaiBao)</p>
+            <p>@Model.NoidungBaiBao</p>
         </div>
 
     </article>

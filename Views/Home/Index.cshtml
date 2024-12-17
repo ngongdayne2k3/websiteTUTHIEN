@@ -1,8 +1,8 @@
-﻿@model IEnumerable<websiteTUTHIEN.Models.TableBaiBao>
-
-@{
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml"; // Đường dẫn layout của bạn
     ViewData["Title"] = "Trang chủ";
+    var listDuAn = ViewBag.duAns as List<websiteTUTHIEN.Models.TableDuAn>;
+    var listBaiBao = ViewBag.baiBaos as List<websiteTUTHIEN.Models.TableBaiBao>;
 }
 
 <!-- Banner -->
@@ -64,42 +64,87 @@
 <section id="main" class="container">
     <section class="box special">
         <header class="major">
-            <h2>Ghi cai lo gi vao day<br />lam l gi ma 2 dong</h2>
+            <h2>
+                Chúng tôi là một tổ chức phi lợi nhuận<br />Được thành lập với mục đích hỗ trợ các hoàn cảnh khó khăn
+                trong cuộc sống
+            </h2>
             <p>
-                o day cx can cái gì do<br />
-                day cung the
+                95% số tiền được quyên góp sẽ được giao tận tay cho đối tượng được quyên góp <br />
+                5% còn lại sẽ được đưa vào quỹ để bổ sung vào các dự án thiếu ngân sách
             </p>
         </header>
     </section>
-
     <section class="box special features">
         <div class="row">
-            <p style="font-size: 36px;">
-                Bai Bao 
-            </p>
-            @foreach (var item in Model.Take(4)) // Lấy tối đa 4 bài báo
+            <p style="font-size: 36px;">Dự Án mới nhất</p>
+            @foreach (var duAn in listDuAn)
             {
-                <div class="col-6 col-12-narrower">
-                    <section class="box special">
-                        <span class="icon solid major fa-file-alt accent2"></span>
-                        <h3>@item.TenBaiBao</h3>    
-                        <p>
-                            @(item.NoidungBaiBao.Length > 20
-                                ? item.NoidungBaiBao.Substring(0, 20) + "..."
-                                : item.NoidungBaiBao)
-                        </p>
-                        <ul class="actions special">
-                            <li>
-                                <a href="@Url.Action("BaiBaoIndex", "BaiBao", new { id = item.MaBaiBao })" class="button alt">
-                                    Xem chi tiết
-                                </a>
-                            </li>
-                        </ul>
-                    </section>
+                <div class="col-6 col-12-narrower" style="margin-top: 20px;">
+                    <a href="@Url.Action("ChiTietDuAn", "DuAn", new { id = duAn.MaDuAn })"
+                       style="text-decoration: none; color: inherit;">
+                        <div class="card d-flex flex-row"
+                             style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); height: 100%; align-items: center;">
+                            <!-- Hình ảnh minh họa -->
+                            <img src="@duAn.Hinhanh" alt="@duAn.TenDuAn" class="card-image-right"
+                                 style="width: 150px; height: auto; margin-left: 16px; border-radius: 8px;" />
+
+                            <!-- Nội dung bài báo -->
+                            <div class="card-body" style="flex: 1;">
+                                <h5 class="card-title">@duAn.TenDuAn</h5>
+                                <p class="card-text">
+                                    @(duAn.NoidungDuAn.Length > 50
+                                        ? duAn.NoidungDuAn.Substring(0, 50) + "..."
+                                        : duAn.NoidungDuAn)
+                                </p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             }
         </div>
+        <div style="margin-top: 50px;">
+            <a asp-controller="DuAn" asp-action="IndexDuAn"> Xem thêm</a>
+        </div>
     </section>
+
+
+    <section class="box special features">
+        <div class="row">
+            <p style="font-size: 36px;">Bài báo mới nhất</p>
+            @foreach (var baiBao in listBaiBao)
+            {
+                <div class="col-6 col-12-narrower" style="margin-top: 20px;">
+                    <a href="@Url.Action("ChiTietBaiBao", "BaiBao", new { id = baiBao.MaBaiBao })"
+                       style="text-decoration: none; color: inherit;">
+                        <div class="card d-flex flex-row"
+                             style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); height: 100%; align-items: center;">
+                            <!-- Hình ảnh minh họa -->
+                            <img src="@baiBao.HinhanhBaiBao" alt="@baiBao.TenBaiBao" class="card-image-right"
+                                 style="width: 150px; height: auto; margin-left: 16px; border-radius: 8px;" />
+
+                            <!-- Nội dung bài báo -->
+                            <div class="card-body" style="flex: 1;">
+                                <h5 class="card-title">@baiBao.TenBaiBao</h5>
+                                <p class="card-text">
+                                    @(baiBao.NoidungBaiBao.Length > 50
+                                        ? baiBao.NoidungBaiBao.Substring(0, 50) + "..."
+                                        : baiBao.NoidungBaiBao)
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+        <div style="margin-top: 50px;">
+            <a asp-controller="BaiBao" asp-action="IndexBaiBao"> Xem thêm</a>
+        </div>
+    </section>
+
+
+
+
+
 </section>
 
 <!-- CTA -->
@@ -109,8 +154,10 @@
     <form>
         <div class="row gtr-50 gtr-uniform">
             <div class="col-12 text-center">
-                <input type="submit" value="Đăng nhập" class="fit btn-login" asp-controller="User" asp-action="DangNhap" />
-                <input type="submit" value="Đăng ký" class="fit btn-register" asp-controller="User" asp-action="DangKi" />
+                <input type="submit" value="Đăng nhập" class="fit btn-login" asp-controller="User"
+                       asp-action="DangNhap" />
+                <input type="submit" value="Đăng ký" class="fit btn-register" asp-controller="User"
+                       asp-action="DangKi" />
             </div>
         </div>
         <style>
@@ -122,8 +169,10 @@
             /* Thiết lập các nút trong cùng một hàng ngang */
             .row .col-12 {
                 display: flex;
-                justify-content: center; /* Căn giữa các nút */
-                gap: 10px; /* Khoảng cách giữa các nút */
+                justify-content: center;
+                /* Căn giữa các nút */
+                gap: 10px;
+                /* Khoảng cách giữa các nút */
             }
 
             /* Kiểu dáng cho các nút */
@@ -132,7 +181,8 @@
                 font-size: 16px;
                 border: none;
                 cursor: pointer;
-                width: 150px; /* Chiều rộng của nút */
+                width: 150px;
+                /* Chiều rộng của nút */
             }
 
             /* Nút Đăng nhập */
@@ -143,14 +193,14 @@
 
             /* Nút Đăng ký */
             .btn-register {
-                background-color: #8a8383; /* Màu đỏ */
+                background-color: #8a8383;
+                /* Màu đỏ */
                 color: white;
             }
 
             .fit:hover {
                 opacity: 0.8;
             }
-
         </style>
     </form>
 

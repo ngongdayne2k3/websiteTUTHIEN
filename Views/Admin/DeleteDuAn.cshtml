@@ -1,0 +1,26 @@
+﻿@model websiteTUTHIEN.Models.TableDuAn
+@{
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+}
+
+<h2>Xóa Dự Án</h2>
+
+<div>
+    <h4>Dự Án</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Mã Dự Án</dt>
+        <dd class="col-sm-10">@Model.MaDuAn</dd>
+
+        <dt class="col-sm-2">Tên Dự Án</dt>
+        <dd class="col-sm-10">@Model.TenDuAn</dd>
+    </dl>
+</div>
+
+<form asp-action="DeleteDuAn" method="post">
+    <input type="hidden" asp-for="MaDuAn" />
+    <div class="form-group">
+        <input type="submit" value="Xóa" class="btn btn-danger" />
+        <a asp-action="IndexDuAn" class="btn btn-secondary">Hủy</a>
+    </div>
+</form>

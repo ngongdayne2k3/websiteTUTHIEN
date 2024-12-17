@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using websiteTUTHIEN.Models;
+using X.PagedList.Extensions;
 
 namespace websiteTUTHIEN.Controllers
 {
@@ -402,6 +403,69 @@ namespace websiteTUTHIEN.Controllers
             return RedirectToAction(nameof(IndexDanhMucBaiBao));
         }
 
+        #endregion
+        #region Dự án
+        //Cần thêm cái phần IndexDuAn(có sắp xếp, tìm kiếm, phân trang)
+        public ViewResult IndexDuAn(string sortOrder, string searchString, string currentFilter, int? page)
+        {
+            // Set sorting options
+            ViewBag.NameSortParm = sortOrder == "name_desc" ? "name_asc" : "name_desc";
+            ViewBag.DateSortParm = sortOrder == "date_desc" ? "date_asc" : "date_desc";
+
+            // Xử lý tìm kiếm
+            searchString ??= currentFilter;
+            ViewBag.currentFilter = searchString;
+
+            // Lọc và sắp xếp dữ liệu
+            var duAns = context.TableDuAns.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                duAns = duAns.Where(p => p.TenDuAn.Contains(searchString));
+            }
+
+            duAns = sortOrder switch
+            {
+                "name_desc" => duAns.OrderByDescending(s => s.TenDuAn),
+                _ => duAns.OrderBy(s => s.TenDuAn),
+            };
+
+            // Phân trang
+            int pageSize = 6;
+            int pageNumber = page ?? 1;
+
+            return View(duAns.ToPagedList(pageNumber, pageSize));
+        }
+        //Thêm cái phần sửa dự án, xoá dự án
+        //Thêm phần duyệt dự án
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ApproveDuAn(int id)
+        {
+            var duAn = await context.TableDuAns.FindAsync(id);
+            if (duAn == null)
+            {
+                return NotFound();
+            }
+
+            duAn.DaDuyetBai = true; // Đánh dấu là đã duyệt
+            await context.SaveChangesAsync();
+            return RedirectToAction(nameof(IndexDuAn));
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RejectDuAn(int id)
+        {
+            var duAn = await context.TableDuAns.FindAsync(id);
+            if (duAn == null)
+            {
+                return NotFound();
+            }
+
+            duAn.DaDuyetBai = false; // Đánh dấu là không duyệt
+            await context.SaveChangesAsync();
+            return RedirectToAction(nameof(IndexDuAn));
+        }
         #endregion
     }
 }

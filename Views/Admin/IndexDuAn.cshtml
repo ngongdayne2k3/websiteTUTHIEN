@@ -1,0 +1,61 @@
+﻿@model IEnumerable<websiteTUTHIEN.Models.TableDuAn>
+@{
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+}
+
+<h2>Danh sách Dự Án</h2>
+<a asp-controller="User" asp-action="CreateDuAn" class="btn btn-primary mb-3">Thêm Dự Án</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Mã Dự Án</th>
+            <th>Tên Dự Án</th>
+            <th>Nội Dung</th>
+            <th>Hình Ảnh</th>
+            <th>Số Tiền Mục Tiêu</th>
+            <th>Số Tiền Hiện Tại</th>
+            <th>Ngày Bắt Đầu</th>
+            <th>Ngày Kết Thúc</th>
+            <th>Trạng Thái Duyệt</th>
+            <th>Hành Động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaDuAn</td>
+                <td>@item.TenDuAn</td>
+                <td>@item.NoidungDuAn</td>
+                <td>
+                    <img src="@item.Hinhanh" alt="@item.TenDuAn" style="width: 100px;" />
+                </td>
+                <td>@item.SoTienMucTieu.ToString("C")</td>
+                <td>@(item.SoTienHienTai.HasValue ? item.SoTienHienTai.Value.ToString("C") : "Chưa có")</td>
+                <td>@item.Ngaybatdau.ToString("dd/MM/yyyy")</td>
+                <td>@item.Ngayketthuc.ToString("dd/MM/yyyy")</td>
+                <td>@(item.DaDuyetBai ? "Đã Duyệt" : "Chưa Duyệt")</td>
+                <td>
+                    <a asp-action="EditDuAn" asp-route-id="@item.MaDuAn" class="btn btn-warning btn-sm">Sửa</a>
+                    <a asp-action="DeleteDuAn" asp-route-id="@item.MaDuAn" class="btn btn-danger btn-sm">Xóa</a>
+                    @if (!item.DaDuyetBai)
+                    {
+                        <form asp-action="ApproveDuAn" method="post">
+                            <input type="hidden" name="id" value="@item.MaDuAn" />
+                            <button type="submit">Duyệt</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-action="RejectDuAn" method="post">
+                            <input type="hidden" name="id" value="@item.MaDuAn" />
+                            <button type="submit">Không Duyệt</button>
+                        </form>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,52 +1,37 @@
 ﻿@model websiteTUTHIEN.Models.TableNguoiDung
 
 @{
-    ViewData["Title"] = "Người Dùng";
+    ViewData["Title"] = "Thông Tin Người Dùng";
 }
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chi Tiết Người Dùng</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Thông Tin Người Dùng</title>
+    <link rel="stylesheet" href="~/css/styles.css" />
 </head>
 <body>
-
     <div class="container">
+        <h1 style="align-items: center">Thông Tin Người Dùng</h1>
+
+        <!-- Thông tin người dùng -->
         <div class="profile">
-            <img src="avatar-placeholder.png" alt="Avatar Người Dùng">
-            <div>
-                <h2>Họ Tên: Nguyễn Văn A</h2>
-                <p>Email: email@example.com</p>
-                <p>Số điện thoại: 0123456789</p>
-                <p>Địa chỉ: Hà Nội, Việt Nam</p>
+            <img src="@Model.AvatarNguoiDung" alt="@Model.TenNguoiDung"  />
+            <div style="margin-left: 50px" class="user-info">
+                <h2>@Model.TenNguoiDung</h2>
+                <p><strong>Tên tài khoản:</strong> @Model.TenTk</p>
+                <p><strong>Email:</strong> @Model.Email</p>
+                <p><strong>Số điện thoại:</strong> @(Model.SdtnguoiDung?.ToString() ?? "Chưa cập nhật")</p>
+                <p><strong>Địa chỉ:</strong> @(Model.DiaChi ?? "Chưa cập nhật")</p>
+                <p><strong>Năm sinh:</strong> @(Model.NamSinh?.ToString("dd/MM/yyyy") ?? "Chưa cập nhật")</p>
             </div>
         </div>
-        <button>
-            <a asp-controller="User" asp-action="EditProfile">Chỉnh sửa</a>
-        </button>
-
-        <div class="list">
-            <h3>Bài Báo:</h3>
-            <div class="list-item">
-                <h4>Tiêu đề Bài Báo 1</h4>
-                <p>Ngày tạo: 01/12/2024</p>
-            </div>
-            <div class="list-item">
-                <h4>Tiêu đề Bài Báo 2</h4>
-                <p>Ngày tạo: 25/11/2024</p>
-            </div>
-        </div>
-
-        <div class="list">
-            <h3>Dự Án:</h3>
-            <div class="list-item">
-                <h4>Dự Án 1</h4>
-                <p>Mô tả: Lorem ipsum dolor sit amet.</p>
-            </div>
+        <!-- Nút chỉnh sửa -->
+        <div class="edit-button" style="margin-top:100px">
+            <a style="margin-right:300px;margin-left:100px" asp-controller="User" asp-action="CreateDuAn" class="btn btn-primary">Thêm Dự Án</a>
+            <a asp-controller="User" asp-action="ChinhSua" asp-route-id="@Model.MaNguoiDung" class="btn btn-primary">Chỉnh sửa</a>
         </div>
     </div>
-
-    <footer>
-        <p>Liên hệ: support@example.com</p>
-    </footer>
 </body>
+</html>

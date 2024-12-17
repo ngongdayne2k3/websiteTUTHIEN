@@ -19,10 +19,19 @@ namespace websiteTUTHIEN.Controllers
 
         public IActionResult Index()
         {
-            var baiBaos = _context.TableBaiBaos.ToList();
+            var listDuAn = _context.TableDuAns
+                .OrderByDescending(duan=>duan.Ngaybatdau)
+                .Take(4)
+                .ToList();
 
-            // Truyền danh sách bài báo vào View
-            return View(baiBaos);
+            var listBaiBao = _context.TableBaiBaos
+                .OrderByDescending(baibao=>baibao.NgayDangBaiBao)
+                .Take(4)
+                .ToList(); 
+            // Truyền danh sách bài báo và dự án vào View
+            ViewBag.duAns = listDuAn;
+            ViewBag.baiBaos = listBaiBao;
+            return View();
         }
 
         public IActionResult Privacy()

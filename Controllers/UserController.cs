@@ -18,7 +18,21 @@ namespace websiteTUTHIEN.Controllers
 
         public IActionResult NguoiDung()
         {
-            return View();
+            var maNguoiDung = HttpContext.Session.GetInt32("MaTK");
+            if (maNguoiDung == null)
+            {
+                return RedirectToAction("DangNhap", "User"); // Chuyển hướng đến trang đăng nhập nếu Session không tồn tại
+            }
+
+            // Truy vấn thông tin người dùng từ cơ sở dữ liệu
+            var user = context.TableNguoiDungs.FirstOrDefault(u => u.MaNguoiDung == maNguoiDung);
+            if (user == null)
+            {
+                return NotFound("Người dùng không tồn tại.");
+            }
+
+            // Trả về View và truyền model người dùng
+            return View(user);
         }
 
         public IActionResult Dangki()
@@ -56,7 +70,8 @@ namespace websiteTUTHIEN.Controllers
                 nguoiDung.MatKhau = BCrypt.Net.BCrypt.HashPassword(nguoiDung.MatKhau);
 
                 //Gán avatar mặc định vào khi tạo tài khoản mới
-                nguoiDung.AvatarNguoiDung = "../images/avatar.png";
+                nguoiDung.AvatarNguoiDung =  "../images/avatar.png";
+                
                 try
                 {
                     // Thêm người dùng vào cơ sở dữ liệu
@@ -68,7 +83,7 @@ namespace websiteTUTHIEN.Controllers
                     HttpContext.Session.SetString("TenTK", nguoiDung.TenTk);
 
                     // Chuyển hướng về trang chủ
-                    return RedirectToAction("DangNhap", "User");
+                    return RedirectToAction("Index", "Home");
                 }
                 catch (Exception ex)
                 {
@@ -130,26 +145,17 @@ namespace websiteTUTHIEN.Controllers
             return RedirectToAction("DangNhap");
         }
 
-        public IActionResult EditProfile()
+        public IActionResult Chinhsua(int id)
         {
-            var userId = HttpContext.Session.GetInt32("UserId");
-            if (userId == null)
-            {
-                return RedirectToAction("DangNhap"); // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
-            }
-
-            var user = context.TableNguoiDungs.FirstOrDefault(u => u.MaNguoiDung == userId);
+            var user = context.TableNguoiDungs.FirstOrDefault(u => u.MaNguoiDung == id);
             if (user == null)
             {
                 return NotFound();
             }
-
-            return View(user); // Trả về view để người dùng chỉnh sửa thông tin
+            return View(user);
         }
-
-        // Action để xử lý việc cập nhật thông tin cá nhân
         [HttpPost]
-        public async Task<IActionResult> EditProfile(TableNguoiDung updatedUser)
+        public async Task<IActionResult> Chinhsua(TableNguoiDung updatedUser)
         {
             if (ModelState.IsValid)
             {
@@ -159,19 +165,18 @@ namespace websiteTUTHIEN.Controllers
                     return NotFound();
                 }
 
-                // Cập nhật thông tin người dùng
                 user.TenNguoiDung = updatedUser.TenNguoiDung;
-                user.AvatarNguoiDung = updatedUser.AvatarNguoiDung; // Nếu cần
-                user.MatKhau = updatedUser.MatKhau; // Cần thận trọng với việc cập nhật mật khẩu
+                user.AvatarNguoiDung = updatedUser.AvatarNguoiDung;
+                user.TenTk = updatedUser.TenTk;
+                user.MatKhau = updatedUser.MatKhau;
                 user.SdtnguoiDung = updatedUser.SdtnguoiDung;
                 user.Email = updatedUser.Email;
                 user.DiaChi = updatedUser.DiaChi;
                 user.NamSinh = updatedUser.NamSinh;
-
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index"); // Chuyển hướng về trang chính sau khi cập nhật
+                return RedirectToAction(nameof(NguoiDung));
             }
-            return View(updatedUser); // Nếu có lỗi, trả về view với thông tin đã nhập
+            return View(updatedUser);
         }
 
         public IActionResult DeleteAccount()
@@ -235,10 +240,11 @@ namespace websiteTUTHIEN.Controllers
                     }
                     duAn.Hinhanh = "/images/duan/" + fileName;
                 }
-                var userId = HttpContext.Session.GetInt32("MaTK");
+                var userId = HttpContext.Session.GetInt32("UserId");
                 duAn.MaNguoiDung = userId ?? 0;
                 duAn.DaDuyetBai = false;
                 duAn.DaKetThucDuAn = false;
+                duAn.Ngaybatdau = DateTime.Today;
                 duAn.SoTienHienTai = 0;
                 context.Add(duAn);
                 await context.SaveChangesAsync();
@@ -246,7 +252,7 @@ namespace websiteTUTHIEN.Controllers
             }
             ViewData["MaDanhMucDa"] = new SelectList(context.TableDanhMucDuAns, "MaDanhMucDa", "TenDanhMucDa");
             ViewData["MaTinhThanh"] = new SelectList(context.TableTinhThanhs, "MaTinhThanh", "TenTinhThanh");
-            return View(duAn);
+            return View(User);
         }
 
         public async Task<IActionResult> IndexDuAnUser()

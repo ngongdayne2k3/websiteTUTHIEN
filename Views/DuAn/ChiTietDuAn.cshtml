@@ -1,97 +1,184 @@
 ﻿@model websiteTUTHIEN.Models.TableDuAn
 
 @{
-    ViewData["Title"] = "ChiTietDuAn";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Chi Tiết Dự Án";
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
 
-<h1>ChiTietDuAn</h1>
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            display: flex;
+            gap: 20px;
+        }
 
-<div>
-    <h4>TableDuAn</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TenDuAn)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TenDuAn)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NoidungDuAn)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NoidungDuAn)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Hinhanh)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Hinhanh)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SoTienMucTieu)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SoTienMucTieu)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SoTienHienTai)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SoTienHienTai)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Ngaybatdau)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Ngaybatdau)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Ngayketthuc)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Ngayketthuc)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DaKetThucDuAn)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DaKetThucDuAn)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DaDuyetBai)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DaDuyetBai)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CoNghiemTrong)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CoNghiemTrong)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaDanhMucDaNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaDanhMucDaNavigation.MaDanhMucDa)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaNguoiDungNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaNguoiDungNavigation.MaNguoiDung)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaTinhThanhNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaTinhThanhNavigation.MaTinhThanh)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.MaDuAn">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+        .project-image {
+            flex: 2;
+            background-color: #000;
+            color: #fff;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+            .project-image img {
+                width: 100%;
+                height: auto;
+            }
+
+        .play-button {
+            position: absolute;
+            background-color: #006b3d;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+            .play-button::before {
+                content: '';
+                display: block;
+                border-style: solid;
+                border-width: 10px 0 10px 20px;
+                border-color: transparent transparent transparent #fff;
+            }
+
+        .project-details {
+            flex: 1;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+            .project-details h2 {
+                font-size: 24px;
+                margin: 0;
+                color: #333;
+            }
+
+        .project-stats {
+            margin-top: 20px;
+        }
+
+            .project-stats div {
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+
+        .progress {
+            height: 30px;
+            background-color: #e9ecef;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #28a745; /* Màu xanh lá, có thể thay đổi */
+            text-align: center;
+            color: white;
+            line-height: 30px; /* Căn giữa văn bản trong thanh tiến độ */
+            font-weight: bold;
+        }
+
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+            .action-buttons button {
+                padding: 10px 20px;
+                font-size: 16px;
+                border: none;
+                cursor: pointer;
+            }
+
+        .back-project {
+            background-color: #006b3d;
+            color: #fff;
+        }
+
+        .remind-me {
+            background-color: #ddd;
+            color: #333;
+        }
+
+        .social-links {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+            .social-links a {
+                text-decoration: none;
+                color: #006b3d;
+            }
+    </style>
+</head>
+<body>
+    <article>
+        <div class="container">
+            <div class="project-image">
+                <img src="~/img/@Model.Hinhanh" alt="@Model.TenDuAn">
+            </div>
+            <div class="project-details">
+                <h2>@Model.TenDuAn</h2>
+                <div class="project-stats">
+                    <div><strong>Số tiền mục tiêu:</strong> $@Model.SoTienMucTieu</div>
+                    <div><strong>Số tiền hiện tại:</strong> $@Model.SoTienHienTai</div>
+                    <div><strong>Ngày bắt đầu:</strong> @Model.Ngaybatdau.ToString("dd/MM/yyyy")</div>
+                    <div><strong>Ngày kết thúc:</strong> @Model.Ngayketthuc.ToString("dd/MM/yyyy")</div>
+                    <div>
+                        <strong>Thời gian :</strong>
+                        @if (Model.Ngayketthuc < DateTime.Now)
+                        {
+                            <span>Đã kết thúc</span>
+                        }
+                        else
+                        {
+                            var timeRemaining = Model.Ngayketthuc - DateTime.Now;
+                            <span>@timeRemaining.Hours giờ @timeRemaining.Minutes phút @timeRemaining.Seconds giây</span>
+                        }
+                    </div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" style="width: @(Model.SoTienHienTai * 100 / Model.SoTienMucTieu)%;" role="progressbar" aria-valuenow="@Model.SoTienHienTai" aria-valuemin="0" aria-valuemax="@Model.SoTienMucTieu">
+                    </div>
+                </div>
+                <div class="action-buttons" style="display: flex; justify-content: center; margin-top: 60px;">
+                    <button class="back-project" style="width: 200px; height: 50px; font-size: 18px; border-radius: 8px; color: white; border: none; cursor: pointer;">
+                        Quyên Góp
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </article>
+    <article>
+        <div class="container">
+            <div class="project-description mt-4">
+                <h4><strong>Nội dung dự án:</strong></h4>
+                <p>@Model.NoidungDuAn</p>
+            </div>
+        </div>
+    </article>
+</body>
+</html>
