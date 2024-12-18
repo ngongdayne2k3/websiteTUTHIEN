@@ -28,19 +28,5 @@ namespace websiteTUTHIEN.Controllers
             return Json(response);
         }
 
-        public IActionResult Donate(){
-            ViewBag.HinhThucQuyenGop = new SelectList(_context.TableHinhThucQuyenGops.ToList(),nameof(TableHinhThucQuyenGop.MaHinhThucQuyenGop),nameof(TableHinhThucQuyenGop.HinhThucQuyenGop));
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Donate(TableQuyenGop quyenGop){
-            if(ModelState.IsValid){
-                if(quyenGop.MaHinhThucQuyenGop == 1){
-                    
-                }
-            }
-            return View();
-        }
     }
 }

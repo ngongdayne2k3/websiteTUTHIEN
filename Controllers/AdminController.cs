@@ -123,7 +123,7 @@ namespace websiteTUTHIEN.Controllers
         }
         #endregion
 
-        #region  Người dùng
+        #region Người dùng
         public async Task<IActionResult> IndexND()
         {
             return View(await context.TableNguoiDungs.ToListAsync());
@@ -309,6 +309,7 @@ namespace websiteTUTHIEN.Controllers
         #endregion
 
         #region Danh mục bài báo
+
         //-----------------------------Danh mục bài báo
         public async Task<IActionResult> IndexDanhMucBaiBao()
         {
@@ -404,6 +405,7 @@ namespace websiteTUTHIEN.Controllers
         }
 
         #endregion
+        
         #region Dự án
         //Cần thêm cái phần IndexDuAn(có sắp xếp, tìm kiếm, phân trang)
         public ViewResult IndexDuAn(string sortOrder, string searchString, string currentFilter, int? page)
@@ -463,6 +465,89 @@ namespace websiteTUTHIEN.Controllers
             }
 
             duAn.DaDuyetBai = false; // Đánh dấu là không duyệt
+            await context.SaveChangesAsync();
+            return RedirectToAction(nameof(IndexDuAn));
+        }
+
+        public async Task<IActionResult> EditDuAn(int? id)
+        {
+            if (id == null)
+            {
+                NotFound();
+            }
+            var duAn = await context.TableDuAns.FindAsync(id);
+            ViewBag.DanhMucDuAn = new SelectList(context.TableDanhMucDuAns, nameof(TableDanhMucDuAn.MaDanhMucDa), nameof(TableDanhMucDuAn.TenDanhMucDa));
+            ViewBag.TinhThanh = new SelectList(context.TableTinhThanhs, nameof(TableTinhThanh.MaTinhThanh), nameof(TableTinhThanh.TenTinhThanh));
+            if (duAn == null)
+            {
+                NotFound();
+            }
+            return View(duAn);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditDuAn(int id, TableDuAn duAn, IFormFile imageFile)
+        {
+            if (duAn.MaDuAn != id)
+            {
+                NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (imageFile != null)
+                    {
+                        var fileName = Path.GetFileName(imageFile.FileName);
+                        var filePath = Path.Combine(env.WebRootPath, "images", "duan", fileName);
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await imageFile.CopyToAsync(stream);
+                        }
+                        duAn.Hinhanh = "../images/duan/" + fileName;
+                    }
+                    context.TableDuAns.Update(duAn);
+                    await context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!context.TableDuAns.Any(e => e.MaDuAn == id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(IndexBaiBao));
+            }
+            ViewBag.DanhMucDuAn = new SelectList(context.TableDanhMucDuAns, nameof(TableDanhMucDuAn.MaDanhMucDa), nameof(TableDanhMucDuAn.TenDanhMucDa));
+            ViewBag.TinhThanh = new SelectList(context.TableTinhThanhs, nameof(TableTinhThanh.MaTinhThanh), nameof(TableTinhThanh.TenTinhThanh));
+            return View(duAn);
+        }
+
+        public async Task<IActionResult> DeleteDuAn(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var duAn = await context.TableDuAns.FirstOrDefaultAsync(m => m.MaDuAn == id);
+            if (duAn == null)
+            {
+                return NotFound();
+            }
+            return View(duAn);
+        }
+
+        [HttpPost, ActionName("DeleteDuAn")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmDeleteDuAn(int id)
+        {
+            var duAn = await context.TableDuAns.FindAsync(id);
+            context.TableDuAns.Remove(duAn);
             await context.SaveChangesAsync();
             return RedirectToAction(nameof(IndexDuAn));
         }

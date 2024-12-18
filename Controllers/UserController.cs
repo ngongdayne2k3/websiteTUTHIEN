@@ -244,7 +244,6 @@ namespace websiteTUTHIEN.Controllers
                 duAn.MaNguoiDung = userId ?? 0;
                 duAn.DaDuyetBai = false;
                 duAn.DaKetThucDuAn = false;
-                duAn.Ngaybatdau = DateTime.Today;
                 duAn.SoTienHienTai = 0;
                 context.Add(duAn);
                 await context.SaveChangesAsync();
