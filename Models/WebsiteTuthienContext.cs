@@ -181,9 +181,7 @@ public partial class WebsiteTuthienContext : DbContext
             entity.Property(e => e.CoNghiemTrong)
                 .HasDefaultValue(false)
                 .HasColumnName("coNghiemTrong");
-            entity.Property(e => e.DaDuyetBai)
-                .HasDefaultValue(false)
-                .HasColumnName("daDuyetBai");
+            entity.Property(e => e.DaDuyetBai).HasColumnName("daDuyetBai");
             entity.Property(e => e.DaKetThucDuAn)
                 .HasDefaultValue(false)
                 .HasColumnName("daKetThucDuAn");

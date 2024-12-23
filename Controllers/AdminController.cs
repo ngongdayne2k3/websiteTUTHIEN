@@ -521,7 +521,7 @@ namespace websiteTUTHIEN.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(IndexBaiBao));
+                return RedirectToAction(nameof(IndexDuAn));
             }
             ViewBag.DanhMucDuAn = new SelectList(context.TableDanhMucDuAns, nameof(TableDanhMucDuAn.MaDanhMucDa), nameof(TableDanhMucDuAn.TenDanhMucDa));
             ViewBag.TinhThanh = new SelectList(context.TableTinhThanhs, nameof(TableTinhThanh.MaTinhThanh), nameof(TableTinhThanh.TenTinhThanh));

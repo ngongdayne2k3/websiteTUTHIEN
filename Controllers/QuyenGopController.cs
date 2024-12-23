@@ -16,6 +16,7 @@ namespace websiteTUTHIEN.Controllers
             _vnPayService = vnPayService;
         }
 
+
         [HttpPost]
         public IActionResult CreatePaymentUrlVnpay(PaymentInformationModel model){
             var url = _vnPayService.CreatePaymentUrl(model,HttpContext);

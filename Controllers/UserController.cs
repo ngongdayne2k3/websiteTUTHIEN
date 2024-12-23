@@ -101,43 +101,60 @@ namespace websiteTUTHIEN.Controllers
         {
             return View();
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DangNhap(TableNguoiDung u)
+        public IActionResult DangNhap(string TenTk, string Matkhau,TableNguoiDung u,TableAdmin a)
         {
-            // Find the user by username
-            var user = context.TableNguoiDungs.FirstOrDefault(x => x.TenTk.Equals(u.TenTk));
+            // Kiểm tra trong bảng admin trước
+            var admin = context.TableAdmins.FirstOrDefault(x => x.TenTk.Equals(a.TenTk));
 
-            if (user != null)
+            if (admin != null)
             {
-                // Verify the password
-                if (BCrypt.Net.BCrypt.Verify(u.MatKhau, user.MatKhau))
+                // So sánh mật khẩu mã hóa
+                if (BCrypt.Net.BCrypt.Verify(a.Matkhau, admin.Matkhau))
                 {
                     ViewBag.Thongbao = "Đăng nhập thành công";
-                    // Store only necessary user information in the session
-                    HttpContext.Session.SetInt32("MaTK", user.MaNguoiDung);
-                    HttpContext.Session.SetString("TenTk", user.TenTk);
-                    HttpContext.Session.SetString("TenND", user.TenNguoiDung);
-                    HttpContext.Session.SetString("HinhAnh", user.AvatarNguoiDung);// Assuming you have a property for the user's name
-                    return RedirectToAction("Index", "Home");
+                    // Đăng nhập thành công với tài khoản admin
+                    HttpContext.Session.SetInt32("MaAdmin", admin.MaAdmin);
+                    HttpContext.Session.SetString("TenTk", admin.TenTk);
+                    HttpContext.Session.SetString("TenAdmin", admin.Tenadmin);
+                    HttpContext.Session.SetString("Role", "Admin"); // Lưu vai trò admin
+                    ViewBag.Thongbao = "Đăng nhập thành công với quyền Admin.";
+                    return RedirectToAction("IndexNd", "Admin");
                 }
                 else
                 {
-                    // Password is incorrect
+                    // Mật khẩu không chính xác
                     ModelState.AddModelError("", "Mật khẩu không chính xác.");
                 }
             }
             else
             {
-                // User not found
-                ModelState.AddModelError("", "Đăng Nhập Thất Bại! Kiểm Tra Lại Thông Tin Đăng Nhập");
+                // Nếu không phải admin, kiểm tra người dùng
+                var user = context.TableNguoiDungs.FirstOrDefault(x => x.TenTk.Equals(u.TenTk));
+
+                if (user != null && BCrypt.Net.BCrypt.Verify(u.MatKhau, user.MatKhau))
+                {
+                    ViewBag.Thongbao = "Đăng nhập thành công";
+                    // Đăng nhập thành công với tài khoản người dùng
+                    HttpContext.Session.SetInt32("MaTK", user.MaNguoiDung);
+                    HttpContext.Session.SetString("TenTk", user.TenTk);
+                    HttpContext.Session.SetString("TenND", user.TenNguoiDung);
+                    HttpContext.Session.SetString("HinhAnh", user.AvatarNguoiDung);// Assuming you have a property for the user's name
+                    HttpContext.Session.SetString("Role", "User"); // Lưu vai trò người dùng
+                    ViewBag.Thongbao = "Đăng nhập thành công.";
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    // Sai tên tài khoản hoặc mật khẩu
+                    ModelState.AddModelError("", "Tên tài khoản hoặc mật khẩu không chính xác.");
+                }
             }
 
-            // If we reach here, something went wrong, return to the login view with errors
-            return View(u); // Return the view with the model to show validation errors
+            // Nếu có lỗi, trả lại view đăng nhập
+            return View();
         }
-
 
         public IActionResult Dangxuat()
         {
@@ -261,6 +278,66 @@ namespace websiteTUTHIEN.Controllers
             .Where(p => p.MaNguoiDung == userId)
             .ToListAsync();
             return View(products);
+        }
+
+        public async Task<IActionResult> EditDuAn(int? id)
+        {
+            if (id == null)
+            {
+                NotFound();
+            }
+            var duAn = await context.TableDuAns.FindAsync(id);
+            ViewBag.DanhMucDuAn = new SelectList(context.TableDanhMucDuAns, nameof(TableDanhMucDuAn.MaDanhMucDa), nameof(TableDanhMucDuAn.TenDanhMucDa));
+            ViewBag.TinhThanh = new SelectList(context.TableTinhThanhs, nameof(TableTinhThanh.MaTinhThanh), nameof(TableTinhThanh.TenTinhThanh));
+            if (duAn == null)
+            {
+                NotFound();
+            }
+            return View(duAn);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditDuAn(int id, TableDuAn duAn, IFormFile imageFile)
+        {
+            if (duAn.MaDuAn != id)
+            {
+                NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (imageFile != null)
+                    {
+                        var fileName = Path.GetFileName(imageFile.FileName);
+                        var filePath = Path.Combine(env.WebRootPath, "images", "duan", fileName);
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await imageFile.CopyToAsync(stream);
+                        }
+                        duAn.Hinhanh = "../images/duan/" + fileName;
+                    }
+                    duAn.DaDuyetBai = false;
+                    context.TableDuAns.Update(duAn);
+                    await context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!context.TableDuAns.Any(e => e.MaDuAn == id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(IndexDuAnUser));
+            }
+            ViewBag.DanhMucDuAn = new SelectList(context.TableDanhMucDuAns, nameof(TableDanhMucDuAn.MaDanhMucDa), nameof(TableDanhMucDuAn.TenDanhMucDa));
+            ViewBag.TinhThanh = new SelectList(context.TableTinhThanhs, nameof(TableTinhThanh.MaTinhThanh), nameof(TableTinhThanh.TenTinhThanh));
+            return View(duAn);
         }
     }
 }

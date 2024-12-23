@@ -29,7 +29,7 @@ public partial class TableDuAn
 
     public bool? DaKetThucDuAn { get; set; }
 
-    public bool? DaDuyetBai { get; set; }
+    public bool DaDuyetBai { get; set; }
 
     public bool? CoNghiemTrong { get; set; }
 

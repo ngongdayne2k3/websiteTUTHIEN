@@ -10,22 +10,25 @@
 
 <div>
     <form method="get" id="filterForm">
-        <div class="form-inline">
-            <input type="text" name="searchString" value="@ViewBag.currentFilter" placeholder="Tìm kiếm dự án" class="form-control" />
-
-
-            <input type="number" name="ngay" placeholder="Ngày" class="form-control" />
-            <input type="number" name="thang" placeholder="Tháng" class="form-control" />
-            <input type="number" name="nam" placeholder="Năm" class="form-control" />
-
-            <select name="coNghiemTrong" class="form-control">
-                <option value="">-- Mức độ nghiêm trọng --</option>
-                <option value="true">Nghiêm trọng</option>
-                <option value="false">Không nghiêm trọng</option>
-            </select>
-
-            <button type="submit" class="btn btn-primary">Lọc</button>
-        </div>
+        <div>
+        <label for="searchString">Tìm kiếm theo tên dự án:</label>
+        <input type="text" name="searchString" value="@ViewBag.currentFilter" />
+    </div>
+    <div>
+        <label for="maDanhMuc">Danh mục:</label>
+        @Html.DropDownList("maDanhMuc", ViewBag.DanhMucDuAn as SelectList, "-- Chọn danh mục --", new { @class = "form-control" })
+    </div>
+    <div>
+        <label for="maTinhThanh">Tỉnh thành:</label>
+        @Html.DropDownList("maTinhThanh", ViewBag.TinhThanh as SelectList, "-- Chọn tỉnh thành --", new { @class = "form-control" })
+    </div>
+    <div>
+        <label for="coNghiemTrong">Có nghiêm trọng:</label>
+        <input type="checkbox" name="coNghiemTrong" value="true" />
+    </div>
+    <div>
+        <input type="submit" value="Lọc" class="btn btn-primary" />
+    </div>
     </form>
 </div>
 
