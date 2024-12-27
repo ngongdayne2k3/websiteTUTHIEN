@@ -74,6 +74,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRWRpdERhbmhNdWNEdUFuLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/repos/ASP.NET MVC/websiteTUTHIEN/websiteTUTHIEN/Views/Admin/EditDuAn.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRWRpdER1QW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/repos/ASP.NET MVC/websiteTUTHIEN/websiteTUTHIEN/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -132,6 +136,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/repos/ASP.NET MVC/websiteTUTHIEN/websiteTUTHIEN/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/ASP.NET MVC/websiteTUTHIEN/websiteTUTHIEN/Views/QuyenGop/CreatePaymentUrlVnpay.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUXV5ZW5Hb3BcQ3JlYXRlUGF5bWVudFVybFZucGF5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/ASP.NET MVC/websiteTUTHIEN/websiteTUTHIEN/Views/QuyenGop/PaymentCallbackVnpay.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUXV5ZW5Hb3BcUGF5bWVudENhbGxiYWNrVm5wYXkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/repos/ASP.NET MVC/websiteTUTHIEN/websiteTUTHIEN/Views/Shared/Error.cshtml]

@@ -177,6 +177,10 @@
       "PackagePath": "staticwebassets\\css\\adminlte.rtl.min.css.map"
     },
     {
+      "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\css\\custom.css",
+      "PackagePath": "staticwebassets\\css\\custom.css"
+    },
+    {
       "Id": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\css\\main.css",
       "PackagePath": "staticwebassets\\css\\main.css"
     },

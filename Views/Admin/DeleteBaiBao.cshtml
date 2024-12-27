@@ -3,28 +3,34 @@
     Layout = "~/Views/Shared/_Adminlayout.cshtml";
 }
 
+<link rel="stylesheet" href="~/css/custom.css" />
 
-<h2>Xác nhận xóa bài báo</h2>
-<p>Bạn có chắc chắn muốn xóa bài báo sau?</p>
+<div class="container">
+    <div class="custom-card">
+        <h2>Xóa Bài Báo</h2>
+        <p class="text-center">Bạn có chắc chắn muốn xóa bài báo sau?</p>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">Tên bài báo</dt>
+            <dd class="col-sm-9">@Model.TenBaiBao</dd>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Tên bài báo</th>
-            <th>Tác giả</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>@Model.TenBaiBao</td>
-            <td>@Model.TenTacGia</td>
-        </tr>
-    </tbody>
-</table>
+            <dt class="col-sm-3">Tác giả</dt>
+            <dd class="col-sm-9">@Model.TenTacGia</dd>
 
-<form asp-action="DeleteBaiBao" method="post">
-    <input type="hidden" asp-for="MaBaiBao" />
-    <button type="submit" class="btn btn-danger">Xóa</button>
-    <a href="@Url.Action("IndexBaiBao", "BaiBao")" class="btn btn-secondary">Hủy</a>
-</form>
+            <dt class="col-sm-3">Ngày đăng</dt>
+            <dd class="col-sm-9">@Model.NgayDangBaiBao.ToString("dd/MM/yyyy")</dd>
 
+            <dt class="col-sm-3">Hình ảnh</dt>
+            <dd class="col-sm-9">
+                <img src="@Model.HinhanhBaiBao" alt="Hình ảnh bài báo" />
+            </dd>
+        </dl>
+        <form asp-action="DeleteBaiBao" method="post" style="display: flex; flex-direction: column; align-items: center;">
+            <input type="hidden" asp-for="MaBaiBao" />
+            <div class="form-group" style="display: flex; gap: 10px;">
+                <button type="submit" class="btn btn-danger">Xóa</button>
+                <a href="@Url.Action("IndexBaiBao", "BaiBao")" class="btn btn-secondary">Hủy</a>
+            </div>
+        </form>
+    </div>
+</div>

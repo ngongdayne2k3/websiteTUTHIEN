@@ -1,0 +1,15 @@
+﻿@using websiteTUTHIEN.Models.VnPay
+@model PaymentResponseModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["title"] = "Kết quả giao dịch thành công";
+}
+
+<h5>Thanh toán VnPay thành công với:</h5>
+<h6>OrderId : @Model.OrderId</h6>
+<h6>OrderInfo : @Model.OrderDescription</h6>
+<h6>Tổng tiền : @Model.PaymentMethod</h6>
+<h6>Mã giao dịch : @Model.TransactionId</h6>
+<h6>Mã thanh toán : @Model.PaymentId</h6>
+

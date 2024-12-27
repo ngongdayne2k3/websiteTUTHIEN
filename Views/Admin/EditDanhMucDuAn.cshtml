@@ -4,20 +4,23 @@
     Layout = "~/Views/Shared/_Adminlayout.cshtml";
     ViewData["Title"] = "Chỉnh Sửa Danh Mục Dự Án";
 }
+<link rel="stylesheet" href="~/css/custom.css" />
 
-<h1>@ViewData["Title"]</h1>
-
-<form asp-action="EditDanhMucDuAn" method="post">
-    <input type="hidden" asp-for="MaDanhMucDa" />
-    <div class="form-group">
-        <label for="TenDanhMucDa">Tên Danh Mục</label>
-        <input type="text" class="form-control" id="TenDanhMucDa" asp-for="TenDanhMucDa" required />
+<div class="container">
+    <div class="custom-card">
+        <h2>Chỉnh Sửa Danh mục dự án</h2>
+        <form asp-action="EditDanhMucDuAn" method="post">
+            <input type="hidden" asp-for="MaDanhMucDa" />
+            <div class="form-group">
+                <label for="TenDanhMucDa">Tên Danh Mục</label>
+                <input type="text" class="form-control" id="TenDanhMucDa" asp-for="TenDanhMucDa" required />
+            </div>
+            <div class="form-group">
+                <label for="MotaDanhMuc">Mô Tả</label>
+                <textarea class="form-control" id="MotaDanhMuc" asp-for="MotaDanhMuc"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Lưu</button>
+            <a class="btn btn-secondary" asp-action="IndexDanhMucDuAn">Hủy</a>
+        </form>
     </div>
-    <div class="form-group">
-        <label for="MotaDanhMuc">Mô Tả</label>
-        <textarea class="form-control" id="MotaDanhMuc" asp-for="MotaDanhMuc"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Lưu</button>
-    <a class="btn btn-secondary" asp-action="IndexDanhMucDuAn">Hủy</a>
-</form>
-
+</div>

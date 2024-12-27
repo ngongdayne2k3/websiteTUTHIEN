@@ -5,26 +5,26 @@
     ViewData["Title"] = "Xóa Danh Mục Dự Án";
 }
 
-<h2>Xác nhận xóa danh mục dự án</h2>
-<p>Bạn có chắc chắn muốn xóa danh mục dự án này?</p>
+<link rel="stylesheet" href="~/css/custom.css" />
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Tên danh mục</th>
-            <th>Mô tả</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>@Model.TenDanhMucDa</td>
-            <td>@Model.MotaDanhMuc</td>
-        </tr>
-    </tbody>
-</table>
+<div class="container">
+    <div class="custom-card">
+        <h2>Xóa Danh Mục Dự Án</h2>
+        <p class="text-center">Bạn có chắc chắn muốn xóa danh mục dự án này?</p>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">Tên danh mục</dt>
+            <dd class="col-sm-9">@Model.TenDanhMucDa</dd>
 
-<form asp-action="DeleteDanhMucDuAn" method="post">
-    <input type="hidden" asp-for="MaDanhMucDa" />
-    <button type="submit" class="btn btn-danger">Xóa</button>
-    <a href="@Url.Action("IndexDanhMucDuAn", "DanhMucDuAn")" class="btn btn-secondary">Hủy</a>
-</form>
+            <dt class="col-sm-3">Mô tả</dt>
+            <dd class="col-sm-9">@Model.MotaDanhMuc</dd>
+        </dl>
+        <form asp-action="DeleteDanhMucDuAn" method="post" style="display: flex; flex-direction: column; align-items: center;">
+            <input type="hidden" asp-for="MaDanhMucDa" />
+            <div class="form-group" style="display: flex; gap: 10px;">
+                <button type="submit" class="btn btn-danger">Xóa</button>
+                <a href="@Url.Action("IndexDanhMucDuAn", "DanhMucDuAn")" class="btn btn-secondary">Hủy</a>
+            </div>
+        </form>
+    </div>
+</div>

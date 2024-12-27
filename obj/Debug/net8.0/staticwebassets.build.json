@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "9adetGqlLzaFqAPptZ5neix/NDVdX5HLcbODi4plYg0=",
+  "Hash": "PEYI5/sahcx0qgLkN/u93y19v/QCkGX5O3w88hTpNrw=",
   "Source": "websiteTUTHIEN",
   "BasePath": "_content/websiteTUTHIEN",
   "Mode": "Default",
@@ -870,6 +870,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\adminlte.rtl.min.css.map"
+    },
+    {
+      "Identity": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\css\\custom.css",
+      "SourceId": "websiteTUTHIEN",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\",
+      "BasePath": "_content/websiteTUTHIEN",
+      "RelativePath": "css/custom.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\custom.css"
     },
     {
       "Identity": "D:\\repos\\ASP.NET MVC\\websiteTUTHIEN\\websiteTUTHIEN\\wwwroot\\css\\main.css",

@@ -1,0 +1,63 @@
+﻿@model websiteTUTHIEN.Models.TableDuAn
+@{
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+}
+<link rel="stylesheet" href="~/css/custom.css" />
+
+<div class="container">
+    <div class="custom-card">
+        <h2>Sửa Dự Án</h2>
+
+        <form asp-action="EditDuAn" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="MaDuAn" />
+            <div class="form-group">
+                <label for="TenDuAn" class="form-label">Tên Dự Án</label>
+                <input type="text" asp-for="TenDuAn" class="form-control" />
+                <span asp-validation-for="TenDuAn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="NoidungDuAn" class="form-label">Nội Dung</label>
+                <textarea asp-for="NoidungDuAn" class="form-control"></textarea>
+                <span asp-validation-for="NoidungDuAn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="SoTienMucTieu" class="form-label">Số Tiền Mục Tiêu</label>
+                <input type="number" asp-for="SoTienMucTieu" class="form-control" />
+                <span asp-validation-for="SoTienMucTieu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Ngaybatdau" class="form-label">Ngày Bắt Đầu</label>
+                <input type="date" asp-for="Ngaybatdau" class="form-control" />
+                <span asp-validation-for="Ngaybatdau" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Ngayketthuc" class="form-label">Ngày Kết Thúc</label>
+                <input type="date" asp-for="Ngayketthuc" class="form-control" />
+                <span asp-validation-for="Ngayketthuc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="MaDanhMucDa" class="form-label">Danh Mục Dự Án</label>
+                <select asp-for="MaDanhMucDa" asp-items="ViewBag.DanhMucDuAn" class="form-control"></select>
+                <span asp-validation-for="MaDanhMucDa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="MaTinhThanh" class="form-label">Tỉnh Thành</label>
+                <select asp-for="MaTinhThanh" asp-items="ViewBag.TinhThanh" class="form-control"></select>
+                <span asp-validation-for="MaTinhThanh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Hinhanh" class="form-label">Hình Ảnh</label>
+                @if (!string.IsNullOrEmpty(Model.Hinhanh))
+                {
+                    <div>
+                        <img src="@Model.Hinhanh" alt="Hình ảnh dự án" style="width: 100px; margin-top: 10px;" />
+                    </div>
+                }
+                <input type="file" class="form-control" name="imageFile" />
+            </div>
+            <button type="submit" class="btn btn-custom">Lưu</button>
+            <a asp-action="IndexDuAn" class="btn btn-secondary">Hủy</a>
+        </form>
+    </div>
+</div>
+    
