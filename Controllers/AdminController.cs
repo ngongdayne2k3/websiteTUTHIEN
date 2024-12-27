@@ -1,3 +1,4 @@
+using DoAnCS.Models.AdminAuth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using X.PagedList.Extensions;
 
 namespace websiteTUTHIEN.Controllers
 {
+    [AdminAuth]
     public class AdminController : Controller
     {
         private readonly WebsiteTuthienContext context;
