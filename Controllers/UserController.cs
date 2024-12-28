@@ -1,3 +1,4 @@
+using DoAnCS.Models.UserAuth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Scripting;
@@ -15,7 +16,7 @@ namespace websiteTUTHIEN.Controllers
             context = _context;
             env = _env;
         }
-
+        [UserAuth]
         public IActionResult NguoiDung()
         {
             var maNguoiDung = HttpContext.Session.GetInt32("MaTK");
@@ -162,6 +163,8 @@ namespace websiteTUTHIEN.Controllers
             return RedirectToAction("DangNhap");
         }
 
+        [HttpGet]
+        [UserAuth]
         public IActionResult Chinhsua(int id)
         {
             var user = context.TableNguoiDungs.FirstOrDefault(u => u.MaNguoiDung == id);
@@ -195,7 +198,7 @@ namespace websiteTUTHIEN.Controllers
             }
             return View(updatedUser);
         }
-
+        [UserAuth]
         public IActionResult DeleteAccount()
         {
             var userId = HttpContext.Session.GetInt32("UserId");
@@ -233,14 +236,14 @@ namespace websiteTUTHIEN.Controllers
             }
             return NotFound();
         }
-
+        [UserAuth]
         public IActionResult CreateDuAn()
         {
             ViewData["DanhMucDa"] = new SelectList(context.TableDanhMucDuAns, "MaDanhMucDa", "TenDanhMucDa");
             ViewData["TinhThanh"] = new SelectList(context.TableTinhThanhs, "MaTinhThanh", "TenTinhThanh");
             return View();
         }
-
+        [UserAuth]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateDuAn(TableDuAn duAn, IFormFile imageFile)
@@ -270,7 +273,7 @@ namespace websiteTUTHIEN.Controllers
             ViewData["MaTinhThanh"] = new SelectList(context.TableTinhThanhs, "MaTinhThanh", "TenTinhThanh");
             return View(User);
         }
-
+        [UserAuth]
         public async Task<IActionResult> IndexDuAnUser()
         {
             var userId = HttpContext.Session.GetInt32("UserId");
@@ -279,7 +282,7 @@ namespace websiteTUTHIEN.Controllers
             .ToListAsync();
             return View(products);
         }
-
+        [UserAuth]
         public async Task<IActionResult> EditDuAn(int? id)
         {
             if (id == null)
@@ -295,7 +298,7 @@ namespace websiteTUTHIEN.Controllers
             }
             return View(duAn);
         }
-
+        [UserAuth]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditDuAn(int id, TableDuAn duAn, IFormFile imageFile)
