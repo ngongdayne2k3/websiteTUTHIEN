@@ -1,0 +1,58 @@
+﻿@model List<websiteTUTHIEN.Models.TableQuyenGop>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Quyên Góp</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Danh Sách Người Quyên Góp</h1>
+    </header>
+    <main>
+        <table border="1" style="width:100%; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tên Người Quyên Góp</th>
+                    <th>Ngày Quyên Góp</th>
+                    <th>Giá Trị</th>
+                    <th>Ghi Chú</th>
+                    <th>Hình Thức</th>
+                    <th>Dự Án</th>
+                    <th>Đã Xác Nhận</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    int index = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@index</td>
+                            <td>@item.TenNguoiQuyenGop</td>
+                            <td>@item.NgayQuyenGop.ToString("dd/MM/yyyy")</td>
+                            <td>@item.GiaTriQuyenGop</td>
+                            <td>@item.GhiChuQuyenGop</td>
+                            <td>@item.MaHinhThucQuyenGop</td>
+                            <td>@item.MaDuAn</td>
+                            <td>@(item.DaXacNhan == true ? "Có" : "Không")</td>
+                        </tr>
+                        index++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="8" style="text-align: center;">Chưa có thông tin quyên góp.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

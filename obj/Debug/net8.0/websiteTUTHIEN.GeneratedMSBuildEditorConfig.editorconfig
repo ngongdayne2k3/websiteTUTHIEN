@@ -142,6 +142,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUXV5ZW5Hb3BcQ3JlYXRlUGF5bWVudFVybFZucGF5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/repos/ASP.NET MVC/websiteTUTHIEN/websiteTUTHIEN/Views/QuyenGop/ListQuyenGop.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUXV5ZW5Hb3BcTGlzdFF1eWVuR29wLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/repos/ASP.NET MVC/websiteTUTHIEN/websiteTUTHIEN/Views/QuyenGop/PaymentCallbackVnpay.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUXV5ZW5Hb3BcUGF5bWVudENhbGxiYWNrVm5wYXkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

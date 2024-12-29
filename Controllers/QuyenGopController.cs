@@ -35,6 +35,24 @@ namespace websiteTUTHIEN.Controllers
             var response = _vnPayService.PaymentExecute(Request.Query);
             return View(response);
         }
+        [HttpGet]
+        public IActionResult ListQuyenGop()
+        {
+            var donations = _context.TableQuyenGops
+                .Select(q => new TableQuyenGop
+                {
+                    MaQuyenGop = q.MaQuyenGop,
+                    TenNguoiQuyenGop = q.TenNguoiQuyenGop,
+                    NgayQuyenGop = q.NgayQuyenGop,
+                    GiaTriQuyenGop = q.GiaTriQuyenGop,
+                    GhiChuQuyenGop = q.GhiChuQuyenGop,
+                    DaXacNhan = q.DaXacNhan,
+                    MaHinhThucQuyenGop = q.MaHinhThucQuyenGop,
+                    MaDuAn = q.MaDuAn
+                })
+                .ToList();
 
+            return View(donations);
+        }
     }
 }
